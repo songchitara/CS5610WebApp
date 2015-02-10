@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>jQuery Canvans</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+    <script src="js/5-jquery-canvas.js"></script>
+    <script type="text/javascript" src="js/5-canvasjs.min.js"></script>
+    <link rel="stylesheet" href="css/general-style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 id="page-title">jQuery Canvas Charts</h1>
+        </header>
+
+        <div class="instruction">
+            <p>
+                <i>
+                    <b>Descriptions:</b>
+                    Combining jQuery and HTML5 Canvas can producing very fancy charts. In this experiment,
+                     I will be experimenting on the jQuery canvas, creating nice pie chart and bar animation chart.
+                </i>
+            </p>
+            <p>
+                <i>
+                    <b>Instructions:</b>
+                    Click on piece of chart to see the animation and statics. Click the button to save the chart image.
+                </i>
+            </p>
+        </div>
+    </div>
+
+    <hr />
+    <div class="container">
+        <div id="pieChartContainer" style="height: 300px; width: 100%;"></div>
+        <div id="barChartContainer" style="height: 300px; width: 100%;"></div>
+    </div>
+
+    <hr />
+
+    <div class="container" id="implementation">
+        <h4>Implementation:</h4>
+        <p>
+            By <code>var pieChart = new CanvasJS.Chart()</code> to create a new chart.
+        </p>
+        <p>
+            <code>"pieChartContainer"</code> is the first argument of the <code>Chart()</code>
+            function, which specifies where to place the chart. The second argument is 
+            a JSON, which specifies the name, position, type, style, contents of the charts.
+            Below is the code for creating pie chart.
+        </p>
+        <code>
+            <pre>
+window.onload = function () {
+    var pieChart = new CanvasJS.Chart("pieChartContainer",
+    {
+        title: {
+            text: "Top Categoires of New Year's Resolution"
+        },
+        exportFileName: "Pie Chart",
+        exportEnabled: true,
+        animationEnabled: true,
+        legend: {
+            verticalAlign: "bottom",
+            horizontalAlign: "center"
+        },
+        data: [
+        {
+            type: "pie",
+            showInLegend: true,
+            toolTipContent: "{legendText}: <strong>{y}%</strong>",
+            indexLabel: "{label} {y}%",
+            dataPoints: [
+                { y: 35, legendText: "Health", exploded: true, label: "Health" },
+                { y: 20, legendText: "Finance", label: "Finance" },
+                { y: 18, legendText: "Career", label: "Career" },
+                { y: 15, legendText: "Education", label: "Education" },
+                { y: 5, legendText: "Family", label: "Family" },
+                { y: 7, legendText: "Real Estate", label: "Real Estate" }
+            ]
+        }
+        ]
+    });
+    pieChart.render();
+}
+</pre>
+        </code>
+    </div>
+
+
+
+        <hr />
+        <div class="container">
+            <h4>
+                References:
+            </h4>
+            <a href="http://canvasjs.com/html5-javascript-column-chart/">http://canvasjs.com/html5-javascript-column-chart/</a>
+        </div>
+</body>
+
+</html>

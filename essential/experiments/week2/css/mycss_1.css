@@ -1,0 +1,53 @@
+﻿h1 {
+    text-align: center;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#page-title {
+    text-decoration: underline;
+}
+
+.code_snippet {
+    text-align: left;
+    width: 600px;
+    padding: 10px;
+    border: 1px solid grey;
+}
+
+.sec_title {
+    background-color: #D0D0D0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+
+#sec1, #sec2, #sec3 {
+    width: 350px;
+}
+
+
+
+
+#p1, #p2, #p3 {
+    background-color: #CCCC99;
+    width:350px;
+    height:120px;
+    //display:none;
+}
+
+
+
+
+@media screen and (max-width: 700px) {
+
+    #implementation {
+    display:none;
+}
+}

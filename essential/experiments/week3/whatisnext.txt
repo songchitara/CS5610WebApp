@@ -1,0 +1,5 @@
+﻿1-jquery-responsive-table.html jQuery Responsive Tables
+2-jqueryui-tabs-to-accordion.html jQueryUI Responsive Tabs
+3-jqueryui-paragraphs-to-tabs.html jQueryUI Paragraphs to Tabs
+4-jquery-datatable.html jQuery DataTables
+5-jquery-canvas.html jQuery Canvas Charts

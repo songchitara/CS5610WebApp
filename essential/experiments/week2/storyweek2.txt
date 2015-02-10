@@ -1,0 +1,6 @@
+﻿../../story/whatisnext.htm?../experiments/week2/whatisnext.txt What is Next?
+1-jquery-sortable.html jQuery Sortable
+2-jquery-hide-and-show.html jQuery Hide and Show
+3-bootstrap-slider.html Bootstrap Slider
+4-bootstrap-slider-img-scale.html Bootstrap Slider Image Scale
+5-bootstrap-slider-lightbox.html Bootstrap Slider Lightbox Toggle

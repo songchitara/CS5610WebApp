@@ -1,0 +1,62 @@
+﻿h1 {
+    text-align: center;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#page-title {
+    text-decoration: underline;
+}
+
+.code_snippet {
+    text-align: left;
+    width: 500px;
+    padding: 10px;
+    border: 1px solid grey;
+}
+
+.sec_title {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+
+.nav_link {
+    margin:10px;
+}
+
+nav {
+    float: left;
+    background-color:#93cac0;
+    height:975px;
+    width:150px;
+    padding:10px;
+}
+
+article {
+    width:650px;
+    float:left;
+    padding:10px;
+    background-color:#d0cbcb;
+}
+
+header {
+    text-align:center;
+    background-color:black;
+    color:white;
+    padding:10px;
+}
+
+footer {
+    background-color:black;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:1px;
+}

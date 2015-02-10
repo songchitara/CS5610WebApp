@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>HTML5 Semantic Elements</title>
+    <link href="css/mycss_3.css" rel="stylesheet"/>
+</head>
+
+<body>
+        <h1 id="page-title">CSS Page Layout</h1>
+        <h2>
+            In this page, I will use CSS to implement multiple columns page layout.
+        </h2>
+
+    <hr />
+
+
+
+    <div id="try_header">
+        <header id="myheader">
+            <h1>This is the Header</h1>
+        </header>
+    </div>
+    
+
+    <div id="nav">
+        <nav>
+            <div class="nav_link"><a href="#sec1">Section One</a> </div>
+            <div class="nav_link"><a href="#sec2">Section Two</a> </div>
+            <div class="nav_link"><a href="#sec3">Section Three</a></div>
+        </nav>
+    </div>
+
+    <div id="sections">
+        <article>
+            <section>
+                <h3>Section One</h3>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean porttitor ex a faucibus semper. Aliquam vel erat et erat tincidunt scelerisque sit amet quis nisi. Sed ornare interdum lorem ac hendrerit. Curabitur elit ipsum, facilisis eu mi sed, pharetra mollis erat. Phasellus quis lectus neque. Pellentesque quis sodales libero, eu cursus felis. Etiam et eleifend metus. Vestibulum orci felis, sagittis eget aliquet vel, blandit non urna. Nunc finibus nibh vitae velit elementum consequat. Suspendisse sodales scelerisque pretium. Nullam blandit velit massa, nec tristique mi suscipit suscipit. Etiam egestas sapien vitae diam tempus, ac pharetra ante rhoncus. Praesent tincidunt rutrum lectus, vel suscipit orci.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean porttitor ex a faucibus semper. Aliquam vel erat et erat tincidunt scelerisque sit amet quis nisi. Sed ornare interdum lorem ac hendrerit. Curabitur elit ipsum, facilisis eu mi sed, pharetra mollis erat. Phasellus quis lectus neque. Pellentesque quis sodales libero, eu cursus felis. Etiam et eleifend metus. Vestibulum orci felis, sagittis eget aliquet vel, blandit non urna. Nunc finibus nibh vitae velit elementum consequat. Suspendisse sodales scelerisque pretium. Nullam blandit velit massa, nec tristique mi suscipit suscipit. Etiam egestas sapien vitae diam tempus, ac pharetra ante rhoncus. Praesent tincidunt rutrum lectus, vel suscipit orci.
+                </p>
+            </section>
+            <section id="sec2">
+                <h3>Section Two</h3>
+                <p>
+                    Praesent nisl mauris, venenatis quis suscipit nec, dapibus et dui. Vivamus bibendum mauris dignissim ullamcorper suscipit. Integer accumsan est vel mi cursus fermentum. Pellentesque in elementum nulla, sed tempor augue. Nullam auctor, leo sit amet porta faucibus, tellus arcu interdum magna, vel accumsan felis metus eget sapien. Praesent pretium turpis sit amet metus egestas, eu facilisis diam venenatis. Nulla ac neque eu tellus sodales porta. Sed dictum velit orci, eget malesuada purus pharetra et.
+                    Praesent nisl mauris, venenatis quis suscipit nec, dapibus et dui. Vivamus bibendum mauris dignissim ullamcorper suscipit. Integer accumsan est vel mi cursus fermentum. Pellentesque in elementum nulla, sed tempor augue. Nullam auctor, leo sit amet porta faucibus, tellus arcu interdum magna, vel accumsan felis metus eget sapien. Praesent pretium turpis sit amet metus egestas, eu facilisis diam venenatis. Nulla ac neque eu tellus sodales porta. Sed dictum velit orci, eget malesuada purus pharetra et.
+                </p>
+            </section>
+            <section id="sec3">
+                <h3>Section Three</h3>
+                <p>
+                    Donec laoreet, erat sit amet laoreet pharetra, nulla neque rhoncus mauris, a fringilla risus felis quis dui. Ut a ipsum at sem posuere vestibulum. In hac habitasse platea dictumst. Nam eleifend lectus nulla, et pellentesque est blandit non. Sed a sem felis. Curabitur tincidunt elit id est blandit ullamcorper. Maecenas ut nulla ut risus molestie aliquam. Fusce non blandit nulla. Sed est lacus, euismod vel pretium vehicula, venenatis sed magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vestibulum ut ornare odio. Nullam in laoreet tellus. Sed hendrerit libero eget purus eleifend laoreet. Nunc non maximus ex. Duis tortor purus, tristique et iaculis non, accumsan quis velit.
+                    Donec laoreet, erat sit amet laoreet pharetra, nulla neque rhoncus mauris, a fringilla risus felis quis dui. Ut a ipsum at sem posuere vestibulum. In hac habitasse platea dictumst. Nam eleifend lectus nulla, et pellentesque est blandit non. Sed a sem felis. Curabitur tincidunt elit id est blandit ullamcorper. Maecenas ut nulla ut risus molestie aliquam. Fusce non blandit nulla. Sed est lacus, euismod vel pretium vehicula, venenatis sed magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vestibulum ut ornare odio. Nullam in laoreet tellus. Sed hendrerit libero eget purus eleifend laoreet. Nunc non maximus ex. Duis tortor purus, tristique et iaculis non, accumsan quis velit.
+                </p>
+            </section>
+        </article>
+    </div>
+
+
+    <div id="myfooter">
+        <footer>
+            <p>Author: Chi Song </p>
+        </footer>
+    </div>
+
+    <hr />
+    <div>
+        <p><b>Implementation:</b></p>
+        <p>
+            I'm using the "float:left" attribute to create multiple columns. To make two column, one to fit the navigation area, another to fit the article area, simply add the <code>float:left</code> attribute to both <code>nav</code> and <code>article</code> selectors in the CSS file. 
+        </p>
+        <p>Below is the code snippet in the CSS file:</p>
+    </div>
+    <div class="code_snippet">
+        <code>
+            <pre>
+nav {
+    <b>float: left;</b>
+    background-color:#93cac0;
+    height:1000px;
+    width:150px;
+    padding:10px;
+}
+                </pre>
+        </code>
+        <code>
+            <pre>
+article {
+    width:650px;
+    <b>float:left;</b>
+    padding:10px;
+}
+</pre>
+        </code>
+    </div>
+
+</body>
+
+</html>

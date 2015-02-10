@@ -1,0 +1,56 @@
+﻿h1 {
+    text-align: center;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#page-title {
+    text-decoration: underline;
+}
+
+.code_snippet {
+    text-align: left;
+    width: 600px;
+    padding: 10px;
+    border: 1px solid grey;
+}
+
+.sec_title {
+    background-color: #D0D0D0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+
+#sec1, #sec2, #sec3 {
+    width: 350px;
+}
+
+#temp_box {
+    background-color:#60bdb4;
+    width:350px;
+    height:220px;
+    margin:20px;
+    padding:10px;
+    border:1px solid black;
+}
+
+#sec2, #temp_box {
+    float: left;
+}
+
+#div1, #div2, #div3 {
+    background-color: #CCCC99;
+    width:350px;
+    height:200px;
+}
+
+#instruction {
+   
+}

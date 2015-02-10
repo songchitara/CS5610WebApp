@@ -1,0 +1,45 @@
+﻿.test {
+    margin:0;
+    padding:0;
+    text-align:center;
+}
+#wrapper{
+    width:800px;
+    margin:auto;
+    background:#fff;
+    text-align:left;
+    border:1px solid #ccc;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 0 5px #ccc;
+}
+#wrapper li{
+    display:inline;
+
+}
+.thumbnail {
+    width:80px;
+    height:60px;
+
+}
+.mask {
+    position:absolute;
+    top:0;
+    left:0;
+    height:100%;
+    width:100%;
+    background:#000;
+    opacity:0;
+    filter:alpha(opacity=0);
+    z-index:90;
+    cursor:pointer;
+}
+#holder {
+    position:absolute;
+    opacity:0;
+    filter:alpha(opacity=0);
+    left:-9999em;
+    z-index:91;
+    border:10px solid #fff;
+    border-radius: 3px;
+}

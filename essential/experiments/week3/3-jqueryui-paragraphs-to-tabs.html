@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>jQuery UI Paragraphs to Tabs</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+    <script src="js/3-paras-to-tabs.js"></script>
+    <link rel="stylesheet" href="css/general-style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 id="page-title">jQuery UI Paragraphs to Tabs</h1>
+        </header>
+
+        <div class="instruction">
+            <p>
+                <i>
+                    <b>Descriptions:</b> 
+                    Sometimes, the tabs view are more nifty than the pure paragraphs view. In this experiement, I will
+                    use jQuery to transfer the paragraphs view to tabs view.
+                </i>
+            </p>
+            <p>
+                <i>
+                    <b>Instructions:</b>
+                    Simply click the "Paragraphs to Tabs" button to move the paragraphs into tabs view.
+                </i>
+            </p>
+        </div>
+    </div>
+    <hr />
+
+    <div class="container">
+        <button>Paragraphs to Tabs</button>
+        <div id="tabs"></div>
+        <div id="paras">
+            <section id="sec-1">
+                <header><h2>Nunc tincidunt</h2></header>
+                <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+            </section>
+            <section id="sec-2">
+                <header><h2>Proin dolo</h2></header>
+                <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
+            </section>
+            <section id="sec-3">
+                <header><h2>Aenean lacinia</h2></header>
+                <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
+            </section>
+
+        </div>
+    </div>
+    <hr />
+    <div class="container" id="implementation">
+        <h4>Implementation:</h4>
+        <p>
+            In the html, we first create the placehodler <code>&lt;div id="tabs"&gt;</code>.
+        </p>
+        <code>
+            <pre>
+&lt;div id="tabs"&gt;&lt;/div&gt;
+</pre>
+        </code>
+        <p>
+            Below is the html that contain the actually content:
+        </p>
+        <code>
+            <pre>
+ &lt;div class="container"&gt;
+        &lt;button&gt;Paragraphs to Tabs&lt;/button&gt;
+        &lt;div <b>id="tabs"</b>&gt;&lt;/div&gt;
+        &lt;div <b>id="paras"</b>&gt;
+            &lt;section <b>id="sec-1"</b>&gt;
+                &lt;header&gt;&lt;h2&gt;Nunc tincidunt&lt;/h2&gt;&lt;/header&gt;
+                &lt;p&gt;Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.&lt;/p&gt;
+            &lt;/section&gt;
+            .
+            .
+            .
+         &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+        </code>
+        <p>
+            In my jQuery code, I first get the button, then store the "#para" DOM, and sections vector. 
+        </p>
+        <code>
+            <pre>
+$("button")
+    .button()
+    .click(function (event) {
+        var parasDom = $("#paras");
+        var sections = parasDom.children("section");
+</pre>
+        </code>
+        <p>
+            Then I get the tab DOM and append the &lt;ul&gt; to the tabs &lt;div&gt;.
+        </p>
+        <code>
+            <pre>
+        // get tabs DOM 
+        var tabsDom = $("#tabs");
+        // create ul DOM
+        tabsDom.append("<ul></ul>");
+        var ulDom = tabsDom.find("ul");
+</pre>
+        </code>
+        <p>
+            Next, I will iterate over the sections array, to append the content from paragraphs to the tabs elements.
+        </p>
+        <code>
+            <pre>
+         // iterate over the sections array
+        $.each(sections, function (i, sec) {
+            i++;  // index start from 1
+            // get the title
+            var title = $(sec).find("header").text();
+            // get the paragraph
+            var para = $(sec).find("p");
+            // add title name to the tab name
+            ulDom.append("<li><a href=\"\#tabs-" + i + "\">" + title + "</a></li>");
+            // add paragraph content to the tab content
+            tabsDom.append("<div id=\"tabs-" + i + "\">" + "</div>");
+            thisDiv = $("#tabs-" + i);
+            thisDiv.append(para);
+            console.log(thisDiv.text());
+        });
+
+</pre>
+        </code>
+        <p>
+            The line below is to activate the tabs UI:
+        </p>
+        <code>
+            <pre>
+             $("#tabs").tabs();
+</pre>
+        </code>
+        <p>
+            After transformed, I will hide the button as well as the original paragraphs.
+        </p>
+        <code>
+            <pre>
+            // Hide button
+            $(this).attr("style", "display:None");
+            // Hide original paragraphs
+            $("div#paras").attr("style", "display: None");
+</pre>
+        </code>
+    </div>
+
+        <div class="container">
+            <hr />
+            <h4>
+                References:
+            </h4>
+            <a href="http://jqueryui.com/tabs/">http://jqueryui.com/tabs/</a> <br />
+            <a href="http://www.w3schools.com/jquery/jquery_dom_set.asp">http://www.w3schools.com/jquery/jquery_dom_set.asp</a> <br />
+            <a href="http://learn.jquery.com/using-jquery-core/traversing/">http://learn.jquery.com/using-jquery-core/traversing/</a>
+        </div>
+
+</body>
+</html>

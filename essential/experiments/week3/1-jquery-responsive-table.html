@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>jQuery Responsive Tables</title>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="css/general-style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 id="page-title">jQuery Responsive Tables</h1>
+        </header>
+
+        <div class="instruction">
+            <p>
+                <i>
+                    <b>Descriptions:</b> In this exmperiment, I will use jQuery mobile to implement responsive tables.
+                </i>
+            </p>
+            <p>
+                <i>
+                    <b>Instructions:</b> While resizing the page, the table will hide columns from the right to left if reducing the width, and will resume from left to right if increase the width. Also, click the <input type="button" value="Custom Columns"/> to customize the columns to show.
+                </i>
+            </p>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="container">
+        <div data-role="main" class="ui-content">
+            <table data-role="table" data-mode="columntoggle" class="ui-responsive" data-column-btn-text="Custom Columns" id="myTable">
+                <thead>
+                    <tr>
+                        <th data-priority="1">CustomerID</th>
+                        <th>CustomerName</th>
+                        <th data-priority="2">Address</th>
+                        <th data-priority="3">City</th>
+                        <th data-priority="4">PostalCode</th>
+                        <th data-priority="5">Country</th>
+                        <th data-priority="6">ContactName</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Alfreds Futterkiste</td>
+                        <td>Maria Anders</td>
+                        <td>Obere Str. 57</td>
+                        <td>Berlin</td>
+                        <td>12209</td>
+                        <td>Germany</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Antonio Moreno Taquería</td>
+                        <td>Antonio Moreno</td>
+                        <td>Mataderos 2312</td>
+                        <td>México D.F.</td>
+                        <td>05023</td>
+                        <td>Mexico</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Around the Horn</td>
+                        <td>Thomas Hardy</td>
+                        <td>120 Hanover Sq.</td>
+                        <td>London</td>
+                        <td>WA1 1DP</td>
+                        <td>UK</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Berglunds snabbköp</td>
+                        <td>Christina Berglund</td>
+                        <td>Berguvsvägen 8</td>
+                        <td>Luleå</td>
+                        <td>S-958 22</td>
+                        <td>Sweden</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <hr />
+    <div class="container" id="implementation">
+        <h4>Implementation:</h4>
+        <p>
+            First include the jquery mobile library.
+        </p>
+        <code>
+            <pre>
+&lt;script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"&gt;&lt;/script&gt;
+</pre>
+        </code>
+        <p>
+            For the &lt;table&gt; element, there are several attributes to set. First is <code>data-role</code> attribute, 
+            we set it to <code>"table"</code>. Second we set <code>class</code> to <code>"ui-responsive"</code> to declare
+            our table as responsive. Then we set the <code>data-mode</code> to <code>"columntoggle"</code>.
+        </p>
+        <code>
+            <pre>
+&lt;table data-role="table" data-mode="columntoggle" class="ui-responsive" id="myTable"&gt;
+</pre>
+        </code>
+
+        <p>
+            We can also set the <code>data-priority</code> attribute of &lt;th&gt; to assign the priority of the column (meaning the priority not be hidden).
+        </p>
+        <code>
+            <pre>
+&lt;th <b>data-priority="1"</b>&gt;CustomerID&lt;/th&gt;
+&lt;th&gt;CustomerName&lt;/th&gt;
+&lt;th <b>data-priority="2"</b>&gt;Address&lt;/th&gt;
+&lt;th <b>data-priority="3"</b>&gt;City&lt;/th&gt;
+&lt;th <b>data-priority="4"</b>&gt;PostalCode&lt;/th&gt;
+&lt;th <b>data-priority="5"</b>&gt;Country&lt;/th&gt;
+&lt;th <b>data-priority="6"</b>&gt;ContactName&lt;/th&gt;
+</pre>
+        </code>
+
+
+    </div>
+
+        <div class="container">
+            <hr />
+            <h4>
+                References:
+            </h4>
+            <a href="http://www.w3schools.com/jquerymobile/jquerymobile_tables.asp">http://www.w3schools.com/jquerymobile/jquerymobile_tables.asp</a>
+        </div>
+
+</body>
+</html>

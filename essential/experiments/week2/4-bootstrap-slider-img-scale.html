@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <title>Bootstrap Slider Image Scale</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+
+    
+    <link href="css/mycss_carousel_4.css" rel="stylesheet"> 
+
+    <!--Normalize the broswers default CSS-->
+    <link href="css/normalize.css" rel="stylesheet">
+
+
+    
+
+
+</head>
+<body>
+    
+   
+
+    <div class="container">
+        <header>
+            <h1 id="page-title">Bootstrap Slider Image Scale</h1>
+        </header>
+
+        <div class="instruction">
+            <p>
+                <i>
+                    <b>Descriptions:</b> In last exmperiment, I used the Bootstrap Carousel to implement a slider. However, the image in the slide got wierd stretched. This experiment I will solve the problem.
+                </i>
+            </p>
+        </div>
+    </div>
+
+    <hr />
+
+
+
+    <div class="container">
+
+       
+
+        <!-- Carousel
+        ================================================== -->
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="4000">
+
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+            </ol>
+
+           
+        
+                    <!-- Wrapper for slides -->
+                <div class="carousel-inner ">
+                    <div class="item active">
+                            <img src="../../images/img_week2/mandala-thousand-arms.jpg" alt="">
+                        <div class="carousel-caption">
+                            <h3>Mandala of Thousand Arms Avalokitesvara</h3>
+                        </div>
+                    </div>
+                    <div class="item">
+                            <img src="../../images/img_week2/manjushri_thangka_unveiling.jpg" alt="">
+                        <div class="carousel-caption">
+                            <h3>Manjushiri Budhisattva Thangka Unveiling</h3>
+                        </div>
+                    </div>
+                    <div class="item">
+                            <img src="../../images/img_week2/avalokitesvara-budhisattva.jpg" alt="">
+                        <div class="carousel-caption">
+                            <h3>Avalokitesvara Budhisattva</h3>
+                        </div>
+                    </div>
+                    <div class="item">
+                            <img src="../../images/img_week2/thousand_arms_of_compassion.jpg" alt="">
+                        <div class="carousel-caption">
+                            <h3>Thousand Arms of Compassion</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+</div> <!-- Carousel -->
+    </div>
+
+    <div class="container" id="instruction">
+        <p>
+            The size of the image shown in the slide can be set by the <code>.carousel-inner > .item > img</code> CSS selector. We first comment out the two default setting: <code>position: absolute</code> and <code>min-width: 100%</code>, then we set the <code>margin</code> to <code>auto</code>. See code snippet below: 
+        </p>
+        <code>
+            <pre>
+    .carousel-inner > .item > img {
+<b>//position: absolute;</b>
+  top: 0;
+  left: 0;
+  height: 100%;
+<b>//min-width: 100%;</b>
+<b>margin: auto;</b>
+      
+}
+</pre>
+        </code>
+
+       
+    </div>
+
+
+    <div class="container">
+        <hr />
+        <h4>
+            Image Sources:
+        </h4>
+        <a href="http://www.exoticindia.com/buddha/tt83.jpg">http://www.exoticindia.com/buddha/tt83.jpg</a> <br />
+        <a href="http://www.exoticindia.com/buddha/thousand_arms_of_compassion_esoteric_black_thangka_tk56.jpg">http://www.exoticindia.com/buddha/thousand_arms_of_compassion_esoteric_black_thangka_tk56.jpg</a> <br />
+        <a href="https://tibetphoto.files.wordpress.com/2013/03/manjushri_thangka_unveiling.jpg">https://tibetphoto.files.wordpress.com/2013/03/manjushri_thangka_unveiling.jpg</a> <br />
+        <a href="http://resources.tsemtulku.com/wp-content/blogs.dir/3/files/buddhas-and-bodhisattvas/chenrezig2008E.jpg">http://resources.tsemtulku.com/wp-content/blogs.dir/3/files/buddhas-and-bodhisattvas/chenrezig2008E.jpg</a>
+    
+        <h4>
+            References:
+        </h4>
+        <a href="http://getbootstrap.com/javascript/#carousel">http://getbootstrap.com/javascript/#carousel</a>
+        <a href="http://bootstrapbay.com/blog/bootstrap-3-carousel-tutorial/">http://bootstrapbay.com/blog/bootstrap-3-carousel-tutorial/</a>
+    </div>
+
+
+     
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+
+
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+ 

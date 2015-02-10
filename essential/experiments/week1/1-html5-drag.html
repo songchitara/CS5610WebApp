@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>HTML5 Drag and Drop</title>
+    <link href="css/mycss_1.css" rel="stylesheet"/>
+    <script>
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev){
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.appendChild(document.getElementById(data));
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1 id="page-title">HTML5 Drag and Drop</h1>
+        <h2>
+            In this page, I will be experimenting the drag and drop features which is a part of the HTML5 standard.
+        </h2>
+    </header>
+    <nav>
+        <h3>
+            <a href="#para_order">Paragraph Ordering</a><br />
+        </h3>
+    </nav>
+
+
+
+    <div id="para_order">
+        <h2 class="sec_title"><b>Paragraph Ordering</b></h2>
+        <p class="instruction">
+            <i><b>Instruction: </b>the three paragraphs below are draggable. 
+            Here we want to rearrange the order of the paragraphs, so simply drag one paragraph into the blue box and reordering the remain paragraphs, then drag back the paragraph in the blue box. </i>
+        </p>
+        <hr />
+        <section id="sec1">
+            <h3>Section One</h3>
+            <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <p id="p1" draggable="true" ondragstart="drag(event)">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean porttitor ex a faucibus semper. Aliquam vel erat et erat tincidunt scelerisque sit amet quis nisi. Sed ornare interdum lorem ac hendrerit. Curabitur elit ipsum, facilisis eu mi sed, pharetra mollis erat. Phasellus quis lectus neque. Pellentesque quis sodales libero, eu cursus felis. Etiam et eleifend metus. Vestibulum orci felis, sagittis eget aliquet vel, blandit non urna. Nunc finibus nibh vitae velit elementum consequat.
+                </p>
+            </div>
+
+        </section>
+
+        <section id="sec2">
+            <h3>Section Two</h3>
+            <div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <p id="p2" draggable="true" ondragstart="drag(event)">
+                    Praesent nisl mauris, venenatis quis suscipit nec, dapibus et dui. Vivamus bibendum mauris dignissim ullamcorper suscipit. Integer accumsan est vel mi cursus fermentum. Pellentesque in elementum nulla, sed tempor augue. Nullam auctor, leo sit amet porta faucibus, tellus arcu interdum magna, vel accumsan felis metus eget sapien. Praesent pretium turpis sit amet metus egestas, eu facilisis diam venenatis. Nulla ac neque eu tellus sodales porta. Sed dictum velit orci, eget malesuada purus pharetra et.
+                </p>
+            </div>
+        </section>
+
+        <div id="temp_box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+
+        <section id="sec3">
+            <h3>Section Three</h3>
+            <div id="div3" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <p id="p3" draggable="true" ondragstart="drag(event)">
+                    Donec laoreet, erat sit amet laoreet pharetra, nulla neque rhoncus mauris, a fringilla risus felis quis dui. Ut a ipsum at sem posuere vestibulum. In hac habitasse platea dictumst. Nam eleifend lectus nulla, et pellentesque est blandit non. Sed a sem felis. Curabitur tincidunt elit id est blandit ullamcorper. Maecenas ut nulla ut risus molestie aliquam. Fusce non blandit nulla. Sed est lacus, euismod vel pretium vehicula, venenatis sed magna.
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <hr />
+    
+    <p><b>Implementation: </b></p>
+
+    <p>In order to drag an element, 1) we first need to make the element draggable. Setting the <code>draggable</code> attrible to true will enable dragging this element. 2)  Then we need to specify what should happen when the element is dragged. In order to do so, the <code>ondragstart</code> attribute need to call a <code>drag(event)</code> function, which specifies what data to be dragged. </p>
+    <p>Below is the code snippet: </p>
+ 
+    <div class="code_snippet">
+        <code>
+            &lt;p id="p1" <b>draggable="true" ondragstart="drag(event)"</b>&gt; <br />
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit... <br />
+            &lt;/p&gt;
+        </code>
+    </div>
+
+    <p>The function <code>drag(event)</code> is defined as below:</p> 
+    <div class="code_snippet">
+        <code>
+            function drag(ev){
+            ev.dataTransfer.setData("text", ev.target.id);
+            }
+        </code>
+    </div>
+
+    <p>In order to drop an object to an element, we first need to let the element allow dropping. In order to do so, we call a <code>allowDrop(event)</code> function through <code>ondragover</code> attribute.</p>
+    <p>To triggle a drop event on the element, we let the <code>ondrop</code> function to call a function <code>drop(event)</code>.</p>
+    <p>Below is the code snippet:</p>
+    <div class="code_snippet">
+        <code>
+            &lt;div id="temp_box" <b>ondrop="drop(event)" ondragover="allowDrop(event)</b>"&gt;&lt;/div&gt;
+        </code>
+    </div>
+    <p>The code snippet for <code>drop(event)</code> function is:</p>
+    <div class="code_snippet">
+        <code>
+        <pre>
+        function drop(ev) { 
+            ev.preventDefault(); 
+            var data = ev.dataTransfer.getData("text"); 
+            ev.target.appendChild(document.getElementById(data)); 
+        }
+        </pre>
+        </code>
+    </div>
+    <p>The code snippet for <code>allowDrop(event)</code> function is:</p>
+    <div class="code_snippet">
+        <code>
+            <pre>
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+            </pre>
+        </code>
+    </div>
+
+    <div>
+        <footer>
+            <h3>Source Code</h3>
+            <a href="../../../story/showfile.htm?~">html</a>
+        </footer>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <title>Bootstrap Slider</title>
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+
+    
+    <link href="css/mycss_carousel_3.css" rel="stylesheet"> 
+
+    <!--Normalize the broswers default CSS-->
+    <link href="css/normalize.css" rel="stylesheet">
+
+    
+</head>
+<body>
+    
+   
+
+    <div class="container">
+        <header>
+            <h1 id="page-title">Bootstrap Slider</h1>
+        </header>
+
+        <div class="instruction">
+            <p>
+                <i>
+                    <b>Descriptions:</b> In this exmperiment, I will use the Bootstrap Carousel to implement a slider.
+                </i>
+            </p>
+            <p>
+                <i>
+                    <b>Instructions:</b> The slider can auto slide every 3 secs. We can also manually slide by clicking the left arrow or right arrow to slide left or right. Also, you can click on the small circles to jump to the specific slide. Hover over the pointer to the image to stop the auto sliding.
+                </i>
+            </p>
+        </div>
+    </div>
+
+    <hr />
+
+
+
+    <div class="container">
+        <!-- Carousel
+        ================================================== -->
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="3000">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner ">
+                <div class="item active">
+                    <img src="../../images/img_week2/mandala-thousand-arms.jpg" alt="...">
+                    <div class="carousel-caption">
+                        <h3>Mandala of Thousand Arms Avalokitesvara</h3>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="../../images/img_week2/manjushri_thangka_unveiling.jpg" alt="...">
+                    <div class="carousel-caption">
+                        <h3>Manjushiri Budhisattva Thangka Unveiling</h3>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="../../images/img_week2/avalokitesvara-budhisattva.jpg" alt="...">
+                    <div class="carousel-caption">
+                        <h3>Avalokitesvara Budhisattva</h3>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="../../images/img_week2/thousand_arms_of_compassion.jpg" alt="...">
+                    <div class="carousel-caption">
+                        <h3>Thousand Arms of Compassion</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div> <!-- Carousel -->
+    </div>
+
+    <div class="container" id="instruction">
+        <p></p>
+        <p>
+            In order to use Bootstrap, we first include the links in the <code>&lt;head&gt;</code>:
+        </p>
+        <code>
+            <pre>
+&lt;link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"&gt;
+
+&lt;link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"&gt;
+</pre>
+        </code>
+
+        <p>
+            Then to use the Bootstrap Javascript and jQuery, we are going to include the following two link (we put the at the end of the file to make the page load faster):
+        </p>
+        <code>
+            <pre>
+&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"&gt;&lt;/script&gt;
+</pre>
+        </code>
+
+        <p>
+            Now we can start using the Bootstrap Carousel. First we create a <code>&lt;div&gt;</code> with class name "carousel slide". Set <code>data-ride</code> attribute to "carousel" to make the slide auto cycling. The <code>data-interval</code> attribute is to set the time delay between auto cycling items (in "ms").
+        </p>
+        <code>
+            <pre>
+&lt;div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="2000"&gt;
+    ...    
+&lt;/div&gt;
+</pre>
+        </code>
+
+        <p>
+            In the <code>&lt;div&gt;</code> we've just created, first add the indicator feature, which you can click on the small circles to go to the specific slide.
+        </p>
+        <code>
+            <pre>
+&lt;ol class="carousel-indicators"&gt;
+&lt;li data-target="#carousel-example-generic" data-slide-to="0" class="active"&gt;&lt;/li&gt;
+&lt;li data-target="#carousel-example-generic" data-slide-to="1"&gt;&lt;/li&gt;
+&lt;li data-target="#carousel-example-generic" data-slide-to="2"&gt;&lt;/li&gt;
+&lt;li data-target="#carousel-example-generic" data-slide-to="3"&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</pre>
+        </code>
+
+        <p>
+            THe code below is to wrapping the slides:
+        </p>
+        <code>
+            <pre>
+                &lt;div class="carousel-inner "&gt;
+                &lt;div class="item active"&gt;
+                &lt;img src="../../images/img_week2/mandala-thousand-arms.jpg" alt="..."&gt;
+                &lt;div class="carousel-caption"&gt;
+                &lt;h3&gt;Mandala of Thousand Arms Avalokitesvara&lt;/h3&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                    .
+                    .
+                    .
+                &lt;/div&gt;
+</pre>
+        </code>
+
+        <p>
+            Finally, we will add the left and right control arrows.
+        </p>
+        <code>
+            <pre>
+                &lt;a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev"&gt;
+                &lt;span class="glyphicon glyphicon-chevron-left"&gt;&lt;/span&gt;
+            &lt;/a&gt;
+                &lt;a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next"&gt;
+                &lt;span class="glyphicon glyphicon-chevron-right"&gt;&lt;/span&gt;
+            &lt;/a&gt;
+</pre>
+        </code>
+    </div>
+
+
+    <div class="container">
+        <hr />
+        <h4>
+            Image Sources:
+        </h4>
+        <a href="http://www.exoticindia.com/buddha/tt83.jpg">http://www.exoticindia.com/buddha/tt83.jpg</a> <br />
+        <a href="http://www.exoticindia.com/buddha/thousand_arms_of_compassion_esoteric_black_thangka_tk56.jpg">http://www.exoticindia.com/buddha/thousand_arms_of_compassion_esoteric_black_thangka_tk56.jpg</a> <br />
+        <a href="https://tibetphoto.files.wordpress.com/2013/03/manjushri_thangka_unveiling.jpg">https://tibetphoto.files.wordpress.com/2013/03/manjushri_thangka_unveiling.jpg</a> <br />
+        <a href="http://resources.tsemtulku.com/wp-content/blogs.dir/3/files/buddhas-and-bodhisattvas/chenrezig2008E.jpg">http://resources.tsemtulku.com/wp-content/blogs.dir/3/files/buddhas-and-bodhisattvas/chenrezig2008E.jpg</a>
+    
+        <h4>
+            References:
+        </h4>
+        <a href="http://getbootstrap.com/javascript/#carousel">http://getbootstrap.com/javascript/#carousel</a>
+        <a href="http://bootstrapbay.com/blog/bootstrap-3-carousel-tutorial/">http://bootstrapbay.com/blog/bootstrap-3-carousel-tutorial/</a>
+    </div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>HTML(5) Videos</title>
+    <link href="css/mycss_2.css" rel="stylesheet"/>
+    <script>
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev){
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.appendChild(document.getElementById(data));
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1 id="page-title">HTML(5) Videos</h1>
+        <h2>
+            In this page, I will be experimenting the video supports for HTML(5).
+        </h2>
+    </header>
+    <nav>
+        <h3>
+            <a href="#local_video">Local Video</a><br />
+            <a href="#youtube_video">YouTube Video</a>
+        </h3>
+    </nav>
+
+
+
+    <div id="local_video">
+        <h2 class="sec_title"><b>Local Video</b></h2>
+        <p class="desciption">
+            <i><b>Description: </b> this section we will experiment on play the local video through the web browser.</i>
+        </p>
+        <hr />
+        <div>
+            <video width="320" height="240" controls>
+                <source src="../videos/enlightment.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+            </video>
+        </div>
+
+    </div>
+
+    <p><b>Code snippet: </b></p>
+
+    <div class="code_snippet">
+        <code>
+            &lt;video width="320" height="240" controls&gt; <br />
+                &lt;source src="../videos/enlightment.mp4" type="video/mp4" /&gt; <br />
+            &lt;/video&gt;
+        </code>
+    </div>
+
+
+    <hr />
+
+    <div id="youtube_video">
+        <h2 class="sec_title"><b>YouTube Video</b></h2>
+        <p class="desciption">
+            <i><b>Description: </b> this section we will experiment on play the YouTube video in our page.</i>
+        </p>
+        <hr />
+        <div>
+            <iframe width="320" height="240"
+                    src="http://www.youtube.com/embed/tilBs32zN7I"></iframe>
+        </div>
+    </div>
+    
+    <p><b>Code snippet: </b></p>
+
+    <div class="code_snippet">
+        <code>
+            &lt;iframe width="320" height="240"
+                    src="http://www.youtube.com/embed/tilBs32zN7I"&gt;&lt;/iframe&gt;
+        </code>
+    </div>
+
+    <div>
+        <footer>
+            <h3>Source Code</h3>
+            <a href="../../../story/showfile.htm?~"></a>
+        </footer>
+    </div>
+</body>
+
+</html>

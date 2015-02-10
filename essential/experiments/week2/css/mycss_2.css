@@ -1,0 +1,62 @@
+﻿h1 {
+    text-align: center;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#page-title {
+    text-decoration: underline;
+}
+
+.code_snippet {
+    text-align: left;
+    width: 600px;
+    padding: 10px;
+    border: 1px solid grey;
+}
+
+.sec_title {
+    background-color: #D0D0D0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+
+#sec1, #sec2, #sec3, #sec4, #sec5, #sec6 {
+    width: 350px;
+}
+
+
+
+
+#p1, #p2, #p3, #p4, #p5, #p6  {
+    background-color: #CCCC99;
+    width:350px;
+    height:120px;
+}
+
+
+
+
+@media screen and (max-width: 700px) {
+
+    #implementation {
+    display:none;
+}
+}
+
+
+#p1, #p2, #p3, #p4, #p5, #p6 {
+    //display:none;
+}
+
+#flip1, #flip2, #flip3, #flip4, #flip5, #flip6 {
+    background-color: #D0D0D0;
+    padding:10px;
+}

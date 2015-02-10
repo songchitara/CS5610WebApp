@@ -1,0 +1,172 @@
+﻿h1 {
+    text-align: center;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#page-title {
+    text-decoration: underline;
+}
+
+.code_snippet {
+    text-align: left;
+    width: 500px;
+    padding: 10px;
+    border: 1px solid grey;
+}
+
+.sec_title {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+
+.nav_link {
+    margin:10px;
+}
+
+nav {
+    background-color:#93cac0;
+    padding:10px;
+}
+
+article {
+    padding:10px;
+    background-color:#d0cbcb;
+}
+
+header {
+    text-align:center;
+    background-color:black;
+    color:white;
+    padding:10px;
+}
+
+footer {
+    background-color:black;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:1px;
+}
+
+p {
+    clear:both;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    display: inline;
+    position: relative;
+    background-color:#93cac0;
+    width:30px;
+}
+
+ul ul {
+    position: absolute;
+    display: none;
+}
+
+li:hover ul{
+    display: block;
+}
+
+#phone_nav {
+    background-color:#93cac0;
+}
+
+#h_computer, #h_tablet, #h_phone {
+    display:none;
+}
+
+@media screen and (max-width: 700px) {
+    .container {
+        width: 300px;
+        margin: auto;
+    }
+
+    body nav {
+        display: none;
+    }
+
+    #h_phone {
+        display:block;
+    }
+
+    #implementation {
+        display:none;
+    }
+}
+
+@media screen and (min-width: 700px) and (max-width: 1000px) {
+    .container {
+        width: 600px;
+        margin: auto;
+    }
+
+    .row {
+        width:600px;
+        clear:both;
+    }
+    .col-3 {
+        width:150px;
+        float:left;
+    }
+    .col-9 {
+        width:450px;
+        float:left;
+    }
+
+    nav {
+        height:1337px;
+    }
+
+    #phone_nav {
+        display:none;
+    }
+
+    #h_tablet {
+        display:block;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .container {
+        width: 840px;
+        margin: auto;
+    }
+    .row {
+        width:840px;
+        clear:both;
+    }
+    .col-3 {
+        width:210px;
+        float:left;
+    }
+    .col-9 {
+        width:630px;
+        float:left;
+    }
+
+    nav {
+        height:1013px;
+    }
+
+    #phone_nav {
+        display:none;
+    }
+
+    #h_computer {
+        display:block;
+    }
+}

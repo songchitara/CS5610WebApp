@@ -1,0 +1,246 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>jQuery Hide and Show</title>
+    <link href="css/mycss_2.css" rel="stylesheet" />
+
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+    <script>
+    $(function () {
+        $("#sortable").sortable();
+        $("#sortable").disableSelection();
+    });
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            $("#flip1").click(function () {
+                $("#p1").slideToggle();
+            });
+            $("#flip2").click(function () {
+                $("#p2").slideToggle();
+            });
+            $("#flip3").click(function () {
+                $("#p3").slideToggle();
+            });
+            $("#flip4").click(function () {
+                $("#p4").slideToggle();
+            });
+            $("#flip5").click(function () {
+                $("#p5").slideToggle();
+            });
+            $("#flip6").click(function () {
+                $("#p6").slideToggle();
+            });
+        });
+
+        $(document).ready(function () {
+            $("#bttn_hide").click(function () {
+                $(".para").slideUp();
+            });
+        });
+
+        $(document).ready(function () {
+            $("#bttn_show").click(function () {
+                $(".para").slideDown();
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1 id="page-title">jQuery Hide and Show</h1>
+    </header>
+
+        <p class="instruction">
+            <i>
+                <b>Descriptions:</b> 
+                In the previous experiment, we've implemented sorting paragraphs by dragging them. However, if there are many paragraphs (or some of paragraphs are long), it will be pretty inconvenient to drag one paragraph and place it to another location, since you have to drag and scroll the page and the same time. To solve this, I'm using the jQuery slide show and hide features, so that we can first hide the content of the paragraphs, then just drag the titles, and after reordering done, show the content of the paragraphs.
+                <br /> 
+                <br />
+                <b>Instruction: </b> 
+                Click on the each title of the paragraph to toggle hide/show the content of paragraph. For convenience, we can first click the <input type="button" value="Hide All"/> button to hide all the paragraphs (only remain the titles), then we can drag around the titles to the desired order. Note that at any time, we can click on any of the title to show/hide the paragraph, and we can either drag a title with paragraph hided or a completed showed paragraph. Once the paragraphs are in our desired order, click on the <input type="button" value="Show All" /> button of show all the paragraphs again.
+            </i>
+        </p>
+        <hr />
+
+    <input type="button" id="bttn_hide" value="Hide All" />
+    <input type="button" id="bttn_show" value="Show All" />
+
+    <div id="sortable">
+        <section id="sec1" draggable="true">
+            <h3 id="flip1">Section One</h3>
+                <p id="p1" class="para">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean porttitor ex a faucibus semper. Aliquam vel erat et erat tincidunt scelerisque sit amet quis nisi.
+                </p>
+
+        </section>
+
+        <section id="sec2" draggable="true">
+            <h3 id="flip2">Section Two</h3>
+            <p id="p2" class="para">
+                Praesent nisl mauris, venenatis quis suscipit nec, dapibus et dui. Vivamus bibendum mauris dignissim ullamcorper suscipit. Integer accumsan est vel mi cursus fermentum.
+            </p>
+        </section>
+
+
+        <section id="sec3" draggable="true">
+            <h3 id="flip3">Section Three</h3>
+            <p id="p3" class="para">
+                Donec laoreet, erat sit amet laoreet pharetra, nulla neque rhoncus mauris, a fringilla risus felis quis dui. Ut a ipsum at sem posuere vestibulum.
+            </p>
+        </section>
+
+        <section id="sec4" draggable="true">
+            <h3 id="flip4">Section Four</h3>
+            <p id="p4" class="para">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean porttitor ex a faucibus semper. Aliquam vel erat et erat tincidunt scelerisque sit amet quis nisi.
+            </p>
+
+        </section>
+
+        <section id="sec5" draggable="true">
+            <h3 id="flip5">Section Five</h3>
+            <p id="p5" class="para">
+                Praesent nisl mauris, venenatis quis suscipit nec, dapibus et dui. Vivamus bibendum mauris dignissim ullamcorper suscipit. Integer accumsan est vel mi cursus fermentum.
+            </p>
+        </section>
+
+
+        <section id="sec6" draggable="true">
+            <h3 id="flip6">Section Six</h3>
+            <p id="p6" class="para">
+                Donec laoreet, erat sit amet laoreet pharetra, nulla neque rhoncus mauris, a fringilla risus felis quis dui. Ut a ipsum at sem posuere vestibulum.
+            </p>
+        </section>
+    </div>
+
+    <div id="implementation">
+        <hr />
+
+        <p><b>Implementation: </b></p>
+
+        <p>
+            We first mark the paragraph titles' ids as "flip1", "flip2", .... And we mark the related paragraphs' ids as "p1", "p2", ... <br />
+        </p>
+        
+        <div class="code_snippet">
+            <code>
+                <pre>
+&lt;section <b>id="sec1"</b> draggable="true"&gt; 
+            &lt;h3 id="flip1"&gt;Section One&lt;/h3&gt;
+            &lt;p <b>id="p1"</b> class="para"&gt;
+            Lorem ipsum dolor sit amet, consectetur adipiscing ....
+        &lt;/p&gt;
+&lt;/section&gt;
+&lt;section <b>id="sec2"</b> draggable="true"&gt;
+            &lt;h3 id="flip2"&gt;Section Two&lt;/h3&gt;
+            &lt;p <b>id="p2"</b> class="para"&gt;
+        Praesent nisl mauris, venenatis quis suscipit nec, dapibus et....
+    &lt;/p&gt;
+&lt;/section&gt;
+    .
+    .
+    .
+
+</pre>
+            </code>
+        </div>
+
+        <p>
+            Then we call the <code>slideToggle</code> jQuery functions on the paragraphs when the according title is been clicking on.
+        </p>
+        <div class="code_snippet">
+            <code>
+                <pre>
+$(document).ready(function(){
+    $("#flip1").click(function () {
+        $("#p1").slideToggle();
+    });
+    $("#flip2").click(function () {
+        $("#p2").slideToggle();
+    });
+    $("#flip3").click(function () {
+        $("#p3").slideToggle();
+    });
+    $("#flip4").click(function () {
+        $("#p4").slideToggle();
+    });
+    $("#flip5").click(function () {
+        $("#p5").slideToggle();
+    });
+    $("#flip6").click(function () {
+        $("#p6").slideToggle();
+    });
+});
+
+</pre>
+            </code>
+        </div>
+
+        <p>
+            For the <input type="button" value="Hide All" /> and <input type="button" value="Show All" /> buttons, first create these two buttons in HTML:
+        </p>
+
+        <div class="code_snippet">
+            <code>
+                <pre>
+&lt;input type="button" id="bttn_hide" value="Hide All" /&gt;
+&lt;input type="button" id="bttn_show" value="Show All" /&gt;
+
+</pre>
+            </code>
+        </div>
+
+
+        <p>
+            We then call the <code>slideUp()</code> jQuery function on the <input type="button" value="Hide All" /> button:
+        </p>
+
+        <div class="code_snippet">
+            <code>
+                <pre>
+$(document).ready(function () {
+    $("#bttn_hide").click(function () {
+        $(".para").slideUp();
+    });
+});
+
+</pre>
+            </code>
+        </div>
+
+        <p>
+            And we call the <code>slideDown()</code> jQuery function on the <input type="button" value="Show All" /> button:
+        </p>
+
+        <div class="code_snippet">
+            <code>
+                <pre>
+$(document).ready(function () {
+    $("#bttn_show").click(function () {
+        $(".para").slideDown();
+    });
+});
+</pre>
+            </code>
+        </div>
+
+       
+    </div>
+
+    <hr />
+    <div>
+        <footer>
+            <h4>Source Code</h4>
+            <a href="../../fileview/Default.aspx?~">html</a>
+            <h4>References</h4>
+            <a href="http://www.w3schools.com/jquery/tryit.asp?filename=tryjquery_slide_toggle">http://www.w3schools.com/jquery/tryit.asp?filename=tryjquery_slide_toggle</a>
+        </footer>
+    </div>
+</body>
+
+</html>

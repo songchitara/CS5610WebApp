@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>jQuery UI Between Tabs</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    
+ 
+    <link rel="stylesheet" href="css/general-style.css">
+    <script src="js/2-between-accordion-tabs.js"></script>
+
+</head>
+<body>
+<div class="container">
+        <header>
+            <h1 id="page-title">jQuery UI Responsive Tabs</h1>
+        </header>
+
+        <div class="instruction">
+            <p>
+                <i>
+                    <b>Descriptions:</b> jQuery UI tabs are very good to use, however, 
+                    I found that once the screen width reduces, the tabs will not remain their original posistions. So in this 
+                    experiment, I will implement responsive design between tabs and accordion to solve the problem.
+                </i>
+            </p>
+            <p>
+                <i>
+                    <b>Instructions:</b> 
+                    When the screen is big (desktop/laptop display), the content will be shown in tabs. If the screen is small (mobile device),
+                    the content will be shown in accordion style. Also, both the tabs and accordion can be sortable.
+                </i>
+            </p>
+        </div>
+    </div>
+
+
+    <hr />
+    
+
+    <div class="container">
+
+        <div id="accordion">
+            <div class="group">
+                <h3>Nunc tincidunt</h3>
+                <div>
+                    <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+                </div>
+            </div>
+            <div class="group">
+                <h3>Proin dolor</h3>
+                <div>
+                    <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
+                </div>
+            </div>
+            <div class="group">
+                <h3>Aenean lacinia</h3>
+                <div>
+                    <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
+                    <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="tabs">
+            <ul>
+                <li><a href="#tabs-1">Nunc tincidunt</a></li>
+                <li><a href="#tabs-2">Proin dolor</a></li>
+                <li><a href="#tabs-3">Aenean lacinia</a></li>
+            </ul>
+            <div id="tabs-1">
+                <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+            </div>
+            <div id="tabs-2">
+                <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
+            </div>
+            <div id="tabs-3">
+                <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
+                <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
+            </div>
+        </div>
+    </div>
+
+
+    <hr />
+    <div class="container" id="implementation">
+        <h4>Implementation:</h4>
+        <p>
+            In the html, create two &lt;div&gt;: <code>&lt;div id="accordion"&gt;</code> and <code>&lt;div id="tabs"&gt;</code>.
+        </p>
+        <p>
+            The jquery code for creating the accordion behavior is as below:
+        </p>
+        <code>
+            <pre>
+$(function () {
+    $("#accordion")
+      .accordion({
+          header: "> div > h3",
+          collapsible: true
+      })
+      .sortable({
+          axis: "y",
+          handle: "h3",
+          stop: function (event, ui) {
+              // IE doesn't register the blur when sorting
+              // so trigger focusout handlers to remove .ui-state-focus
+              ui.item.children("h3").triggerHandler("focusout");
+              // Refresh accordion to handle new order
+              $(this).accordion("refresh");
+          }
+      });
+});
+</pre>
+        </code>
+        <p>
+            To implement jQueryUI tabs, using the code below:
+        </p>
+        <code>
+            <pre>
+                $(function () {
+    var tabs = $("#tabs").tabs();
+    tabs.find(".ui-tabs-nav").sortable({
+        axis: "x",
+        stop: function () {
+            tabs.tabs("refresh");
+        }
+    });
+});
+</pre>
+        </code>
+        <p>
+            Then I'm going to making the page responsive by checking the <code>$(window)</code> size. First, I will tell the browser 
+            when loading the page, at which widths should display tabs or accordions.
+        </p>
+        <code>
+            <pre>
+$(function () {
+    var accordionDom = $("div#accordion");
+    var tabsDom = $("div#tabs");
+    <b>if ($(window).width() <= 700)</b> {
+        accordionDom.attr("style", "display:block");
+        tabsDom.attr("style", "display: none");
+    }
+    else {
+        $(function () {
+            accordionDom.attr("style", "display:none");
+            tabsDom.attr("style", "display: block");
+        });
+    }
+});
+</pre>
+        </code>
+        <p>
+            Then I'm using <code>$(window).resize()</code> to make the page responsive to the width changes.
+        </p>
+        <code>
+            <pre>
+$(window).resize(function () {
+    var accordionDom = $("div#accordion");
+    var tabsDom = $("div#tabs");
+    if ($(window).width() <= 700) {
+        $(function () {
+            accordionDom.attr("style", "display:block");
+            tabsDom.attr("style", "display: none");
+        });
+    }
+    else {
+        $(function () {
+            accordionDom.attr("style", "display:none");
+            tabsDom.attr("style", "display: block");
+        });
+    }
+});
+</pre>
+        </code>
+    </div>
+
+        <div class="container">
+            <hr />
+            <h4>
+                References:
+            </h4>
+            <a href="http://jqueryui.com/tabs/#sortable">http://jqueryui.com/tabs/#sortable</a> <br />
+            <a href="http://jqueryui.com/accordion/#sortable">http://jqueryui.com/accordion/#sortable</a> <br />
+            <a href="http://www.wiliam.com.au/wiliam-blog/jquery-and-css-media-queries">http://www.wiliam.com.au/wiliam-blog/jquery-and-css-media-queries</a>
+        </div>
+
+
+</body>
+</html>

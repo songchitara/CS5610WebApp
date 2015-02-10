@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>jQuery Sortable</title>
+    <link href="css/mycss_1.css" rel="stylesheet" />
+
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+    <script>
+    $(function () {
+        $("#sortable").sortable();
+        $("#sortable").disableSelection();
+    });
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1 id="page-title">jQuery Sortable</h1>
+    </header>
+
+        <p class="instruction">
+            <i>
+                <b>Descriptions:</b> 
+                Last week, I implemented sorting paragraphs/objects by using HTML5 drag and drop features, however it needs to create a temporary area to hold the temp paragraph. This time, I will take advantages of the jQuery library to make paragraphs directly sortable without any temp areas. <br />
+                <br />
+                <b>Instruction: </b> 
+                Simply drag any paragraphs to re-order.
+            </i>
+        </p>
+        <hr />
+    <div id="sortable">
+        <section id="sec1" draggable="true">
+            <h3>Section One</h3>
+                <p id="p1">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean porttitor ex a faucibus semper. Aliquam vel erat et erat tincidunt scelerisque sit amet quis nisi.
+                </p>
+
+        </section>
+
+        <section id="sec2" draggable="true">
+            <h3>Section Two</h3>
+                <p id="p2">
+                    Praesent nisl mauris, venenatis quis suscipit nec, dapibus et dui. Vivamus bibendum mauris dignissim ullamcorper suscipit. Integer accumsan est vel mi cursus fermentum.
+                </p>
+        </section>
+
+
+        <section id="sec3" draggable="true">
+            <h3>Section Three</h3>
+                <p id="p3">
+                    Donec laoreet, erat sit amet laoreet pharetra, nulla neque rhoncus mauris, a fringilla risus felis quis dui. Ut a ipsum at sem posuere vestibulum.
+                </p>
+        </section>
+    </div>
+
+    <div id="implementation">
+        <hr />
+
+        <p><b>Implementation: </b></p>
+
+        <p>Since I'm using the existed jQuery sorting API from web, what we need to do is first include the two javascript sources in the <code>&lt;head&gt;</code>.</p>
+        <p>Below is the code snippet: </p>
+
+        <div class="code_snippet">
+            <code>
+                &lt;script src="//code.jquery.com/jquery-1.10.2.js"&gt;&lt;/script&gt; <br />
+                &lt;script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"&gt;&lt;/script&gt;
+            </code>
+        </div>
+
+        <p>
+            Then mark the <code>div</code> that contains the paragraphs as <code>&lt;id="sortable"&gt;</code>.
+            Below is the code snippet:
+        </p>
+        <div class="code_snippet">
+            <code>
+                <pre>
+&lt;div <b>id="sortable"</b>&gt;
+&lt;section id="sec1" draggable="true"&gt;
+&lt;h3&gt;Section One&lt;/h3&gt;
+&lt;p id="p1"&gt;
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit....
+    &lt;/p&gt;
+&lt;/section&gt;
+&lt;/div&gt;
+</pre>
+            </code>
+        </div>
+
+        <p>Then in the <code>&lt;head&gt;</code> we call the two funcions <code>sortable</code> and <code>disableSelection()</code> on the marked <code>div</code>.</p>
+        <div class="code_snippet">
+            <code>
+                <pre>
+&lt;script&gt;
+$(function () {
+    $("#sortable").sortable();
+    $("#sortable").disableSelection();
+});
+&lt;/script&gt;
+</pre>
+            </code>
+        </div>
+    </div>
+
+    <hr />
+    <div>
+        <footer>
+            <h4>Source Code</h4>
+            <a href="../../../story/showfile.htm?~">html</a>
+            <h4>References</h4>
+            <a href="http://jqueryui.com/sortable/#default">http://jqueryui.com/sortable/#default</a>
+        </footer>
+    </div>
+</body>
+
+</html>

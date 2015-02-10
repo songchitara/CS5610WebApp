@@ -1,0 +1,236 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <title>Bootstrap Slider Lightbox Toggle</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+
+    
+    <link href="css/mycss_carousel_5.css" rel="stylesheet"> 
+    <link href="css/mycss_lightbox_5.css" rel="stylesheet"> 
+
+    <!--Normalize the broswers default CSS-->
+    <link href="css/normalize.css" rel="stylesheet">
+
+
+    <script src="js/5_myjs_lightbox.js"></script>
+
+    
+
+
+</head>
+<body>
+    
+   
+
+    <div class="container">
+        <header>
+            <h1 id="page-title">Bootstrap Slider Lightbox Toggle</h1>
+        </header>
+
+        <div class="instruction">
+            <p>
+                <i>
+                    <b>Descriptions:</b> In last exmperiment, I solved the problem that image got stretched withn the slider. However, once the images are scaled down to fit into the slider, some of the images are to small to view the details. So in this experiment, I will implement a feature that when you click on the image withn the slider, the image "pops out" and enlarged, when you click the area outside the enlarged image, it got disappeared.
+                </i>
+            </p>
+            <p>
+                <i>
+                    <b>Instructions:</b> To enlarge the image, just place the mouse pointer above the image and click. To resume, click outside the area of enlarged image.
+                </i>
+            </p>
+        </div>
+    </div>
+
+    <hr />
+
+
+
+    <div class="container">
+
+       
+
+        <!-- Carousel
+        ================================================== -->
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="4000">
+
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+            </ol>
+
+           
+        
+                    <!-- Wrapper for slides -->
+                <div class="carousel-inner ">
+                    <div class="item active">
+                        <a href="../../images/img_week2/mandala-thousand-arms.jpg" class="lightbox">
+                            <img src="../../images/img_week2/mandala-thousand-arms.jpg" alt="">
+                        </a>
+                        <div class="carousel-caption">
+                            <h3>Mandala of Thousand Arms Avalokitesvara</h3>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <a href="../../images/img_week2/manjushri_thangka_unveiling.jpg" class="lightbox">
+                            <img src="../../images/img_week2/manjushri_thangka_unveiling.jpg" alt="">
+                        </a>
+                        <div class="carousel-caption">
+                            <h3>Manjushiri Budhisattva Thangka Unveiling</h3>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <a href="../../images/img_week2/avalokitesvara-budhisattva.jpg" class="lightbox">
+                            <img src="../../images/img_week2/avalokitesvara-budhisattva.jpg" alt="">
+                        </a>
+                        <div class="carousel-caption">
+                            <h3>Avalokitesvara Budhisattva</h3>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <a href="../../images/img_week2/thousand_arms_of_compassion.jpg" class="lightbox">
+                            <img src="../../images/img_week2/thousand_arms_of_compassion.jpg" alt="">
+                        </a>
+                        <div class="carousel-caption">
+                            <h3>Thousand Arms of Compassion</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+</div> <!-- Carousel -->
+    </div>
+
+    <div class="container" id="instruction">
+        <p>
+            We first add the <code>&lt;a&gt;</code> around each <code>&lt;img&gt;</code> tag, mark the class as "lightbox" and link to the original image location.
+        </p>
+
+        <code>
+            <pre>
+&lt;a href="../../images/img_week2/mandala-thousand-arms.jpg" class="lightbox"&gt;
+&lt;img src="../../images/img_week2/mandala-thousand-arms.jpg" alt=""&gt;
+        &lt;/a&gt;
+</pre>
+        </code>
+        
+        <p>
+            Then we add the jQuery code on the <code>click</code> event of the <code>&lt;a&gt;</code> we've just created: 
+            first prevent the default action that jump to the <code>href</code> of the link, by calling <code>event.preventDefault()</code>.
+            Then call a function <code>startMark</code> on the <code>href</code> value.
+        </p>
+        <code>
+            <pre>
+$(document).ready(function () {
+$(".lightbox").click(function (event) {
+    event.preventDefault();
+    originalLink = $(this).attr("href");
+    window.startMask(originalLink);
+});
+});
+</pre>
+        </code>
+
+        <p>
+            Below is the the code snippet for <code>startMask</code> function. We first add two <code>&lt;div&gt;</code> for place holding the "mask" and the "hoder."
+            We call <code>&lt;animate&gt;</code> method on the mask so that it will pop out once clicking on.
+            For the "hoder" <code>&lt;div&gt;</code>, we add the <code>&lt;img&gt;</code> html inside which link to the original image source.
+            Then we add the css to the "#holder" <code>&lt;div&gt;</code> to properly display the enlarged image.
+            Last we call the <code>removeMask()</code> to fulfill the removing feature.
+        </p>
+        <code>
+            <pre>
+function startMask(originalLink) {
+    $("body")
+        .append('&lt;div class="mask"&gt;&lt;/div&gt;&lt;div id="holder"&gt;&lt;/div&gt;')
+        .css({ "overflow-y": "hidden" });
+    $(".mask").animate({ "opacity": "0.5" }, 500, "linear");
+    $("#holder").html('&lt;img src="' + originalLink + '" alt="" /&gt;');
+    $("#holder img").load(function () {
+        var imgW = $("#holder img").width();
+        var imgH = $("#holder img").height();
+        $("#holder")
+            .css({
+                "top": "50%",
+                "left": "50%",
+                "width": imgW,
+                "height": imgH,
+                "margin-top": -(imgH / 2),
+                "margin-left": -(imgW / 2) //to position it in the middle
+            })
+            .animate({ "opacity": "1" }, 500, "linear");
+        window.removeMask();
+    });
+}
+</pre>
+        </code>
+       
+        <p>
+            The code snippet for <code>removeMask</code> is as below:
+        </p>
+        <code>
+            <pre>
+function removeMask() {
+    $(".mask").click(function () {
+        $("#holder, .mask").animate({ "opacity": "0" }, 200, "linear", function () {
+            $("#holder, .mask").remove();
+        });
+        $('body').css({ "overflow-y": "auto" })
+    });
+}
+</pre>
+        </code>
+
+
+    </div>
+
+
+    <div class="container">
+        <hr />
+        <h4>
+            Image Sources:
+        </h4>
+        <a href="http://www.exoticindia.com/buddha/tt83.jpg">http://www.exoticindia.com/buddha/tt83.jpg</a> <br />
+        <a href="http://www.exoticindia.com/buddha/thousand_arms_of_compassion_esoteric_black_thangka_tk56.jpg">http://www.exoticindia.com/buddha/thousand_arms_of_compassion_esoteric_black_thangka_tk56.jpg</a> <br />
+        <a href="https://tibetphoto.files.wordpress.com/2013/03/manjushri_thangka_unveiling.jpg">https://tibetphoto.files.wordpress.com/2013/03/manjushri_thangka_unveiling.jpg</a> <br />
+        <a href="http://resources.tsemtulku.com/wp-content/blogs.dir/3/files/buddhas-and-bodhisattvas/chenrezig2008E.jpg">http://resources.tsemtulku.com/wp-content/blogs.dir/3/files/buddhas-and-bodhisattvas/chenrezig2008E.jpg</a>
+    
+        <h4>
+            References:
+        </h4>
+        <a href="http://net4.ccs.neu.edu/home/irisyu/experiments/jQuery/experiment08.html">http://net4.ccs.neu.edu/home/irisyu/experiments/jQuery/experiment08.html</a>
+        <a href="http://api.jquery.com/event.preventdefault/">http://api.jquery.com/event.preventdefault/</a>
+    </div>
+
+
+     
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+
+
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+ 
