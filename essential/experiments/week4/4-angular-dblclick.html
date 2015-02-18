@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>AngularJS - DoubleClick</title>
+    <script src="js/angular.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/general-style.css" rel="stylesheet" />
+    <script src="js/4-FourthApp.js"></script>
+
+</head>
+<body ng-app="FirstApp">
+
+    <div class="container" ng-controller="myCtrl">
+        <header>
+            <h1 id="page-title">AngularJS - DoubleClick</h1>
+        </header>
+
+        <div id="instruction">
+            <p>
+                <i>
+                    <b>Description:</b>
+                    The professor has shown us how to create buttons to add and remove favorite movies. A more convenient way could be that
+                    if we can add or remove favorite movies by just clicking the row of movie in the display table. Also we can display the 
+                    counter to show the number of movies in the Favorite Movies. So in this experiment, I'll implement this.
+                </i>
+            </p>
+            <p>
+                <i>
+                    <b>Instruction:</b>
+                    In the upper-left input field, type the movie name and click Search button. The default
+                    search name is "star wars". <br />
+                    After we get the movies displaying in the table, double click any row to add the 
+                    movie in that row to the Favorite Movies. In the Favorite Movies, double click any 
+                    row to remove the movie from the Favorite Movies. The counter of favorite movies is shown
+                    in the parenthesis after the "Favorite Moives" title.
+                </i>
+            </p>
+        </div>
+
+        <hr />
+
+        <h3>Favorite Movies ({{numOfFavors}})</h3>
+        <table class="table">
+            <tbody>
+                <tr draggable="true" ng-repeat="movie in favoriteMovies" ng-dblclick="removeFavoriteMovie(movie)">
+                    <td><img ng-src="{{movie.urlPoster}}" width="50" /></td>
+                    <td>{{movie.title}}</td>
+                    <td>{{movie.rating}}</td>
+                    <td>{{movie.year}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <div class="row">
+
+            <div class="col-md-8">
+                <div class="input-group col-sm-4">
+                    <input ng-model="searchByTitle" type="text" class="form-control" placeholder="">
+                    <span class="input-group-btn">
+                        <button class="btn btn-success" ng-click="searchMovies()">Search</button>
+                    </span>
+                </div><!-- /input-group -->
+            </div>
+            <div class="col-md-4">
+                <input ng-model="filterText" type="text" class="form-control" placeholder="Enter keywords here...">
+            </div>
+
+
+        </div>
+
+
+        <table class=" table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Poster</th>
+                    <th><span draggable="true" ng-click="reverse=!reverse; sortCol('rating', reverse)">Rating</span></th>
+                    <th><span draggable="true" ng-click="reverse=!reverse; sortCol('year', reverse)">Year</span></th>
+                    <th>Plot</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr draggable="true" ng-repeat="m in movies | filter:filterText" ng-dblclick="addToFavorites(m)">
+                    <td>{{m.title}}</td>
+                    <td><img ng-src="{{m.urlPoster}}" ng-click="enlargePoster($index)" width="70" data-toggle="modal" data-target=".bs-example-modal-sm"></td>
+                    <td>{{m.rating}}</td>
+                    <td>{{m.year}}</td>
+                    <td>
+                        {{m.plot}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+        <!-- Small modal -->
+        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <img ng-src="{{enlargedP}}" width="120%">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container">
+        <hr />
+        <h3>Implementation:</h3>
+        <p>
+            In the HTML, assign the <code>addToFavorites()</code> method to <code>ng-dblclick</code> directive within the 
+            &lt;tr&gt; tag of the Movies table body, for add row to favorite. Similarily assign the <code>removeFavoriteMovie(movie)</code> 
+            method to the <code>ng-dblclick</code> within the  &lt;tr&gt; tag of the Favorite Movies table body, for removing row from favorite. 
+        </p>
+        <code>
+            <pre>
+&lt;tbody&gt;
+&lt;tr draggable="true" ng-repeat="m in movies | filter:filterText" <b>ng-dblclick="addToFavorites(m)</b>"&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+
+</pre>
+            <pre>
+&lt;tbody&gt;
+&lt;tr draggable="true" ng-repeat="movie in favoriteMovies" ng-dblclick="removeFavoriteMovie(movie)"&gt;
+&lt;/tr&gt;
+            &lt;/tbody&gt;
+
+</pre>
+        </code>
+
+
+        <p>
+            Also, add the <code ng-non-bindable>({{numOfFavors}})</code> expression after the "Favorite Movies" head,
+            to diplay the counter of the favorite movies.
+        </p>
+        <code ng-non-bindable>
+            <pre>
+&lt;h3&gt;Favorite Movies ({{numOfFavors}})&lt;/h3&gt;
+</pre>
+        </code>
+
+        <p>
+            Then deal with JavaScript. <code>$scope.favoriteMovies = []</code> is to init the favoriteMovies app variable to empty array.
+             The <code>$scope.numOfFavors = 0</code> is to init numOfFavors to 0. 
+            In the function <code>addToFavorite</code>, use <code>$scope.favoriteMovies.push(movie);</code> to 
+            add the movie to favoriteMovies. And the <code>$scope.numOfFavors++;</code> is to increment the counter of favorite movies.
+        </p>
+        <code>
+            <pre>
+    $scope.favoriteMovies = [];
+    $scope.numOfFavors = 0;
+    $scope.addToFavorites = function (movie) {
+        // add to movie to favorite
+        $scope.favoriteMovies.push(movie);
+        // increment the counter of favorite movies
+        $scope.numOfFavors++;
+    }
+</pre>
+        </code>
+
+        <p>
+            Then we deal with the <code>removeFavoriteMovie</code> function. 
+            We use <code> var index = $scope.favoriteMovies.indexOf(movie)</code> to get the index of the current movie. 
+            Then delete the movie from FavoriteMovies by referencing that index, <code>$scope.favoriteMovies.splice(index, 1)</code>.
+            Finally, descrease the counter of favorite movies <code>$scope.numOfFavors--</code>
+        </p>
+        <code>
+            <pre>
+    // remove favorite movie
+    $scope.removeFavoriteMovie = function (movie) {
+        var index = $scope.favoriteMovies.indexOf(movie);
+        $scope.favoriteMovies.splice(index, 1);
+        // descrease the counter of favorite movies
+        $scope.numOfFavors--;
+    }
+</pre>
+        </code>
+       
+
+        <h3>Source Code:</h3>
+        <p>
+            <a href="../../fileview/Default.aspx?~/experiments/week4/4-angular-dblclick.html" target="_blank">HTML </a> <br />
+            <a href="../../fileview/Default.aspx?~/experiments/week4/js/4-FourthApp.js" target="_blank">JavaScript </a>
+        </p>
+
+        <h3>References:</h3>
+        <p>
+            <br />
+            <a href="https://docs.angularjs.org/api/ng/directive/ngDblclick">https://docs.angularjs.org/api/ng/directive/ngDblclick</a> <br />
+            <a href="https://github.com/jannunzi/CS5610-2015-spring-net4.ccs.neu.edu/tree/master/cs5610/experiments/angular">
+                https://github.com/jannunzi/CS5610-2015-spring-net4.ccs.neu.edu/tree/master/cs5610/experiments/angular
+            </a>
+        </p>
+
+
+    </div>
+
+</body>
+</html>

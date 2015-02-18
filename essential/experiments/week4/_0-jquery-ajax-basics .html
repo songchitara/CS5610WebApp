@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script>
+        $(function ()
+        {
+            $("#getMovies").click(function () {
+                var title = $("#title").val();
+                $.ajax({
+                    url: "http://www.myapifilms.com/imdb?title=" + title + "&format=JSONP&aka=0&business=0&seasons=0&seasonYear=0&technical=0&filter=N&exactFilter=0&limit=10&lang=en-us&actors=N&biography=0&trailer=0&uniqueName=0&filmography=0&bornDied=0&starSign=0&actorActress=0&actorTrivia=0&movieTrivia=0&awards=0&moviePhotos=N&movieVideos=N",
+                    dataType: "jsonp",
+                    success: renderMovies
+                });
+            });
+
+
+            
+        });
+        function renderMovies(movies, status, jqxhr) {
+            var ul = $("#movies");
+            ul.empty();
+            console.log(movies);
+            for (var m in movies) {
+                var movie = movies[m];
+                var title = movie.title;
+                var plot = movie.plot;
+                var poster = movie.urlPoster;
+                var li = $("<li>");
+                li.append(title);
+                $("<p>")
+                    .append(plot)
+                    .appendTo(li);
+                $("<img>")
+                    .attr("src", poster)
+                    .appendTo(li);
+                
+                ul.append(li);
+            }
+        }
+    </script>
+</head>
+   
+<body>
+    <input id="title" placeholder="Title" />
+    <button id="getMovies">get movies</button>
+    <ul id="movies">
+    </ul>
+</body>
+</html>

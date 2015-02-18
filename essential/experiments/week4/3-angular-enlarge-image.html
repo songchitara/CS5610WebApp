@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>AngularJS & Boostrape - Enlarge Image</title>
+    <script src="js/angular.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/general-style.css" rel="stylesheet" />
+    <script src="js/3-ThirdApp.js"></script>
+
+</head>
+<body ng-app="FirstApp">
+
+    <div class="container" ng-controller="myCtrl">
+        <header>
+            <h1 id="page-title">AngularJS & Boostrape - Enlarge Image</h1>
+        </header>
+
+        <div id="instruction">
+            <p>
+                <i>
+                    <b>Description:</b>
+                    Thanks to the first two experiments, our professor now can easily find his movies. Are there
+                    anything else we can do to satisfy our professor more? Sometimes by just looking at the poster
+                    people can easily tell which movie is, since a picture tells more than words. However, our poster
+                    images in the table are too small, why don't we add a feature that just by clicking the small
+                    poster image, a same but larger poster will present to our professor? <br />
+                    So in this experiment, I will use the combination of AngularJS and Bootsrape(modals) to implement that 
+                    image enlarge feature.
+                </i>
+            </p>
+            <p>
+                <i>
+                    <b>Instruction:</b>
+                    In the upper-left input field, type the movie name and click Search button. The default
+                    search name is "star wars". <br />
+                    After the results showing in the table, click any of the poster images to enlarge them, click
+                    outside the enlarged image to resume.
+                </i>
+            </p>
+        </div>
+
+        <hr />
+
+        <div class="row">
+
+            <div class="col-md-8">
+                <div class="input-group">
+                    <input ng-model="searchByTitle" type="text" class="form-control" placeholder="">
+                    <span class="input-group-btn">
+                        <button class="btn btn-success" ng-click="searchMovies()">Search</button>
+                    </span>
+                </div><!-- /input-group -->
+            </div>
+            <div class="col-md-4">
+                <input ng-model="filterText" type="text" class="form-control" placeholder="Enter keywords here...">
+            </div>
+
+
+        </div>
+
+
+        <table class=" table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Poster</th>
+                    <th><span draggable="true" ng-click="reverse=!reverse; sortCol('rating', reverse)">Rating</span></th>
+                    <th><span draggable="true" ng-click="reverse=!reverse; sortCol('year', reverse)">Year</span></th>
+                    <th>Plot</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="m in movies | filter:filterText">
+                    <td>{{m.title}}</td>
+                    <td><img ng-src="{{m.urlPoster}}" ng-click="enlargePoster($index)" width="70" data-toggle="modal" data-target=".bs-example-modal-sm"></td>
+                    <td>{{m.rating}}</td>
+                    <td>{{m.year}}</td>
+                    <td>
+                        {{m.plot}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+        <!-- Small modal -->
+        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <img ng-src="{{enlargedP}}" width="120%">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container">
+        <hr />
+        <h3>Implementation:</h3>
+        <p>
+            We first using Bootstrap's Modal plugin to create the placeholder for the enlarged image.
+            Within the modal divs, inside most we place an &lt;img&gt; tag with <code>ng-src</code> 
+            assigned as <i>{{enlargedP}}</i>, and we set the enlarged image size to 120% since the 
+            original image is small.
+        </p>
+
+        <code>
+            <pre>
+    &lt;div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true"&gt;
+        &lt;div class="modal-dialog modal-sm"&gt;
+            &lt;div class="modal-content"&gt;
+                <b>&lt;img ng-src="{{enlargedP}}" width="120%"&gt;</b>
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+</pre>
+        </code>
+
+        <p>
+            Then we need to deal with the original &lt;img&gt; tag. We add a <code>ng-click</code> directive to it,
+            calling the <code>enlargePoster($index)</code> function, the <i>$index</i> parameter is to keep track on
+            the current index of movie in movies. The <code>data-toggle="modal" data-target=".bs-example-modal-sm"</code>
+            is for the Bootstrap.
+        </p>
+        <code>
+            <pre>
+                &lt;td&gt;&lt;img ng-src="{{m.urlPoster}}" <b>ng-click="enlargePoster($index)"</b> width="70" <b>data-toggle="modal" data-target=".bs-example-modal-sm"</b>&gt;&lt;/td&gt;
+</pre>
+        </code>
+
+        <p>
+            Now comes to the JavaScript part. The <code>enlargePoster</code> function takes the current index as 
+            its parameter, by using <code>$scope.movies[index]</code> to get the current movie, and then add
+            <code>.urlPoster</code> to get the poster image of the current movie. Then assign the image to 
+            <code>$scope.enlargedP</code> to display the enlarged image.
+        </p>
+        <code>
+            <pre>
+    $scope.enlargePoster = function (index) {
+        $scope.enlargedP = $scope.movies[index].urlPoster;
+    }
+</pre>
+        </code>
+
+
+        <h3>Source Code:</h3>
+        <p>
+            <a href="../../fileview/Default.aspx?~/experiments/week4/3-angular-enlarge-image.html" target="_blank">HTML </a> <br />
+            <a href="../../fileview/Default.aspx?~/experiments/week4/js/3-ThirdApp.js" target="_blank">JavaScript </a>
+        </p>
+
+        <h3>References:</h3>
+        <p>
+            <a href="http://getbootstrap.com/javascript/">http://getbootstrap.com/javascript/</a><br />
+            <a href="https://github.com/jannunzi/CS5610-2015-spring-net4.ccs.neu.edu/tree/master/cs5610/experiments/angular">
+                https://github.com/jannunzi/CS5610-2015-spring-net4.ccs.neu.edu/tree/master/cs5610/experiments/angular
+            </a>
+        </p>
+
+
+    </div>
+
+</body>
+</html>

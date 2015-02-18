@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>AngularJS - Filter</title>
+    <script src="js/angular.min.js"></script>
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/general-style.css" rel="stylesheet" />
+    <script src="js/2-SecondApp.js"></script>
+
+</head>
+<body ng-app="FirstApp">
+
+    <div class="container" ng-controller="myCtrl">
+        <header>
+            <h1 id="page-title">AngularJS - Filter</h1>
+        </header>
+
+        <div id="instruction">
+            <p>
+                <i>
+                    <b>Description:</b>
+                    In the last experiment, we've implemented sorting the columns to help the professor to 
+                    locate his movie easier. If we could create a input field that type the keywords related
+                    to professor's target movie to narrow down the table results, it will help our professor
+                    find his movie even faster. So in this experiment, we will use the filter feature in 
+                    Filter component to implement that.
+                </i>
+            </p>
+            <p>
+                <i>
+                    <b>Instruction:</b>
+                    In the upper-left input field, type the movie name and click Search button. The default
+                    search name is "star wars". <br />
+                    In the upper-right input field, type the keyword(s) to narrow down the results. E.g. if 
+                    we want the "Star Wars: A New Hope" episode, just type "new hope" in the input field.
+                </i>
+            </p>
+        </div>
+
+        <hr />
+
+        <div class="row">
+
+            <div class="col-md-8">
+                <div class="input-group">
+                    <input ng-model="searchByTitle" type="text" class="form-control" placeholder="">
+                    <span class="input-group-btn">
+                        <button class="btn btn-success" ng-click="searchMovies()">Search</button>
+                    </span>
+                </div><!-- /input-group -->
+            </div>
+            <div class="col-md-4">
+                <input ng-model="filterText" type="text" class="form-control" placeholder="Enter keywords here...">
+            </div>
+
+            
+        </div>
+
+
+
+
+
+        <table class=" table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Poster</th>
+                    <th><span draggable="true" ng-click="reverse=!reverse; sortCol('rating', reverse)">Rating</span></th>
+                    <th><span draggable="true" ng-click="reverse=!reverse; sortCol('year', reverse)">Year</span></th>
+                    <th>Plot</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="m in movies | filter:filterText">
+                    <td>{{m.title}}</td>
+                    <td><img ng-src="{{m.urlPoster}}" width="70"></td>
+                    <td>{{m.rating}}</td>
+                    <td>{{m.year}}</td>
+                    <td>
+                        {{m.plot}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container">
+        <hr />
+        <h3>Implementation:</h3>
+        <p>
+            In the html, first we need to use <code>ng-model</code> to bind the input value to the application variable <b>filterText</b>.
+        </p>
+        <code>
+            <pre>
+&lt;input ng-model="filterText" type="text" class="form-control" placeholder="Enter keywords here..."&gt;
+
+</pre>
+        </code>
+
+        <p>
+            Then in the <code>ng-repeat</code> specification, we add <code>| filter:searchText</code> to filter
+            out the subset of array that contains the <i>searchText</i>.
+        </p>
+        <code>
+            <pre>
+&lt;tr ng-repeat="m in movies <b>| filter:searchText</b>"&gt;
+</pre>
+        </code>
+     
+
+        <h3>Source Code:</h3>
+        <p>
+            <a href="../../fileview/Default.aspx?~/experiments/week4/2-angular-filter.html" target="_blank">HTML </a> <br />
+            <a href="../../fileview/Default.aspx?~/experiments/week4/js/2-SecondApp.js" target="_blank">JavaScript </a>
+        </p>
+
+        <h3>References:</h3>
+        <p>
+            <a href="http://www.w3schools.com/angular/angular_filters.asp">http://www.w3schools.com/angular/angular_filters.asp</a><br />
+            <a href="https://github.com/jannunzi/CS5610-2015-spring-net4.ccs.neu.edu/tree/master/cs5610/experiments/angular">
+                https://github.com/jannunzi/CS5610-2015-spring-net4.ccs.neu.edu/tree/master/cs5610/experiments/angular
+            </a>        
+        </p>
+
+
+    </div>
+
+</body>
+</html>

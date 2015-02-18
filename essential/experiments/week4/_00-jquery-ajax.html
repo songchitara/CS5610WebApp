@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script>
+        $(function ()
+        {
+            $("#getMovies").click(function () {
+                var title = $("#title").val();
+                $.ajax({
+                    url: "http://www.myapifilms.com/imdb?title=" + title + "&format=JSONP&aka=0&business=0&seasons=0&seasonYear=0&technical=0&filter=N&exactFilter=0&limit=10&lang=en-us&actors=N&biography=0&trailer=0&uniqueName=0&filmography=0&bornDied=0&starSign=0&actorActress=0&actorTrivia=0&movieTrivia=0&awards=0&moviePhotos=N&movieVideos=N",
+                    dataType: "jsonp",
+                    success: renderMovies
+                });
+            });
+
+
+            
+        });
+        function renderMovies(movies, status, jqxhr) {
+            var parent = $("#movies");
+            var template = parent.find(".template");
+            parent.empty();
+            for (var m in movies) {
+                var movie = movies[m];
+                var title = movie.title;
+                var plot = movie.plot;
+                var urlPoster = movie.urlPoster;
+
+                
+                var item = template.clone(); // clone the template
+                item.find(".title").html(title); // replace the template title with our title
+                item.find(".plot").html(plot); // replace the template plot with our plot
+                item.find(".poster").attr("src", urlPoster); // replace the template poster with our poster
+                parent.append(item);
+            }
+        }
+    </script>
+</head>
+   
+<body>
+    <input id="title" placeholder="Title" />
+    <button id="getMovies">get movies</button>
+    <ul id="movies">
+        <li class="template">
+            <span class="title">Title goes here</span>
+            <p class="plot">
+                Plot goes here
+            </p>
+            <img class="poster" src="http://placehold.it/300x400" />
+        </li>
+    </ul>
+</body>
+</html>

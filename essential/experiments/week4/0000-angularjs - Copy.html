@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Simple Movie Library</title>
+    <script src="js/angular.min.js"></script>
+    <script src="js/MoviesApp.js"></script>
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+
+</head>
+<body ng-app="MoviesApp">
+
+
+    <div ng-controller="MovieController" class="container">
+        <h1>Simple Movie Library</h1>
+
+        <p>
+            <!--<i>{{movies}}</i>-->
+        </p>
+
+        <h2>Details</h2>
+        <h3>{{details.title}}</h3>
+        <p>{{details.plot}}</p>
+        <img src="{{details.urlPoster}}"/>
+
+
+        <h2>Favorite Movies</h2>
+        <table class="table">
+            <tbody>
+                <tr ng-repeat="movie in favoriteMovies">
+                    <td>{{movie.title}}</td>
+                    <td>{{movie.year}}</td>
+                    <td>{{movie.rating}}</td>
+                    <td>
+                        <button ng-click="detailsMovie(movie)" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </button>
+                        <button ng-click="removeFavoriteMovie(movie)" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h2>Search Movies</h2>
+        <div class="input-group">
+            <input ng-model="searchByTitle" type="text" class="form-control" placeholder="Search for...">
+            <span class="input-group-btn">
+                <button class="btn btn-default" ng-click="searchMovies()">Search</button>
+            </span>
+        </div><!-- /input-group -->
+
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Year</th>
+                    <th>Plot</th>
+                    <th>&nbsp;</th>
+                </tr>
+                <tr>
+                    <td><input ng-model="movie.title" class="form-control" /></td>
+                    <td><input ng-model="movie.year"  class="form-control" /></td>
+                    <td><input ng-model="movie.plot"  class="form-control" /></td>
+                    <td>
+                        <button ng-click="addMovie()" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                        <button ng-click="updateMovie()" class="btn btn-success">
+                            <span class="glyphicon glyphicon-ok"></span>
+                        </button>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="m in movies">
+                    <td>{{m.title}}</td>
+                    <td>{{m.year}}</td>
+                    <td>
+                        <img ng-src="{{m.urlPoster}}" width="50" style="float:left"/>
+                        {{m.plot}}
+                    </td>
+                    <td>
+                        <button ng-click="editMovie(m)" class="btn btn-warning">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                        <button ng-click="removeMovie(m)" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                        <button ng-click="addToFavorites(m)" class="btn btn-info">
+                            <span class="glyphicon glyphicon-star"></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        {{movies}}
+    </div>
+
+</body>
+</html>

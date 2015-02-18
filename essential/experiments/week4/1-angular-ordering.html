@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>AngularJS - Ordering</title>
+    <script src="js/angular.min.js"></script>
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/general-style.css" rel="stylesheet" />
+    <script src="js/1-FirstApp.js"></script>
+
+</head>
+<body ng-app="FirstApp">
+
+    <div class="container" ng-controller="myCtrl">
+        <header>
+            <h1 id="page-title">AngularJS - Ordering</h1>
+        </header>
+
+        <div id="instruction">
+            <p>
+                <i>
+                    <b>Description:</b>
+                    We already know how to fetch data and put them into a table in AngularJS through
+                    professor's example. During the class demo, I noticed that when professor searched
+                    for some movie names and got the results into tables, he had to scroll up and down
+                    to find the exactly movie he was looking for. If we can sort the results by year or rating, 
+                    it will be easier for the professor to look for his movie. <br />
+                    So in this experiment, I will use the orderBy feature from
+                    the $filter ng component to sort columns of table. 
+                </i>
+            </p>
+            <p>
+                <i>
+                    <b>Instruction:</b>
+                    Click "Search" button to get movies from remote server, the Rating and Year columns
+                    are sortable, click on either <b>Rating</b> or <b>Year</b> sort the respective
+                    columns. Multiple clicks can toggle sort between ascending and descending. 
+                </i>
+            </p>
+        </div>
+
+        <hr />
+
+        <div class="input-group col-sm-4">
+            <input ng-model="searchByTitle" type="text" class="form-control"  placeholder="">
+            <span class="input-group-btn">
+                <button class="btn btn-success" ng-click="searchMovies()">Search</button>
+            </span>
+        </div><!-- /input-group -->
+
+        <table class=" table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Poster</th>
+                    <th><span draggable="true" ng-click="reverse=!reverse; sortCol('rating', reverse)">Rating</span></th>
+                    <th><span draggable="true" ng-click="reverse=!reverse; sortCol('year', reverse)">Year</span></th>
+                    <th>Plot</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="m in movies">
+                    <td>{{m.title}}</td>
+                    <td><img ng-src="{{m.urlPoster}}" width="70"></td>
+                    <td>{{m.rating}}</td>
+                    <td>{{m.year}}</td>
+                    <td>
+                        {{m.plot}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    
+
+    <div class="container">
+        <hr />
+        <h3>Implementation:</h3>
+        <p>
+            In the HTML file, we first need to add the <code>ng-click</code> directive to
+            to elements where the two Rating and Year. There should be two events for 
+            the <code>ng-click</code>, one is <code>"reverse=!reverse"</code>, which is 
+            used to toggle reverse the sorting results, another is <code>sortCol()</code>
+            to call the sorting method we've wrote.
+        </p>
+        <code>
+            <pre>
+&lt;th&gt;&lt;span draggable="true" <b>ng-click="reverse=!reverse; sortCol('rating', reverse)"</b>&gt;Rating&lt;/span&gt;&lt;/th&gt;
+&lt;th&gt;&lt;span draggable="true" <b>ng-click="reverse=!reverse; sortCol('year', reverse)"</b>&gt;Year&lt;/span&gt;&lt;/th&gt;
+
+</pre>
+        </code>
+
+        <p>
+            In the JavaScript, first add <code>$filter</code> as the argument our controller function.
+        </p>
+        <code>
+            <pre>
+app.controller("myCtrl",
+function (... <b>$filter</b>) {
+    ...
+}
+</pre>
+        </code>
+
+        <p>
+            Then withn the function, we add the code below. The <code>$filter('orderBy')(array, expression [, reverse])</code> is
+            the syntax to using the orderBy feature of the Filter ng component. Where array is the
+            array to sort, and the expression is a predicate to be used by the comparator to determine 
+            the order of elements, and the reverse is to reverse the order of the array. <br />
+            The <code>sortCol()</code> function pass the two variable predicate and reverse to 
+            the <code>orderBy()</code> function. The <code>orderBy()</code> function takes
+            <i>$scope.movies</i>, <i>predicate</i> and <i>reverse</i> arguments to sort the array,
+            and then update the <i>$scope.movies</i>.
+        </p>
+        <code>
+            <pre>
+var orderBy = $filter("orderBy");
+$scope.sortCol = function (predicate, reverse) {
+$scope.movies = orderBy($scope.movies, predicate, reverse);
+}
+</pre>
+        </code>
+
+        <h3>Source Code:</h3>
+        <p>
+            <a href="../../fileview/Default.aspx?~/experiments/week4/1-angular-ordering.html" target="_blank">HTML </a> <br />
+            <a href="../../fileview/Default.aspx?~/experiments/week4/js/1-FirstApp.js" target="_blank">JavaScript </a>
+        </p>
+
+        <h3>References:</h3>
+        <p>
+            <a href="https://docs.angularjs.org/api/ng/filter/orderBy">https://docs.angularjs.org/api/ng/filter/orderBy</a> <br />
+            <a href="https://github.com/jannunzi/CS5610-2015-spring-net4.ccs.neu.edu/tree/master/cs5610/experiments/angular">
+                https://github.com/jannunzi/CS5610-2015-spring-net4.ccs.neu.edu/tree/master/cs5610/experiments/angular
+            </a>
+        </p>
+
+
+    </div>
+
+</body>
+</html>

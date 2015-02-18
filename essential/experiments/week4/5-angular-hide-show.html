@@ -1,0 +1,261 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>AngularJS - Hide/Show</title>
+    <script src="js/angular.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/general-style.css" rel="stylesheet" />
+    <script src="js/5-FifthApp.js"></script>
+
+</head>
+<body ng-app="FirstApp">
+
+    <div class="container" ng-controller="myCtrl">
+        <header>
+            <h1 id="page-title">AngularJS - Hide/Show</h1>
+        </header>
+
+        <div id="instruction">
+            <p>
+                <i>
+                    <b>Description:</b>
+                    Now that we got the moives displaying in the table, it will be more nifty if we can edit the table columns to customize 
+                    which information of the movies to show/hide. So in this experiment, I'll implement this feature by using the AngluarJS
+                    <b>ng-hide</b> directive.
+                </i>
+            </p>
+            <p>
+                <i>
+                    <b>Instruction:</b>
+                    In the upper-left input field, type the movie name and click Search button. The default
+                    search name is "star wars". <br />
+                    Click on the <b>Edit Columns</b> dropdown button and customize the columns to show/hide. 
+                </i>
+            </p>
+        </div>
+
+        <hr />
+
+
+        
+
+        <h3>Favorite Movies ({{numOfFavors}})</h3>
+        <table class="table">
+            <tbody>
+                <tr draggable="true" ng-repeat="movie in favoriteMovies" ng-dblclick="removeFavoriteMovie(movie)">
+                    <td><img ng-src="{{movie.urlPoster}}" width="50" /></td>
+                    <td>{{movie.title}}</td>
+                    <td>{{movie.rating}}</td>
+                    <td>{{movie.year}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="input-group">
+                    <input ng-model="searchByTitle" type="text" class="form-control" placeholder="">
+                    <span class="input-group-btn">
+                        <button class="btn btn-success" ng-click="searchMovies()">Search</button>
+                    </span>
+                </div><!-- /input-group -->
+            </div>
+
+            <div class="col-md-4">
+                <input ng-model="filterText" type="text" class="form-control" placeholder="Enter keywords here...">
+            </div>
+
+            <div class="col-md-4">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                        Edit Columns
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+
+                        <li role="presentation">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" checked="" ng-click="togglePoster()"> Poster
+                                </label>
+                            </div>
+                        </li>
+
+                        <li role="presentation">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" checked="" ng-click="toggleRating()"> Rating
+                                </label>
+                            </div>
+                        </li>
+
+                        <li role="presentation">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" checked="" ng-click="toggleYear()"> Year
+                                </label>
+                            </div>
+                        </li>
+
+                        <li role="presentation">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" checked="" ng-click="togglePlot()"> Plot
+                                </label>
+                            </div>
+
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <table class=" table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th ng-hide="tPoster">Poster</th>
+                    <th ng-hide="tRating"><span draggable="true" ng-click="reverse=!reverse; sortCol('rating', reverse)">Rating</span></th>
+                    <th ng-hide="tYear"><span draggable="true" ng-click="reverse=!reverse; sortCol('year', reverse)">Year</span></th>
+                    <th ng-hide="tPlot">Plot</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr draggable="true" ng-repeat="m in movies | filter:filterText" ng-dblclick="addToFavorites(m)">
+                    <td>{{m.title}}</td>
+                    <td ng-hide="tPoster"><img ng-src="{{m.urlPoster}}" ng-click="enlargePoster($index)" width="70" data-toggle="modal" data-target=".bs-example-modal-sm"></td>
+                    <td ng-hide="tRating">{{m.rating}}</td>
+                    <td ng-hide="tYear">{{m.year}}</td>
+                    <td ng-hide="tPlot">
+                        {{m.plot}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+        <!-- Small modal -->
+        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <img ng-src="{{enlargedP}}" width="120%">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container">
+        <hr />
+        <h3>Implementation:</h3>
+        <p>
+            In the HTML, first add a bootstrap dropdown button named <b>Edit Columns</b>.
+        </p>
+        <code>
+            <pre>
+        &lt;div class="dropdown"&gt;
+        &lt;button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true"&gt;
+                Edit Columns
+        &lt;span class="caret"&gt;&lt;/span&gt;
+            &lt;/button&gt;
+            .
+            .
+            .
+        &lt;/div&gt;
+</pre>
+        </code>
+
+        <p>
+            Then add the dropdown lists to the button. In each list, we bind the toggle functions to the <code>ng-click</code> directive, e.g.
+            in the "Poster" list, we have <code>ng-click="togglePoster()"</code>.
+        </p>
+        <code>
+            <pre>
+        &lt;ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1"&gt;
+        &lt;li role="presentation"&gt;
+        &lt;div class="checkbox"&gt;
+            &lt;label&gt;
+                &lt;input type="checkbox" checked="" <b>ng-click="togglePoster()" </b> &gt;Poster
+            &lt;/label&gt;
+        &lt;/div&gt;
+        &lt;/li&gt;
+            .
+            .
+            .
+        &lt;/ul&gt;
+</pre>
+        </code>
+
+        <p>
+            In the tables, for the columns we want to have the hide/show feature, we need to set the <code>ng-hide</code> value
+            in both their <code>&lt;th&gt;</code> and <code>&lt;td&gt;</code>.
+        </p>
+        <code>
+            <pre>
+            &lt;thead&gt;
+            &lt;tr&gt;
+            &lt;th&gt;Title&lt;/th&gt;
+            &lt;th <b>ng-hide="tPoster"</b>&gt;Poster&lt;/th&gt;
+            &lt;th <b>ng-hide="tRating"</b>&gt;&lt;span draggable="true" ng-click="reverse=!reverse; sortCol('rating', reverse)"&gt;Rating&lt;/span&gt;&lt;/th&gt;
+                .
+                .
+                .
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+            &lt;tbody&gt;
+            &lt;tr draggable="true" ng-repeat="m in movies | filter:filterText" ng-dblclick="addToFavorites(m)"&gt;
+            &lt;td&gt;{{m.title}}&lt;/td&gt;
+            &lt;td <b>ng-hide="tPoster"</b>&gt;&lt;img ng-src="{{m.urlPoster}}" ng-click="enlargePoster($index)" width="70" data-toggle="modal" data-target=".bs-example-modal-sm"&gt;&lt;/td&gt;
+            &lt;td <b>ng-hide="tRating"</b>&gt;{{m.rating}}&lt;/td&gt;
+                .
+                .
+                .
+            </pre>
+        </code>
+
+        <p>
+            In the JavaScript, we write the toggle functions. We take the Plot as the example, by setting the <code>$scope.tPlot</code>
+            to <code>!$scope.tPlot</code>, the toggle features are completed.
+        </p>
+        <code>
+            <pre>
+    $scope.togglePlot = function () {
+        $scope.tPlot = !$scope.tPlot;
+    }
+</pre>
+        </code>
+
+
+        <h3>Source Code:</h3>
+        <p>
+            <a href="../../fileview/Default.aspx?~/experiments/week4/5-angular-hide-show.html" target="_blank">HTML </a> <br />
+            <a href="../../fileview/Default.aspx?~/experiments/week4/js/5-FifthApp.js" target="_blank">JavaScript </a>
+        </p>
+
+        <h3>References:</h3>
+        <p>
+            <br />
+            <a href="http://www.w3schools.com/angular/angular_events.asp">http://www.w3schools.com/angular/angular_events.asp</a> <br />
+            <a href="http://getbootstrap.com/components/#dropdowns">http://getbootstrap.com/components/#dropdowns</a> <br />
+            <a href="https://github.com/jannunzi/CS5610-2015-spring-net4.ccs.neu.edu/tree/master/cs5610/experiments/angular">
+                https://github.com/jannunzi/CS5610-2015-spring-net4.ccs.neu.edu/tree/master/cs5610/experiments/angular
+            </a>
+        </p>
+
+
+    </div>
+
+</body>
+</html>

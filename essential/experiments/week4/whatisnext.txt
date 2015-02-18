@@ -1,0 +1,5 @@
+﻿1-angular-ordering.html AngularJS - Ordering
+2-angular-filter.html AngularJS - Filter
+3-angular-enlarge-image.html AngularJS & Boostrape - Enlarge Image
+4-angular-dblclick.html AngularJS - DoubleClick
+5-angular-hide-show.html AngularJS - Hide/Show
