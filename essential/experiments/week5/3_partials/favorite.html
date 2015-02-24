@@ -1,0 +1,12 @@
+﻿
+<h2>Favorite Movies ({{numOfFavors}})</h2>
+<table class="table">
+    <tbody>
+        <tr draggable="true" ng-repeat="movie in favoriteMovies" ng-dblclick="removeFavoriteMovie(movie)">
+            <td><img ng-src="{{movie.urlPoster}}" width="50" /></td>
+            <td>{{movie.title}}</td>
+            <td>{{movie.rating}}</td>
+            <td>{{movie.year}}</td>
+        </tr>
+    </tbody>
+</table>

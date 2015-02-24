@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>AngularJS Routing - Basic Route</title>
+    <script src="../../freq/angular.min.js"></script>
+    <script src="../../freq/angular-route.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../../freq/bootstrap/js/bootstrap.js"></script>
+    <link href="../../freq/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="css/general-style.css" rel="stylesheet" />
+    <script src="js/1.js"></script>
+    <script src="js/1-service.js"></script>
+</head>
+
+<body ng-app="MovieApp">
+    <div class="container">
+        <header>
+            <h1 id="page-title">AngularJS Routing - Basic Route</h1>
+        </header>
+
+        <div id="instruction">
+            <p>
+                <i>
+                    <b>Description:</b>
+                    This experiment I will implement the basic route between two pages: <a>home.html</a> and <a>favorite.html</a>
+                </i>
+            </p>
+            <p>
+                <i>
+                    <b>Instruction:</b>
+                    Click <b>Home</b> or <b>Favorite</b> to route to different pages.
+                </i>
+            </p>
+        </div>
+
+        <hr />
+    </div>
+
+    <div class="container">
+        <nav>
+            <a href="#/home">Home</a> |
+            <a href="#/favorite">Favorite</a>
+        </nav>
+        <div ng-view>
+        </div>
+    </div>
+
+    <div class="container">
+        <hr />
+        <div>
+            <h3>Implementation</h3>
+            <p>
+                In the html, we first create the <code>Home</code> and <code>Favorite</code> navigation links.
+            </p>
+            <code>
+                <pre>
+&lt;nav&gt;
+&lt;a href="#/home"&gt;Home&lt;/a&gt; |
+&lt;a href="#/favorite"&gt;Favorite&lt;/a&gt;
+&lt;/nav&gt;
+</pre>
+            </code>
+            
+            <p>
+                THen we create the <code>ng-view</code> placeholder.
+            </p>
+            <code>
+                <pre>
+&lt;div ng-view&gt;
+&lt;/div&gt;
+</pre>
+            </code>
+
+            <p>In the javascript, now we set the <code>ngRoute</code> parameter.</p>
+            <code>
+                <pre>
+ var app = angular.module('MovieApp',<b>['ngRoute']</b> );
+
+</pre>
+            </code>
+
+            <p>
+                Then we need to config the route by set the <code>app.config</code>. We use the <code>$routeProvider</code>
+                service, when <code>'/home'</code>, navigate to the <a>home.html</a>; when <code>'/favorite'</code>, navigate
+                to <a>favorite.html</a>, otherwise all navigate to <a>home.html</a>.
+            </p>
+            <code>
+                <pre>
+app.config(['$routeProvider',
+    function ($routeProvider) {
+        $routeProvider.
+        when('/home', {
+            templateUrl: 'partials/home.html'
+        }).
+        when('/favorite', {
+            templateUrl: 'partials/favorite.html'
+        }).
+        otherwise({
+            redirectTo: '/home'
+        })
+    }
+])
+</pre>
+            </code>
+        </div>
+
+        <hr />
+        <h3>Source Code:</h3>
+        <p>
+            <a href=""></a>
+            <a href="../../fileview/Default.aspx?~/experiments/week5/1.html" target="_blank">1.html </a> <br />
+            <a href="../../fileview/Default.aspx?~/experiments/week5/js/1.js" target="_blank">1.js </a>
+        </p>
+
+        <h3>References:</h3>
+        <p>
+            <a href="https://github.com/jannunzi/CS5610-2015-spring-net4.ccs.neu.edu/tree/master/cs5610/experiments/ngRouting">
+                https://github.com/jannunzi/CS5610-2015-spring-net4.ccs.neu.edu/tree/master/cs5610/experiments/ngRouting
+            </a>
+        </p>
+        
+    </div>
+
+</body>
+
+</html>

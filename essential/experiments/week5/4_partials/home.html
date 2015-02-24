@@ -1,0 +1,213 @@
+﻿<div class="container">
+    <header>
+        <h1 id="page-title">AngularJS Routing - Login/Logout</h1>
+    </header>
+
+    <div class="col-md-1"></div>
+
+
+    <div class="col-md-10">
+
+        <p>
+
+            <div>
+                <b>Description:</b> <br />
+                In this experiment, I'll implement the login/logout feature for my angularjs routing page. 
+                After success login, the name of the user will appear at the top-right of the page and
+                the role of the user will be shown in the parenthesis. 
+
+            </div>
+        </p>
+
+        <p>
+            <div>
+                <b>Instruction:</b> <br />
+                Enter the correct username and password in the input field, and click the <b>Sign in</b> button
+                to login. After success login, the name of the user will appear at the top-right of the page and
+                the role of the user will be shown in the parenthesis. To logout, simply click the <b>logout</b>
+                link at the top-right of the page. Below are some credentials for testing, using any of the 
+                username and password to login, and check if the role is correct. <br />
+                <code>
+                    { username: "alice", password: "alice", role: "admin", courses: [] }, <br />
+                    { username: "bob", password: "bob", role: "faculty", courses: [1003, 1004, 1005] }, <br />
+                    { username: "charlie", password: "charlie", role: "student", courses: [1002, 1003, 1004] }, <br />
+                    { username: "dan", password: "dan", role: "faculty", courses: [1001, 1003, 1005, 1006] }
+                </code>
+                
+            </div>
+        </p>
+
+        <hr /> <!--Horizontal line-->
+
+     
+        <h3>Implementation:</h3>
+        
+        <p>
+            We first in the html create the input areas and button for login. The whole login html will only
+            show when there is no user signed in, so in the &lt;form&gt; tag, we set <code>ng-show="!currentUser"</code>
+            fulfill that.    We also need to bind the input username and password to our controller, thus we set 
+            <code>ng-model="username"</code> in the Username input field and set <code>ng-model="password"</code> in 
+            the Password input field.   Once we click the <b>Sign in</b> button, the <code>login()</code> function need to envoke,
+             so we set <code>ng-click="login()"</code> in the button element.
+        </p>
+
+        <code>
+            <pre>
+&lt;form class="navbar-form navbar-right" <b>ng-show="!currentUser"</b>&gt;
+    &lt;div class="form-group"&gt;
+    &lt;input <b>ng-model="username"</b> type="text" placeholder="Username" class="form-control"&gt;
+            &lt;/div&gt;
+    &lt;div class="form-group"&gt;
+    &lt;input <b>ng-model="password"</b> type="password" placeholder="Password" class="form-control"&gt;
+            &lt;/div&gt;
+    &lt;button <b>ng-click="login()"</b> type="button" class="btn btn-success"&gt;Sign in&lt;/button&gt;
+&lt;/form&gt;
+</pre>
+        </code>
+
+
+        <p>
+            To show the current user and his/her role in the top-right corner of the page once signed in, 
+            we just put the username and role bindings <code ng-non-bindable>{{currentUser.username}}({{currentUser.role}})</code>
+            to the html where we want them to show. 
+            <br /><br />
+            To logout, we call the <code>logout()</code> function once we click on the <b>Logout</b> link.
+            
+        </p>
+        <code ng-non-bindable>
+            <pre>
+&lt;ul class="nav navbar-nav navbar-right"&gt;
+    &lt;li ng-show="currentUser"&gt;&lt;a href=""&gt;Hi, <b>{{currentUser.username}}({{currentUser.role}})</b>&lt;/a&gt;&lt;/li&gt;
+    &lt;li ng-show="currentUser" <b>ng-click="logout()"</b>&gt;&lt;a href="#/home"&gt;Logout&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</pre>
+        </code>
+
+    <p>
+       In NavController, we first intialize <code> currentUser</code> to <code>null</code>. The <code>login</code> function
+        first create two variables to store the username and password, then pass those varibles to the <code>login()</code>
+        function in the <code>UserService</code> service.
+    </p>
+        <code>
+            <pre>
+app.controller("NavController", function ($scope, UserService) {
+    $scope.currentUser = null;
+    .
+    .
+    .
+    // login
+    $scope.login = function () {
+        var username = $scope.username;
+        var password = $scope.password;
+        $scope.currentUser = UserService.login(username, password);
+    }
+});
+</pre>
+        </code>
+
+    <p>
+         The <code>login</code> function <b>UserService</b> interate over each user in <code>users</code>,
+        compare the username and password, if both are match, them return that user. Otherwise return <code>null</code>.
+        We also need the expose the <code>login</code> function, in <code>return</code> object.
+    </p>
+    <code>
+        <pre>
+app.factory("UserService", function () {
+    var currentUser = null;
+    .
+    .
+    .
+            <b>
+    var login = function (username, password) {
+        for (var u in users) {
+            if (users[u].username == username) {
+                if (users[u].password == password) {
+                    currentUser = users[u];
+                    return users[u];
+                }
+            }
+        }
+        return null;
+    };
+    </b>
+    
+    return {
+        <b>login: login,</b>
+        logout: logout,
+        getCurrentUser: getCurrentUser,
+        getUsers:getUsers
+    };
+});
+</pre>
+    </code>
+    
+    <p>
+        To logout, in NavController, the <code>logout</code> function set the <code>currentUser</code> to <code>null</code>,
+        call the <code>logout()</code> function in <code>UserService</code>, and then set the <code>username</code> and 
+        <code>password</code> to <code>null</code>.
+    </p>
+    
+<code>
+    <pre>
+app.controller("NavController", function ($scope, UserService) {
+    $scope.currentUser = null;
+    // logout
+     $scope.logout = function () {
+        $scope.currentUser = null;
+        UserService.logout();
+        $scope.username = null;
+        $scope.password = null;
+    }
+    .
+    .
+    .
+});
+</pre>
+</code>
+        <p>
+            In the <code>UserService</code>, the <code>logout</code> function set the <code>currentUser</code> to <code>null</code>.
+            Also, we expose the <code>logout</code> in <code>return</code> object.
+        </p>
+        <code>
+            <pre>
+app.factory("UserService", function () {
+    .
+    .
+    .
+  <b>
+    var logout = function () {
+        currentUser = null;
+    }
+      </b>
+    .
+    .
+    .
+    return {
+        login: login,
+        <b>logout: logout,</b>
+        getCurrentUser: getCurrentUser,
+        getUsers:getUsers
+    };
+});
+</pre>
+        </code>
+
+        <h3>Source Code:</h3>
+        <p>
+            <a href=""></a>
+            <a href="../../fileview/Default.aspx?~/experiments/week5/4.html" target="_blank">4.html </a> <br />
+            <a href="../../fileview/Default.aspx?~/experiments/week5/js/4.js" target="_blank">4.js </a>
+        </p>
+
+        <h3>References:</h3>
+        <p>
+            <a href="https://github.com/jannunzi/CS5610-2015-spring-net4.ccs.neu.edu/tree/master/cs5610/experiments/ngRouting">
+                https://github.com/jannunzi/CS5610-2015-spring-net4.ccs.neu.edu/tree/master/cs5610/experiments/ngRouting
+            </a>
+        </p>
+
+    </div> <!--main div-->
+
+    <div class="col-md-1"></div>
+
+</div> <!-- /container -->

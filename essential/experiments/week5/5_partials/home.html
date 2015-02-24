@@ -1,0 +1,202 @@
+﻿<div class="container">
+    <header>
+        <h1 id="page-title">AngularJS Routing - Profiles</h1>
+    </header>
+
+    <div class="col-md-1"></div>
+
+
+    <div class="col-md-10">
+
+        <p>
+
+            <div>
+                <b>Description:</b> <br />
+                In this experiment, I will diplay the different profiles based on different role types. The <b>admin</b> can
+                view all users, their roles, related courses, and all courses. The <b>faculty</b> can view the courses he/she 
+                is teaching, the <b>student</b> can view the courses he/she has registered.
+
+            </div>
+        </p>
+
+        <p>
+            <div>
+                <b>Instruction:</b> <br />
+                Enter the correct username and password in the input field, and click the <b>Sign in</b> button
+                to login.
+
+                <br />
+                Using any of the username and password below to login: <br />
+                <code>
+                    { username: "alice", password: "alice", role: "admin", courses: [] }, <br />
+                    { username: "bob", password: "bob", role: "faculty", courses: [1003, 1004, 1005] }, <br />
+                    { username: "charlie", password: "charlie", role: "student", courses: [1002, 1003, 1004] }, <br />
+                    { username: "dan", password: "dan", role: "faculty", courses: [1001, 1003, 1005, 1006] } <br />
+                </code>
+                After success login, the Profile nav link will appear at the navigation bar, try users with different
+                roles to see the different display content in Profile. e.g.<br />
+                username: <b>"alice"</b>, password: <b>"alice"</b>, role: "admin" <br />
+                username: <b>"bob"</b>, password: <b>"bob"</b>, role: "faculty" <br />
+                username: <b>"charlie"</b>, password: <b>"charlie"</b>, role: "student" 
+
+            </div>
+        </p>
+
+        <hr /> <!--Horizontal line-->
+
+
+        <h3>Implementation:</h3>
+    <p>
+        To trigger the <code>Profile</code> link display after success login, use the html below. Use <code>ng-show="currentUser"</code> to
+        only diplay the profile when currentUser exists. 
+    </p>
+    <code>
+        <pre>
+&lt;li <b>ng-show="currentUser"</b>&gt;&lt;a href="#/profile/{{currentUser.username}}"&gt;Profile&lt;/a&gt;&lt;/li&gt;
+</pre>
+    </code>
+
+        <p>
+            In the <b>profile.html</b>, we controll the different displays with different roles.
+        </p>
+        <p>
+            To display the content when the current user role is "faculty", set <code>ng-show="currentUser.role=='faculty'"</code>. 
+            For faculty, we need to display the courses he/she is teaching. The course information contains course id and
+            course title. So in the table row, we repeat <code>ng-repeat</code>, iterate over the <code>courseObjs</code>, where 
+            the <code>courseObjs</code> is the courses this faculty is teaching, and it contains course id and course title.
+            We place the <code ng-non-bindable>{{courseObj.id}}</code> and <code ng-non-bindable>{{courseObj.title}}</code>
+            in different table data cells separately to diplay the course # and course title.
+        </p>
+        <code ng-non-bindable>
+            <pre>
+&lt;div <b>ng-show="currentUser.role=='faculty'"</b>&gt;
+    &lt;h2&gt;Courses Teaching&lt;/h2&gt;
+    &lt;table class="table table-striped table-hover"&gt;
+        &lt;thead&gt;
+        &lt;tr&gt;
+        &lt;th&gt;Course #&lt;/th&gt;
+        &lt;th&gt;Title&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+        &lt;tbody&gt;
+        &lt;tr <b>ng-repeat="courseObj in courseObjs"</b>&gt;
+        &lt;td&gt;<b>{{courseObj.id}}</b>&lt;/td&gt;
+        &lt;td&gt;<b>{{courseObj.title}}</b>&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+    &lt;/table&gt;
+&lt;/div&gt;
+</pre>
+        </code>
+
+    <p>
+        In the <code>courseController</code>, we create the <code>courseObj</code> by call the 
+        <code>getCoursesByIds</code> function from <code>CourseService</code>.
+    </p>
+    <code>
+        <pre>
+$scope.courseObjs = CourseService.getCoursesByIds($scope.currentUser.courses);
+</pre>
+    </code>
+
+    <p>
+        The <code>getCoursesByIds</code> function from CourseService is defined as below. First create
+        an empty courseObj array. Then we use double loop to iterate over all the <code>course</code>
+        and the given parameter <code>ids</code>. To practice different way to implement loops, the outter
+        loop I'm using <code>$.each</code> and the inner loop I'm using <code>for...in</code>. Basically,
+        the double for-loop match the given ids with courses and push the finded courses to <code>coursesObj</code>
+        array.
+    </p>
+    <code>
+        <pre>
+var getCoursesByIds = function (ids) {
+    var coursesObj = []
+    $.each(courses, function (index, course) {
+        for (var i in ids) {
+            if (course.id == ids[i]) {
+                coursesObj.push(course);
+            }
+        }
+    })
+    return coursesObj;
+}
+
+</pre>
+    </code>
+
+    <p>The way to create <b>student</b> profile display is similar with <b>faculty</b>.</p>
+
+    <p>
+        Now to create the profile for <b>admin</b>. The <b>admin</b> can view all the users information as well as 
+        the course information. Similar to the <b>faculty</b>, we first create the placeholder html for admin.
+        Let's take the users information as an example, we set <code>ng-repeat="user in users"</code> to iterate
+        over the existing users and place their information into the table.
+    </p>
+    <code ng-non-bindable>
+        <pre>
+&lt;div ng-show="currentUser.role=='admin'"&gt;
+            &lt;h2&gt;Users&lt;/h2&gt;
+            &lt;table class="table table-striped table-hover"&gt;
+            &lt;thead&gt;
+            &lt;tr&gt;
+            &lt;th&gt;Username&lt;/th&gt;
+            &lt;th&gt;Role&lt;/th&gt;
+            &lt;th&gt;Courses&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+            &lt;tbody&gt;
+            &lt;tr <b>ng-repeat="user in users"</b>&gt;
+            &lt;td&gt;<b>{{user.username}}</b>&lt;/td&gt;
+            &lt;td&gt;<b>{{user.role}}</b>&lt;/td&gt;
+            &lt;td&gt;<b>{{user.courses}}</b>&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+    .
+    .
+    .
+&lt;/div&gt;
+
+</pre>
+    </code>
+
+    <p>
+        In the <code>ProfileController</code>, we create <code>users</code> by call the  <code>getUsers()</code>
+        function from <code>UserService</code>.
+    </p>
+    <code>
+        <pre>
+$scope.users = UserService.getUsers();
+</pre>
+    </code>
+
+    <p>
+        In the <code>UserService</code>, we just return <code>users</code> in <code>getUsers</code> function.
+    </p>
+    <code>
+        <pre>
+var getUsers = function () {
+        return users;
+}
+</pre>
+    </code>
+
+        <h3>Source Code:</h3>
+        <p>
+            <a href=""></a>
+            <a href="../../fileview/Default.aspx?~/experiments/week5/5.html" target="_blank">5.html </a> <br />
+            <a href="../../fileview/Default.aspx?~/experiments/week5/5_partials/profile.html" target="_blank">profile.html </a> <br />
+            <a href="../../fileview/Default.aspx?~/experiments/week5/js/5.js" target="_blank">5.js </a>
+        </p>
+
+        <h3>References:</h3>
+        <p>
+            <a href="https://github.com/jannunzi/CS5610-2015-spring-net4.ccs.neu.edu/tree/master/cs5610/experiments/ngRouting">
+                https://github.com/jannunzi/CS5610-2015-spring-net4.ccs.neu.edu/tree/master/cs5610/experiments/ngRouting
+            </a>
+        </p>
+
+    </div> <!--main div-->
+
+    <div class="col-md-1"></div>
+
+</div> <!-- /container -->

@@ -1,0 +1,107 @@
+﻿<h1>
+    Home
+</h1>
+
+<div class="row">
+
+    <!--Search area-->
+    <div class="col-sm-4">
+        <div class="input-group">
+            <input ng-model="searchByTitle" type="text" class="form-control" placeholder="">
+            <span class="input-group-btn">
+                <button class="btn btn-success" ng-click="searchMovies()">Search</button>
+            </span>
+        </div>
+    </div>
+
+    <!--Keywords area-->
+    <div class="col-sm-4">
+        <input ng-model="filterText" type="text" class="form-control" placeholder="Enter keywords here...">
+    </div>
+
+
+    <!--Dropdown button-->
+    <div class="col-sm-4">
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                Edit Columns
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+
+                <li role="presentation">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" checked="" ng-click="togglePoster()"> Poster
+                        </label>
+                    </div>
+                </li>
+
+                <li role="presentation">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" checked="" ng-click="toggleRating()"> Rating
+                        </label>
+                    </div>
+                </li>
+
+                <li role="presentation">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" checked="" ng-click="toggleYear()"> Year
+                        </label>
+                    </div>
+                </li>
+
+                <li role="presentation">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" checked="" ng-click="togglePlot()"> Plot
+                        </label>
+                    </div>
+
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+
+</div>
+
+<!--The table-->
+<table class=" table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th ng-hide="tPoster">Poster</th>
+            <th ng-hide="tRating"><span draggable="true" ng-click="reverse=!reverse; sortCol('rating', reverse)">Rating</span></th>
+            <th ng-hide="tYear"><span draggable="true" ng-click="reverse=!reverse; sortCol('year', reverse)">Year</span></th>
+            <th ng-hide="tPlot">Plot</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr draggable="true" ng-repeat="m in movies | filter:filterText" ng-dblclick="addToFavorites(m)">
+            <td>{{m.title}}</td>
+            <td ng-hide="tPoster"><img ng-src="{{m.urlPoster}}" ng-click="enlargePoster($index)" width="70" data-toggle="modal" data-target=".bs-example-modal-sm"></td>
+            <td ng-hide="tRating">{{m.rating}}</td>
+            <td ng-hide="tYear">{{m.year}}</td>
+            <td ng-hide="tPlot">
+                {{m.plot}}
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+<!-- Small modal for enlarged image -->
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <img ng-src="{{enlargedP}}" width="120%">
+        </div>
+    </div>
+</div>
+

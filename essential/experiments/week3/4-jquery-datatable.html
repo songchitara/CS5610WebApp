@@ -546,8 +546,54 @@
 &lt;link rel="stylesheet" href="//cdn.datatables.net/1.10.4/css/jquery.dataTables.css"&gt;
 </pre>
         </code>
+        
         <p>
-            The jQuery code is very simple, just call the <code>DataTable()</code> function on the table.
+            To config the <code>&lt;table&gt;</code> tag, the <code>class</code> attribute should set to <code>display</code>.
+            We also set <code>cellspacing="0"</code> and <code>width="100%"</code> to display the full table.
+        </p>
+        <code>
+            <pre>
+&lt;table id="example" class="display" cellspacing="0" width="100%"&gt;
+</pre>
+        </code>
+
+        <p>
+            We will add the <code>&lt;thead&gt;</code> as well as <code>&lt;tfoot&gt;</code> to the datatable. 
+        </p>
+        <code>
+            <pre>
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Position&lt;/th&gt;
+&lt;th&gt;Office&lt;/th&gt;
+&lt;th&gt;Age&lt;/th&gt;
+&lt;th&gt;Start date&lt;/th&gt;
+&lt;th&gt;Salary&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+</pre>
+        </code>
+
+        <p>
+            The table data are hardcoded, example as below. Maybe in the future, the data can be fetched from remote.
+        </p>
+        <code>
+            <pre>
+&lt;tr&gt;
+&lt;td&gt;Vivian Harrell&lt;/td&gt;
+&lt;td&gt;Financial Controller&lt;/td&gt;
+&lt;td&gt;San Francisco&lt;/td&gt;
+&lt;td&gt;62&lt;/td&gt;
+&lt;td&gt;2009/02/14&lt;/td&gt;
+&lt;td&gt;$452,500&lt;/td&gt;
+&lt;/tr&gt;
+</pre>
+        </code>
+
+        <p>
+            The jQuery code is very simple, just call the <code>DataTable()</code> function on the table. The <code>DataTable()</code>
+            function comes from the <code>jquery.dataTables.min.js</code> file.
         </p>
         <code>
             <pre>
@@ -563,7 +609,17 @@ $(document).ready(function() {
         <h4>
             References:
         </h4>
-        <a href="http://www.datatables.net/">http://www.datatables.net/</a>
+        <p>
+            <a href="http://www.datatables.net/">http://www.datatables.net/</a>
+        </p>
+        <h4>
+            Source Code:
+        </h4>
+        <p>
+            <a href=""></a>
+            <a href="../../fileview/Default.aspx?~/experiments/week3/4-jquery-datatable.html" target="_blank">HTML </a> <br />
+            <a href="../../fileview/Default.aspx?~/experiments/week3/js/4-jquery-datatable.js" target="_blank">JavaScript </a>
+        </p>
     </div>
 </body>
 </html>

@@ -3,3 +3,4 @@
 ../story/index.htm?../experiments/week2/storyweek2.txt WEEK 2: jQuery and Bootstrap
 ../story/index.htm?../experiments/week3/storyweek3.txt WEEK 3: jQuery and jQueryUI
 ../story/index.htm?../experiments/week4/storyweek4.txt WEEK 4: AngularJS
+../story/index.htm?../experiments/week5/storyweek5.txt WEEK 5: AngularJS - Routing

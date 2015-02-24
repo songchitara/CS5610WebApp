@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>AngularJS Routing - Communicate Between Controllers</title>
+    <script src="../../freq/angular.min.js"></script>
+    <script src="../../freq/angular-route.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../../freq/bootstrap/js/bootstrap.js"></script>
+    <link href="../../freq/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="css/general-style.css" rel="stylesheet" />
+
+    <script src="js/3.js"></script>
+    <script src="js/3-service.js"></script>
+</head>
+
+<body ng-app="MovieApp">
+
+    <div class="container">
+        <header>
+            <h1 id="page-title">AngularJS Routing - Communicate Between Controllers</h1>
+        </header>
+
+        <div id="instruction">
+            <p>
+                <i>
+                    <b>Description:</b>
+                    In the previous experiment, we created our own MovieService, in this experiment,
+                    we will take use of that singleton object to fulfill communicating between
+                    controllers.
+                </i>
+            </p>
+            <p>
+                <i>
+                    <b>Instruction:</b>
+                    In the <b>Home</b> page, search for movies, the search result will show in the table below.
+                    Double click the search results to add the movie to <b>Favorite</b>. In the the <b>Favorite</b> page, all the favored movies will
+                    displayed in the table, and the number of favorite movies will also be displayed in the
+                    parenthese. Double click the movies in the favorite can also remove the movie.
+                </i>
+            </p>
+        </div>
+
+        <hr />
+    </div>
+
+    <div class="container">
+        <nav>
+            <a href="#/home">Home</a> |
+            <a href="#/favorite">Favorite</a>
+        </nav>
+        <div ng-view>
+        </div>
+    </div>
+
+    <div class="container">
+        <hr />
+        <div>
+            <h3>Implementation</h3>
+           <p>
+               In the <a>favorite.html</a>, place the counter and table placeholder. The <code ng-non-bindable>{{numOfFavors}}</code>
+               is for displaying the favorite counter. In the table, <code>ng-repeat="movie in favoriteMovies"</code> to 
+               iterate over the favorite movies. The <code>ng-dblclick="removeFavoriteMovie(movie)</code> is to trigger 
+               the <code>removeFavoriteMovie</code> when double click any row.
+           </p>
+            <code ng-non-bindable>
+                <pre>
+&lt;h2&gt;Favorite Movies <b>({{numOfFavors}})</b>&lt;/h2&gt;
+&lt;table class="table"&gt;
+&lt;tbody&gt;
+&lt;tr draggable="true" <b>ng-repeat="movie in favoriteMovies" ng-dblclick="removeFavoriteMovie(movie)</b>"&gt;
+&lt;td&gt;&lt;img ng-src="{{movie.urlPoster}}" width="50" /&gt;&lt;/td&gt;
+&lt;td&gt;{{movie.title}}&lt;/td&gt;
+&lt;td&gt;{{movie.rating}}&lt;/td&gt;
+&lt;td&gt;{{movie.year}}&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</pre>
+            </code>
+
+
+            <p>
+                In <code>HomeCtrl</code> controller, define the <code>addToFavorites</code> by passing the 
+                <code>movie</code> parameter to the <code>addToFavorites</code> function in the <code>MovieService</code>
+                service.
+            </p>
+            <code>
+                <pre>
+$scope.addToFavorites = function (movie) {
+    MovieService.addToFavorites(movie);
+}
+</pre>
+            </code>
+
+            <p>
+                In the <code>MovieService</code> service, the function <code>addToFavorites</code> takes the <code>movie</code>
+                as argument, push it to the <code>favoriteMovies</code> array, and then increment the favorite movie counter
+                <code>numOfFavors</code>.
+            </p>
+            <code>
+                <pre>
+var addToFavorites = function (movie) {
+    favoriteMovies.push(movie);
+    // increment the favorite movie counter
+    numOfFavors++;
+}
+</pre>
+            </code>
+
+            <p>
+                To remove movies from favorite, first in the <code>FavoriteCtrl</code>, create the 
+                <code>removeFavoriteMovie</code> function by passing the <code>movie</code> parameter to the
+                <code>removeFavoriteMovie</code> function in the <code>MovieService</code>. Also, after that 
+                we need to call the <code>getNumOfFavors</code> function from <code>MovieService</code> to 
+                update the <code>numOfFavors</code> array.
+            </p>
+            <code>
+                <pre>
+$scope.removeFavoriteMovie = function (movie) {
+    MovieService.removeFavoriteMovie(movie);
+    //update number of favorite movies
+    $scope.numOfFavors = MovieService.getNumOfFavors();
+}
+</pre>
+            </code>
+
+            <p>
+                The function <code>removeFavoriteMovie</code> in <code>MovieService</code>, first remove 
+                the movie from the <code>favoriteMovies</code> array by calling <code>splice</code> method.
+                Then decrease the <code>numOfFavors</code> counter.
+            </p>
+            <code>
+                <pre>
+    var removeFavoriteMovie = function (movie) {
+        var index = favoriteMovies.indexOf(movie);
+        favoriteMovies.splice(index, 1);
+        // descrease the counter of favorite movies
+        numOfFavors--;
+    }
+</pre>
+            </code>
+
+            <p>
+                The <code>getFavorites</code> and <code>getNumOfFavors</code> functions in <code>MovieService</code> 
+                simply return the <code>favoriteMovies</code> and <code>numOfFavors</code> arrays respectively.
+            </p>
+            <code>
+                <pre>
+    var getFavorites = function () {
+        return favoriteMovies;
+    }
+
+    var getNumOfFavors = function () {
+        return numOfFavors;
+    }
+</pre>
+            </code>
+
+        </div>
+
+        <hr />
+        <h3>Source Code:</h3>
+        <p>
+            <a href=""></a>
+            <a href="../../fileview/Default.aspx?~/experiments/week5/3.html" target="_blank">3.html </a> <br />
+            <a href="../../fileview/Default.aspx?~/experiments/week5/3_partials/home.html" target="_blank">home.html </a> <br />
+            <a href="../../fileview/Default.aspx?~/experiments/week5/3_partials/favorite.html" target="_blank">favorite.html </a> <br />
+            <a href="../../fileview/Default.aspx?~/experiments/week5/js/3.js" target="_blank">3.js </a> <br />
+            <a href="../../fileview/Default.aspx?~/experiments/week5/js/3-service.js" target="_blank">3-service.js </a>
+        </p>
+
+        <h3>References:</h3>
+        <p>
+            <a href="https://github.com/jannunzi/CS5610-2015-spring-net4.ccs.neu.edu/tree/master/cs5610/experiments/ngRouting">
+                https://github.com/jannunzi/CS5610-2015-spring-net4.ccs.neu.edu/tree/master/cs5610/experiments/ngRouting
+            </a>
+        </p>
+
+    </div>
+
+</body>
+
+</html>

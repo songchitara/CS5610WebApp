@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>AngularJS Routing - Create Own Services</title>
+    <script src="../../freq/angular.min.js"></script>
+    <script src="../../freq/angular-route.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../../freq/bootstrap/js/bootstrap.js"></script>
+    <link href="../../freq/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="css/general-style.css" rel="stylesheet" />
+
+    <script src="js/2.js"></script>
+    <script src="js/2-service.js"></script>
+</head>
+
+<body ng-app="MovieApp">
+    <div class="container">
+        <header>
+            <h1 id="page-title">AngularJS Routing - Create Own Services</h1>
+        </header>
+
+        <div id="instruction">
+            <p>
+                <i>
+                    <b>Description:</b>
+                    Continue to the previous experiment, in this expriement I will create our own MovieService.
+                </i>
+            </p>
+            <p>
+                <i>
+                    <b>Instruction:</b>
+                    In the <b>Home</b> page, search for movies, the search result will show in the table below.
+                </i>
+            </p>
+        </div>
+
+        <hr />
+    </div>
+    <div class="container">
+        <nav>
+            <a href="#/home">Home</a> |
+            <a href="#/favorite">Favorite</a>
+        </nav>
+        <div ng-view>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <hr />
+        <div>
+            <h3>Implementation</h3>
+            <p>
+                Place all html element for searching to the <a>home.html</a>, and all the html elements for
+                displaying favorite to the <a>favorite.html</a>.
+            </p>
+
+            <p>
+                In the <a>home.html</a>, create input field and search button, binding the input value to the 
+                controller by <code>ng-model="searchByTitle"</code>. When the button is clicked, triggle the 
+                <code>searchMovies()</code> function.
+            </p>
+            <code>
+                <pre>
+&lt;input <b>ng-model="searchByTitle"</b> type="text" class="form-control" placeholder=""&gt;
+&lt;span class="input-group-btn"&gt;
+&lt;button class="btn btn-success" <b>ng-click="searchMovies()</b>"&gt;Search&lt;/button&gt;
+&lt;/span&gt;
+</pre>
+            </code>
+
+
+            <p>
+                In the <code>HomeCtrl</code> controller, we define the <code>searchMovies</code> function.
+                The function takes <code>$scope.searchByTitle</code> (from html input <code>ng-model</code>) 
+                as parameter, and call the <code>searchMovies</code> function from <code>MovieService</code>
+                service, setting <code> $scope.movies = response</code>.
+            </p>
+            <code>
+                <pre>
+$scope.searchMovies = function () {
+    MovieService.searchMovies($scope.searchByTitle, function (response) {
+        $scope.movies = response;
+    });
+}
+</pre>
+            </code>
+
+            <p>
+                Create own <code>MovieService</code> service by using the syntax below.
+            </p>
+            <code>
+                <pre>
+app.factory('MovieService', function MovieService($http) {
+    .  
+    .
+    .
+}
+</pre>
+            </code>
+
+            <p>
+                In the service <code>MovieService</code>, define the <code>searchMovies</code> function,
+                take the <code>title</code> and <code>callback</code> as parameters, using <code>$http</code>
+                service to fetch the movie jsonp objects from the web.
+            </p>
+            <code>
+                <pre>
+var searchMovies = function (title, callback) {
+    var limit = 10;
+    $http.jsonp("http://www.myapifilms.com/imdb?title=" + title + "&format=JSONP&aka=0&business=0&seasons=0&seasonYear=0&technical=0&filter=N&exactFilter=0&limit=" + limit + "&lang=en-us&actors=N&biography=0&trailer=0&uniqueName=0&filmography=0&bornDied=0&starSign=0&actorActress=0&actorTrivia=0&movieTrivia=0&awards=0&moviePhotos=N&movieVideos=N&callback=JSON_CALLBACK")
+    .success(callback);
+}
+</pre>
+            </code>
+
+            <p>Expose the <code>searchMovies</code> function by setting the <code>return</code> object.</p>
+            <code>
+                <pre>
+return {
+    searchMovies: searchMovies
+}
+</pre>
+            </code>
+
+        </div>
+
+        <hr />
+        <h3>Source Code:</h3>
+        <p>  
+            <a href=""></a>
+            <a href="../../fileview/Default.aspx?~/experiments/week5/2.html" target="_blank">2.html </a> <br />
+            <a href="../../fileview/Default.aspx?~/experiments/week5/2_partials/home.html" target="_blank">home.html </a> <br />
+            <a href="../../fileview/Default.aspx?~/experiments/week5/js/2.js" target="_blank">2.js </a> <br />
+            <a href="../../fileview/Default.aspx?~/experiments/week5/js/2-service.js" target="_blank">2-service.js </a>
+        </p>
+
+        <h3>References:</h3>
+        <p>
+            <a href="https://github.com/jannunzi/CS5610-2015-spring-net4.ccs.neu.edu/tree/master/cs5610/experiments/ngRouting">
+                https://github.com/jannunzi/CS5610-2015-spring-net4.ccs.neu.edu/tree/master/cs5610/experiments/ngRouting
+            </a>
+        </p>
+
+    </div>
+</body>
+
+</html>
