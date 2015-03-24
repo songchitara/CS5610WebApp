@@ -1,5 +1,0 @@
-﻿http://nodejs5610-songchi.rhcloud.com/001.html NodeJS on OpenShift - GET All
-http://nodejs5610-songchi.rhcloud.com/002.html NodeJS on OpenShift - GET By ID
-http://nodejs5610-songchi.rhcloud.com/003.html NodeJS on OpenShift - POST
-http://nodejs5610-songchi.rhcloud.com/004.html NodeJS on OpenShift - PUT
-http://nodejs5610-songchi.rhcloud.com/005.html NodeJS on OpenShift - DELETE
