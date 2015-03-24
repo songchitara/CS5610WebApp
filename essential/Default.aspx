@@ -94,16 +94,7 @@
 
 </ul>
 
-<hr />
 
-<p>
-    <b>This demo page shows the navigation links that should appear
-    on the home page.</b>
-    It is not necessary that these links be at the top of the page
-    but they should be displayed nicely and be easy to find.  You
-    may alter the CSS on the page to change the placement and the
-    size of the links.
-</p>
 
 <hr />
 
