@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>NodeJS GET</title>
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/angular-route.js"></script>
+    <script src="js/clientApp.js"></script>
+
+</head>
+<body ng-app="SkillsApp">
+    <div class="container">
+        <h1>NodeJS GET - all</h1>
+        <h4><i>Descriptions:</i></h4>
+        <p>
+            In this page, I experimented nodejs <b>GET</b> requests to get all the users informations.
+        </p>
+        <h4><i>Instructions:</i></h4>
+        <p>
+            After the page loaded, all the name and role information of users will be shown in the table. 
+        </p>
+        <hr />
+        <br />
+    </div>
+
+    <div class="container" ng-controller="SkillsCtrl">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Role
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in users">
+                    <td>{{user.name}}</td>
+                    <td>{{user.role}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+       
+
+    </div>
+
+    <div class="container">
+        <p>
+            <br />
+            <br />
+        </p>
+        <hr />
+
+        <h4><i>Implementations</i></h4>
+
+        <p>
+            To get all users' information, first in html page add the table placeholder.
+        </p>
+        <code ng-non-bindable>
+            <pre>
+&lt;tbody&gt;
+&lt;tr ng-repeat="user in users"&gt;
+&lt;td&gt;{{user.name}}&lt;/td&gt;
+&lt;td&gt;{{user.role}}&lt;/td&gt;
+.
+.
+.
+&lt;/tr&gt;
+&lt;/tbody&gt;
+</pre>
+        </code>
+
+        <p>
+            Then at the client side, in <b>clientApp.js</b>, use the code below to send GET request to the server by using <b>$http.get()</b>
+        </p>
+        <code>
+            <pre>
+$http.get('/api/user')
+.success(function (response) {
+    $scope.users = response;
+})
+</pre>
+        </code>
+
+        <p>
+            At the server side, in <b>server.js</b> file, add the code below to receive the request 
+            and return the users json as the response.
+        </p>
+        <code>
+            <pre>
+app.get('/api/user', function (req, res) {
+    res.json(users);
+})
+</pre>
+        </code>
+
+        <p>
+            The <b>users</b> JSON was defined in <b>server.js</b> file.
+        </p>
+        <code>
+            <pre>
+var users = [
+        {
+            name: "Alice", role: "CS Graduate Student",
+            skills: [
+                 { id: 1001, name: "JavaScript" },
+                 { id: 1002, name: "NodeJS" }
+            ]
+        },
+        {
+            name: "Bob", role: "Professor",
+            skills: [
+                { id: 1003, name: "AngularJS" },
+                { id: 1004, name: "MongoDB" },
+                { id: 1005, name: "ASP.NET" }
+            ]
+        },
+        {
+            name: "Charlie", role: "IT Professional",
+            skills: [
+                { id: 1002, name: "NodeJS" },
+                { id: 1003, name: "AngularJS" },
+                { id: 1004, name: "MongoDB" },
+                { id: 1006, name: "C#" }
+            ]
+        },
+        {
+            name: "Dan", role: "CS Undergraduate Student",
+            skills: [
+                { id: 1005, name: "ASP.NET" }
+            ]
+        },
+        {
+            name: "Ed", role: "Professor",
+            skills: [
+                { id: 1001, name: "JavaScript" },
+                { id: 1002, name: "NodeJS" },
+                { id: 1003, name: "AngularJS" },
+                { id: 1004, name: "MongoDB" },
+                { id: 1005, name: "ASP.NET" }
+            ]
+        }
+];
+</pre>
+        </code>
+
+        <hr />
+        <h4><i>References</i></h4>
+        <p>
+            <a href="https://www.youtube.com/watch?v=WGnQAgk2dz4">Prof. Jose's YouTube</a>
+        </p>
+
+        <hr />
+
+        <h4><i>Source Code</i></h4>
+    </div>
+
+</body>
+</html>

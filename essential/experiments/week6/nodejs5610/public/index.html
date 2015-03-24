@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Skills App</title>
+    <link href="css/bootstrap.css" rel="stylesheet"/>
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/angular-route.js"></script>
+    <script src="js/clientApp.js"></script>
+    
+</head>
+<body ng-app="SkillsApp">
+    <div class="container" ng-controller="SkillsCtrl">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        <input class="form-control" ng-model="site.name" />
+                    </th>
+                    <th>
+                        <button ng-click="add(site)" class="btn btn-success pull-right">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Role
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in users">
+                    <td>{{user.name}}</td>
+                    <td>{{user.role}}</td>
+                    <td>
+                        <button ng-click="remove($index)" class="btn btn-danger pull-right">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                        <button ng-click="select($index)" class="btn btn-warning pull-right">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                        <button ng-click="view($index)" class="btn btn-success pull-right">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div ng-show="users[userIdx].skills.length > 0">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>{{users[userIdx].name}}'s skills</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="skill in skills">
+                        <td>{{skill.name}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!--<div ng-show="selectedSite.pages.length > 0">
+            <h2>Pages</h2>
+            <table class="table table-striped">
+                <tbody>
+                    <tr ng-repeat="page in selectedSite.pages">
+                        <td>{{page}}</td>
+                        <td>
+                            <button ng-click="removePage($index)" class="btn btn-danger pull-right">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>-->
+
+    </div>
+
+    <div class="container" >
+        <p>
+            <br />
+            <br />
+            <br />
+        </p>
+        <hr />
+        <h4><i>References</i></h4>
+    </div>
+
+</body>
+</html>
