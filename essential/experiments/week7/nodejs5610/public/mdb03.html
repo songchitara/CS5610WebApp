@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>MongoDB and Mongoose Post</title>
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/angular-route.js"></script>
+    <script src="js/mdbClientApp.js"></script>
+
+</head>
+<body ng-app="SkillsApp">
+    <div class="container">
+        <h1>MongoDB and Mongoose POST</h1>
+        <h4><i>Descriptions:</i></h4>
+        <p>
+            In this experiment, I will implement the POST request to create data
+            into MongoDB by using Mongoose.
+        </p>
+        <h4><i>Instructions:</i></h4>
+        <p>
+            Enter the name and role in the respective input fields and click on the
+             yellow plus button to add the new user to the users. The skills array
+            of the new user is set to empty array.
+        </p>
+        <hr />
+        <br />
+    </div>
+
+    <div class="container" ng-controller="SkillsCtrl">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Role
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        <input ng-model="newUser.name" class="form-control" placeholder="name"/>
+                    </th>
+                    <th>
+                        <input ng-model="newUser.role" class="form-control" placeholder="role" />
+                    </th>
+                    <th>
+                        <button ng-click="add(newUser)" class="btn btn-warning pull-right">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in users">
+                    <td>{{user.name}}</td>
+                    <td>{{user.role}}</td>
+                    <td>
+                        <button ng-click="view($index, user._id)" class="btn btn-success pull-right">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div ng-show="users[userIdx].skills.length >= 0">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>{{users[userIdx].name | uppercase}}'s skills</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="skill in skills">
+                        <td>{{skill.name}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="container">
+        <p>
+            <br />
+            <br />
+            <br />
+        </p>
+        <hr />
+
+        <h4><i>Implementations</i></h4>
+        <p>
+            First in the html file, add the two input fields and the button. Binding the 
+            first input to <code>newUser.name</code> and the second to <code>newUser.role</code>
+            to the <code>ng-model</code> directive. Then pass the <code>newUser</code> to 
+            the app through the <code>add()</code> event on <code>ng-click</code> directive.
+        </p>
+        <code>
+            <pre>
+&lt;thead&gt;
+    .
+    .
+    .
+&lt;tr&gt;
+&lt;th&gt;
+&lt;input <b>ng-model="newUser.name"</b> class="form-control" placeholder="name" /&gt;
+    &lt;/th&gt;
+&lt;th&gt;
+&lt;input <b>ng-model="newUser.role"</b> class="form-control" placeholder="role" /&gt;
+    &lt;/th&gt;
+&lt;th&gt;
+&lt;button <b>ng-click="add(newUser)"</b> class="btn btn-warning pull-right"&gt;
+&lt;span class="glyphicon glyphicon-plus"&gt;&lt;/span&gt;
+        &lt;/button&gt;
+    &lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+</pre>
+        </code>
+
+        <p>
+            Then in the client <b>mdbClientApp.js</b> file add the code below. The new
+            user data was passed as parameter <code>data</code>, and send to 
+            the server through <code>$http.post(URL, data)</code>. If the server 
+            gives a success response, this response should be the updated users json
+            with the new user added. Simply assign the response to the <code>$scope.users</code>.
+        </p>
+        <code>
+            <pre>
+$scope.add = function (data) {
+    $http.post('/api/mdb/user', data)
+    .success(function (response) {
+        $scope.users = response;
+    })
+}
+</pre>
+        </code>
+
+        <p>
+            At the server side, we also use <code>.post()</code> to receive the request 
+            from client. First parse the data send from client by <code>req.body</code>,
+            then initialize the skills field to empty array. 
+            Create a new <code>UserModel</code> instance by assigning the received user's
+            name to its name, and role to its role. 
+            Then call the <code>save(<i>callback</i>)</code> method, in the <code>callback</code>
+            function, call <code>find()</code> method to get all the users (already updated),
+            then send back to client by using <code>res.json()</code> as json format.
+        </p>
+        <code>
+            <pre>
+app.post('/api/mdb/user', function (req, res) {
+    var obj = req.body;
+    obj.skills = [];
+
+    var user1 = new UserModel({
+        name: obj.name,
+        role: obj.role});
+    user1.save(function (err, doc) {
+        UserModel.find(function (err, data) {
+            res.json(data);
+        });
+    });
+});
+</pre>
+        </code>
+
+        
+
+        <hr />
+        <h4><i>References</i></h4>
+        <p>
+            <a href="https://www.youtube.com/watch?v=YH5sFprHgl0">Prof. Jose's YouTube (1/2)</a> <br>
+            <a href="https://www.youtube.com/watch?v=c-etW7AX9cA">Prof. Jose's YouTube (2/2)</a>
+        </p>
+
+        <hr />
+
+        <h4><i>Source Code</i></h4>
+        <p>
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week7/nodejs5610/public/mdb03.html" target="_blank">HTML</a> <br />
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week7/nodejs5610/public/js/mdbClientApp.js" target="_blank">ControllerApp JS</a> <br />
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week7/nodejs5610/server.js" target="_blank">Server JS</a>
+        </p>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>NodeJS Post</title>
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/angular-route.js"></script>
+    <script src="js/clientApp.js"></script>
+
+</head>
+<body ng-app="SkillsApp">
+    <div class="container">
+        <h1>NodeJS POST</h1>
+        <h4><i>Descriptions:</i></h4>
+        <p>
+            In this experiment, I will implement the POST request in nodejs.
+        </p>
+        <h4><i>Instructions:</i></h4>
+        <p>
+            Enter the name and role in the respective input fields and click on the
+             yellow plus button to add the new user to the users. The skills array
+            of the new user is set to empty array.
+        </p>
+        <hr />
+        <br />
+    </div>
+
+    <div class="container" ng-controller="SkillsCtrl">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Role
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        <input ng-model="newUser.name" class="form-control" placeholder="name"/>
+                    </th>
+                    <th>
+                        <input ng-model="newUser.role" class="form-control" placeholder="role" />
+                    </th>
+                    <th>
+                        <button ng-click="add(newUser)" class="btn btn-warning pull-right">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in users">
+                    <td>{{user.name}}</td>
+                    <td>{{user.role}}</td>
+                    <td>
+                        <button ng-click="view($index)" class="btn btn-success pull-right">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div ng-show="users[userIdx].skills.length >= 0">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>{{users[userIdx].name}}'s skills</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="skill in skills">
+                        <td>{{skill.name}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="container">
+        <p>
+            <br />
+            <br />
+            <br />
+        </p>
+        <hr />
+
+        <h4><i>Implementations</i></h4>
+        <p>
+            First in the html file, add the two input fields and the button. Binding the 
+            first input to <code>newUser.name</code> and the second to <code>newUser.role</code>
+            to the <code>ng-model</code> directive. Then pass the <code>newUser</code> to 
+            the app through the <code>add()</code> event on <code>ng-click</code> directive.
+        </p>
+        <code>
+            <pre>
+&lt;thead&gt;
+    .
+    .
+    .
+&lt;tr&gt;
+&lt;th&gt;
+&lt;input <b>ng-model="newUser.name"</b> class="form-control" placeholder="name" /&gt;
+    &lt;/th&gt;
+&lt;th&gt;
+&lt;input <b>ng-model="newUser.role"</b> class="form-control" placeholder="role" /&gt;
+    &lt;/th&gt;
+&lt;th&gt;
+&lt;button <b>ng-click="add(newUser)"</b> class="btn btn-warning pull-right"&gt;
+&lt;span class="glyphicon glyphicon-plus"&gt;&lt;/span&gt;
+        &lt;/button&gt;
+    &lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+</pre>
+        </code>
+
+        <p>
+            Then in the client <b>clientApp.js</b> file add the code below. The new
+            user data was passed as parameter <code>data</code>, and send to 
+            the server through <code>$http.post(URL, data)</code>. If the server 
+            gives a success response, this response should be the updated users json
+            with the new user added. Simply assign the response to the <code>$scope.users</code>.
+        </p>
+        <code>
+            <pre>
+$scope.add = function (data) {
+    <b>$http.post</b>('/api/user', <b>data</b>)
+    .success(function (response) {
+        <b>$scope.users = response;</b>
+    })
+}
+</pre>
+        </code>
+
+        <p>
+            At the server side, in order to receive the user data
+            send from the client, we need two new nodejs packages: <b>body-parser</b> and 
+            <b>multer</b>. To install them, in the terminal simply use the <code>npm install ..</code>
+            command.
+        </p>
+        <code>
+            <pre>
+C:\cs5610web\nodejs5610> npm install <b>body-parser</b>
+C:\cs5610web\nodejs5610> npm install <b>multer</b>
+</pre>
+        </code>
+        <p>
+            When the <code>body-parser</code> and <code>multer</code> has been installed,
+            then require these two packages in the <b>server.js</b> file, and initialize them. 
+        </p>
+        <code>
+            <pre>
+var bodyParser = require('body-parser');
+var multer = require('multer');
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(multer()); // for parsing multipart/form-data
+</pre>
+        </code>
+
+        <p>
+            Them add the code below to the <b>server.js</b>. The new user data can be retrieved through
+            <code>req.body</code>. We assign the parsed user data to the <code>obj</code> variable,
+            and set its <code>skills</code> to empty array. Them push the new user to the users and 
+            send back the updated users json to the client.
+        </p>
+        <code>
+            <pre>
+<b>app.post</b>('/api/user', function (req, res) {
+    var obj = <b>req.body;</b>
+    <b>obj.skills = [];
+    users.push(obj);</b>
+    res.json(users);
+})
+</pre>
+        </code>
+
+        <hr />
+        <h4><i>References</i></h4>
+        <p>
+            <a href="https://www.youtube.com/watch?v=WGnQAgk2dz4">Prof. Jose's YouTube</a>
+        </p>
+
+        <hr />
+
+        <h4><i>Source Code</i></h4>
+        <p>
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week6/nodejs5610/public/003.html" target="_blank">HTML</a> <br />
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week6/nodejs5610/public/js/clientApp.js" target="_blank">ControllerApp JS</a> <br />
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week6/nodejs5610/server.js" target="_blank">Server JS</a>
+        </p>
+    </div>
+
+</body>
+</html>

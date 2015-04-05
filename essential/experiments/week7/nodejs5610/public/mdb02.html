@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>NodeJS GET further</title>
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/angular-route.js"></script>
+    <script src="js/mdbClientApp.js"></script>
+
+</head>
+<body ng-app="SkillsApp">
+    <div class="container">
+        <h1>NodeJS GET - by ID</h1>
+        <h4><i>Descriptions:</i></h4>
+        <p>
+            Continue to the previous experiment, in this page I will further experiment nodejs <b>GET</b> requests to get the skills information of any <b>specific</b> users from <b>MongoDB</b> using <b>Mongoose</b>.
+        </p>
+        <h4><i>Instructions:</i></h4>
+        <p>
+            By clicking on any of the green <b>"eye"</b> icons, the skills information of the particular user will display below.
+        </p>
+        <hr />
+        <br />
+    </div>
+
+    <div class="container" ng-controller="SkillsCtrl">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Role
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in users">
+                    <td>{{user.name}}</td>
+                    <td>{{user.role}}</td>
+                    <td>
+                        <button ng-click="view($index, user._id)" class="btn btn-success pull-right">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div ng-show="users[userIdx].skills.length >= 0">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>{{users[userIdx].name | uppercase}}'s skills</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="skill in skills">
+                        <td>{{skill.name}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+    <div class="container">
+        <p>
+            <br />
+            <br />
+            <br />
+        </p>
+        <hr />
+
+        <h4><i>Implementations</i></h4>
+        <p>
+            First create the green "eye" icon button in the html, and sending 
+            the <b>view($index)</b> event to the app, where the <b>$index</b>
+            is the current index of the selected user.
+        </p>
+        <code>
+            <pre>
+&lt;td&gt;
+&lt;button <b>ng-click="view($index)"</b> class="btn btn-success pull-right"&gt;
+&lt;span class="glyphicon glyphicon-eye-open"&gt;&lt;/span&gt;
+    &lt;/button&gt;
+&lt;/td&gt;
+</pre>
+        </code>
+
+        <p>
+            Then create the table placeholder in the html file. The <b>ng-show</b> was to let the table to
+            display only when clicked on the eye icon and the user has at least one skill. 
+            The <code ng-non-bindable>{{users[userIdx].name}}</code> is to show the selected user's name, 
+            where the <b>userIdx</b> has been define in the client app file.
+            The <b>ng-repeat</b> is to iterate over the skills array of the selected user.
+        </p>
+        <code ng-non-bindable>
+            <pre>
+&lt;div <b>ng-show="users[userIdx].skills.length &gt; 0"</b>&gt;
+&lt;table class="table table-striped"&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;<b>{{users[userIdx].name}}</b>'s skills&lt;/th&gt;
+    &lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr <b>ng-repeat="skill in skills"</b>&gt;
+&lt;td&gt;<b>{{skill.name}}</b>&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+</pre>
+        </code>
+       
+        <p>
+            Then edit the client side, in <b>mdbClientApp.js</b> file, add the code below. By using the
+            <code>$http.get()</code> to send the request along with the index to the server. When the server
+            returns back a successful response, this response should be the skills json, we assign it 
+            to the <code>$scope.skills</code>. Also we store the index to the <code>$scope.userIdx</code> so
+            that we can display the selected user in the html page.
+            Note that the line <code>$scope.isDeleted = false;</code> is used for the DELETE experiment.
+        </p>
+        <code>
+            <pre>
+$scope.view = function (index, id) {
+    $scope.isDeleted = false;
+    $http.get('/api/mdb/user/' + id)
+    .success(function (response) {
+        $scope.skills = response;
+        $scope.userIdx = index;  // store the seleted index
+    })
+}
+</pre>
+        </code>
+
+        <p>
+            Then at the server side, edit the <b>server.js</b> files, append the <code>:idx</code>
+            to the url to receive the index from client, and use <code>req.params.idx</code> to 
+            parse the index value. 
+            Use <code>findById()</code> mongoose mothed to find all skills of the selected user's
+            id, then return the skills json file as the response.
+        </p>
+        <code>
+            <pre>
+app.get('/api/mdb/user/:id', function (req, res) {
+    var id = req.params.id;
+    UserModel.findById(id, function (err, data) {
+        res.json(data.skills)
+    })
+})
+</pre>
+        </code>
+
+        <hr />
+        <h4><i>References</i></h4>
+        <p>
+            <a href="https://www.youtube.com/watch?v=YH5sFprHgl0">Prof. Jose's YouTube (1/2)</a> <br>
+            <a href="https://www.youtube.com/watch?v=c-etW7AX9cA">Prof. Jose's YouTube (2/2)</a>
+        </p>
+
+        <hr />
+
+        <h4><i>Source Code</i></h4>
+        <p>
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week7/nodejs5610/public/mdb02.html" target="_blank">HTML</a> <br />
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week7/nodejs5610/public/js/mdbClientApp.js" target="_blank">ControllerApp JS</a> <br />
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week7/nodejs5610/server.js" target="_blank">Server JS</a>
+        </p>
+    </div>
+
+</body>
+</html>

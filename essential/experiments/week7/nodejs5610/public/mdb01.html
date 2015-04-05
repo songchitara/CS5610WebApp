@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>MongoDB and Mongoose - GET</title>
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/angular-route.js"></script>
+    <script src="js/mdbClientApp.js"></script>
+
+</head>
+<body ng-app="SkillsApp">
+    <div class="container">
+        <h1>MongoDB and Mongoose GET - all</h1>
+        <h4><i>Descriptions:</i></h4>
+        <p>
+            In this page, I experimented nodejs <b>GET</b> requests to get all the users information from <b>MongoDB</b> using <b>Mongoose</b>.
+        </p>
+        <h4><i>Instructions:</i></h4>
+        <p>
+            After the page loaded, all the name and role information of users will be shown in the table. 
+        </p>
+        <hr />
+        <br />
+    </div>
+
+    <div class="container" ng-controller="SkillsCtrl">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Role
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in users">
+                    <td>{{user.name}}</td>
+                    <td>{{user.role}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+       
+
+    </div>
+
+    <div class="container">
+        <p>
+            <br />
+            <br />
+        </p>
+        <hr />
+
+        <h4><i>Implementations</i></h4>
+
+        <p>
+            To get all users' information, first in html page add the table placeholder.
+        </p>
+        <code ng-non-bindable>
+            <pre>
+&lt;body&gt;
+&lt;tr ng-repeat="user in users"&gt;
+&lt;td&gt;{{user.name}}&lt;/td&gt;
+&lt;td&gt;{{user.role}}&lt;/td&gt;
+.
+.
+.
+&lt;/tr&gt;
+&lt;/body&gt;
+</pre>
+        </code>
+
+        <p>
+            Then at the client side, in <b>mdbClientApp.js</b>, use the code below to send GET request to the server by using <b>$http.get()</b>
+        </p>
+        <code>
+            <pre>
+$http.get('/api/mdb/user')
+.success(function (response) {
+    $scope.users = response;
+})
+</pre>
+        </code>
+
+        <p>
+            At the server side, in <b>server.js</b> file, first set up the MongoDB
+            connection string (remotely/locally), and connect to that string. 
+        </p>
+        <code>
+            <pre>
+var connectionString = process.env.OPENSHIFT_MONGODB_DB_URL || 'mongodb://localhost/cs5610';
+mongoose.connect(connectionString); 
+</pre>
+        </code>
+
+        <p>
+            Then create two schemas by using <code>new mongoose.Schema()</code>: <code>UserSchema</code> and <code>SkillSchema</code>, where the <code>SkillSchema</code>
+            is to specify the <code>skills</code> field of <code>UserSchema</code>.
+        </p>
+        <code>
+            <pre>
+// SkillSchema
+var SkillSchema = new mongoose.Schema({
+    sid: Number,
+    name: String
+});
+
+// UserSchema
+var UserSchema = new mongoose.Schema({
+    name: String,
+    role: String,
+    <b>skills: [SkillSchema]</b>
+}, {collection: 'user'});                
+            </pre>
+        </code>
+
+       <p>
+           Once we have schema, we create a UserModel using <code>mongoose.model</code>.
+       </p>
+       <code>
+           <pre>
+var UserModel = mongoose.model('UserModel', UserSchema); 
+           </pre>
+       </code>
+
+       <p>
+           Using the UserModel we've intialized, we can then create user instances by
+           using <code>new UserModel()</code>. The <code>.save</code> is to save the 
+           creation.
+       </p>
+       <code>
+           <pre>
+var user1 = <b>new UserModel(</b>{
+    name: "alice", role: "CS Graduate Student",
+    skills: [
+         { sid: 1001, name: "JavaScript" },
+         { sid: 1002, name: "NodeJS" }
+    ]
+});
+<b>user1.save(); </b>
+           </pre>
+       </code>
+
+       <p>
+           Then add the code below to receive the request from client, find all users
+           by using <code>UserModel.find()</code> and then return the users data as 
+           json format. 
+       </p>
+       <code>
+           <pre>
+app.get('/api/mdb/user', function (req, res) {
+    UserModel.find(function (err, data) {
+        res.json(data)
+    })
+}) 
+           </pre>
+       </code>
+
+        <hr />
+        <h4><i>References</i></h4>
+        <p>
+            <a href="https://www.youtube.com/watch?v=YH5sFprHgl0">Prof. Jose's YouTube (1/2)</a> <br>
+            <a href="https://www.youtube.com/watch?v=c-etW7AX9cA">Prof. Jose's YouTube (2/2)</a>
+        </p>
+
+        <hr />
+
+        <h4><i>Source Code</i></h4>
+        <p>
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week7/nodejs5610/public/mdb01.html" target="_blank">HTML</a> <br />
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week7/nodejs5610/public/js/mdbClientApp.js" target="_blank">ControllerApp JS</a> <br />
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week7/nodejs5610/server.js" target="_blank">Server JS</a>
+        </p>
+    </div>
+
+</body>
+</html>

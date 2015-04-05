@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>NodeJS MongoDB</title>
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/angular-route.js"></script>
+    <script src="js/mdbClientApp.js"></script>
+
+</head>
+<body ng-app="SkillsApp">
+
+    <div class="container" ng-controller="SkillsCtrl">
+        <h1>NodeJS and MongoDB</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Role
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        <input ng-model="newUser.name" class="form-control" placeholder="name"/>
+                    </th>
+                    <th>
+                        <input ng-model="newUser.role" class="form-control" placeholder="role" />
+                    </th>
+                    <th>
+                        <button ng-click="add(newUser)" class="btn btn-warning pull-right">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in users">
+                    <td ng-show="isEditing[$index]"><input ng-model="user.name" class="form-control" /></td>
+                    <td ng-show="isEditing[$index]"><input ng-model="user.role" class="form-control" /></td>
+                    <td ng-hide="isEditing[$index]">{{user.name}}</td>
+                    <td ng-hide="isEditing[$index]">{{user.role}}</td>
+                    <td>
+                        <!--delete button-->
+                        <button ng-click="remove(user._id)" class="btn btn-danger pull-right">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                        <!--edit or comfirm button (ng-show/ng-hide)-->
+                        <button ng-click="edit($index, user._id)" ng-hide="isEditing[$index]" class="btn btn-primary pull-right">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                        <button ng-click="confirm($index, user._id, user)" ng-show="isEditing[$index]" class="btn btn-info pull-right">
+                            <span class="glyphicon glyphicon-ok"></span>
+                        </button>
+                        <!--view button-->
+                        <button ng-click="view($index, user._id)" class="btn btn-success pull-right">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <div ng-show="users[userIdx].skills.length >= 0 && !isDeleted" >
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>{{users[userIdx].name | uppercase}}'s skills</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="skill in skills">
+                        <td>{{skill.name}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+
+</body>
+</html>

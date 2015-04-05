@@ -1,0 +1,5 @@
+﻿http://nodejs5610-songchi.rhcloud.com/mdb01.html MongoDB and Mongoose on OpenShift - GET All
+http://nodejs5610-songchi.rhcloud.com/mdb02.html MongoDB and Mongoose on OpenShift - GET By ID
+http://nodejs5610-songchi.rhcloud.com/mdb03.html MongoDB and Mongoose on OpenShift - POST
+http://nodejs5610-songchi.rhcloud.com/mdb04.html MongoDB and Mongoose on OpenShift - PUT
+http://nodejs5610-songchi.rhcloud.com/mdb05.html MongoDB and Mongoose on OpenShift - DELETE

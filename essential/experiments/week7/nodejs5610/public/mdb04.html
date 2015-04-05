@@ -1,0 +1,249 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>MongoDB and Mongoose Put</title>
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/angular-route.js"></script>
+    <script src="js/mdbClientApp.js"></script>
+
+</head>
+<body ng-app="SkillsApp">
+    <div class="container">
+        <h1>MongoDB and Mongoose PUT</h1>
+        <h4><i>Descriptions:</i></h4>
+        <p>
+            In this experiment, I will implement the PUT request in nodejs to modify the data
+            stored in MongoDB database, using Mongoose. Particularly, I need to tackle the problem 
+            that the update works fine locally but does not work on the remote server.
+        </p>
+        <h4><i>Instructions:</i></h4>
+        <p>
+            Click any of the ocean blue "pencil" button, the user row will change to input fields and
+            the ocean blue "pencil" button will change to sky blue "ok" button. Then we can edit the
+            input fields as we want, and at the end click the "ok" button to submit the changes. The
+            "ok" button will automatically change back to "pencil" button after click.
+        </p>
+        <hr />
+        <br />
+    </div>
+
+    <div class="container" ng-controller="SkillsCtrl">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Role
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        <input ng-model="newUser.name" class="form-control" placeholder="name"/>
+                    </th>
+                    <th>
+                        <input ng-model="newUser.role" class="form-control" placeholder="role" />
+                    </th>
+                    <th>
+                        <button ng-click="add(newUser)" class="btn btn-warning pull-right">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in users">
+                    <td ng-show="isEditing[$index]"><input ng-model="user.name" class="form-control" /></td>
+                    <td ng-show="isEditing[$index]"><input ng-model="user.role" class="form-control" /></td>
+                    <td ng-hide="isEditing[$index]">{{user.name}}</td>
+                    <td ng-hide="isEditing[$index]">{{user.role}}</td>
+                    <td>
+                        <!--edit or comfirm button (ng-show/ng-hide)-->
+                        <button ng-click="edit($index, user._id)" ng-hide="isEditing[$index]" class="btn btn-primary pull-right">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                        <button ng-click="confirm($index, user._id, user)" ng-show="isEditing[$index]" class="btn btn-info pull-right">
+                            <span class="glyphicon glyphicon-ok"></span>
+                        </button>
+                        <!--view button-->
+                        <button ng-click="view($index, user._id)" class="btn btn-success pull-right">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div ng-show="users[userIdx].skills.length >= 0">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>{{users[userIdx].name | uppercase}}'s skills</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="skill in skills">
+                        <td>{{skill.name}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="container">
+        <p>
+            <br />
+            <br />
+            <br />
+        </p>
+        <hr />
+
+        <h4><i>Implementations</i></h4>
+        <p>
+            In order to keep track on which row is being edited, I introduced the <code">isEditing[...]</code"> 
+            array, in which each element is a boolean value <b>true/false</b> to represent the editing status
+            of the table row. E.g. <code>isEditing = [false, false, true, false]</code> means the third (index=2)
+            row in the table is being edited.
+        </p>
+        <p>
+            So in the html file, first create the <b>edit</b> button and the <b>confirm</b> button, note that initially
+            no <b>confirm</b> button is displayed in the page, only when clicking on any of the <b>edit</b> button, the 
+            ocean-blue pencil <b>edit</b> button will be replaced by the sky-blue ok <b>confirm</b> button. <br />
+            I used the <code>isEditing</code> variable along with <code>ng-hide</code> and <code>ng-show</code> directives
+            to implement the replacing feature.  &nbsp;&nbsp;&nbsp;When the <b>edit</b> button is clicked, 
+            a <code>edit($index)</code> event will be triggered on <code>ng-click</code> directive, where 
+            the <code>$index</code> is the current index of the user row being edited. 
+            When the <b>confirm</b> button is clicked, a <code>confirm($index, user._id, user)</code> event
+            will be triggerd, where the <code>$index</code> is the current index of the user row being edited, and 
+            the <code>user</code> is the edited user data.
+
+        </p>
+        <code>
+            <pre>
+&lt;button <b>ng-click="edit($index)" ng-hide="isEditing[$index]"</b> class="btn btn-primary pull-right"&gt;
+&lt;span class="glyphicon glyphicon-pencil"&gt;&lt;/span&gt;
+&lt;/button&gt;
+&lt;button <b>ng-click="confirm($index, user)" ng-show="isEditing[$index]"</b> class="btn btn-info pull-right"&gt;
+&lt;span class="glyphicon glyphicon-ok"&gt;&lt;/span&gt;
+&lt;/button&gt;
+</pre>
+        </code>
+       
+        <p>
+            Next still in the html file, implement the feature that when the <b>edit</b> button is clicked, the
+            according row will change to "edit" mode. Similar with what I've done with the buttons, the 
+            <code>isEditing[$index]</code> variable is binded with the <code>ng-show</code> and <code>ng-hide</code>
+            directives respectively triggle the current table row from non-editable mode to
+            editable mode.
+        </p>
+        <code ng-non-bindable>
+            <pre>
+&lt;td <b>ng-show="isEditing[$index]</b>"&gt;&lt;input ng-model="user.name" class="form-control" /&gt;&lt;/td&gt;
+&lt;td <b>ng-show="isEditing[$index]</b>"&gt;&lt;input ng-model="user.role" class="form-control" /&gt;&lt;/td&gt;
+
+&lt;td <b>ng-hide="isEditing[$index]</b>"&gt;{{user.name}}&lt;/td&gt;
+&lt;td <b>ng-hide="isEditing[$index]</b>"&gt;{{user.role}}&lt;/td&gt;
+</pre>
+        </code>
+
+
+        <p>
+            Next, in the controller file <b>mdbClientApp.js</b>, I first initialize the <code>isEditing</code>
+            array.
+        </p>
+        <code>
+            <pre>
+$scope.isEditing = [];
+</pre>
+        </code>
+
+        <p>
+            Then define the <code>edit()</code> buttom event. First using a iterater over the <code>isEditing</code>
+            array to initialize all element to false, meaning that all table rows are not in editing 
+            mode. 
+            Then to set the selected row to edit mode, simply use the received row index to locate the 
+            element in the array and set it to <code>true</code>.
+        </p>
+        <code>
+            <pre>
+$scope.edit = function (index) {
+    // Initialize the isEditing array to ALL false
+    for (var i = 0, length = $scope.users.length; i < length; i++) {
+        $scope.isEditing[i] = <b>false</b>;
+    }
+    // The element with index same as received row index should set to true.
+    $scope.isEditing[<b>index</b>] = <b>true</b>;
+}
+</pre>
+        </code>
+
+        <p>
+            Next define the <code>confirm()</code> button event. In event should send the the current
+            row index and the edited data to the server and update the front end with the response
+             from the server. <br />
+        </p>
+        <code>
+            <pre>
+$scope.confirm = function (index, id, data) {
+    $http.put('/api/mdb/user/' + id, data)
+    .success(function (response) {
+        $scope.users[index] = response;
+        $scope.isEditing[index] = false;
+    })
+}
+</pre>
+        </code>
+
+
+        <p>
+            So at the server side, in the <code>put()</code>, I update the users array
+            according to the received user data. 
+            To avoid the problem that update successful locally but not working remotely,
+            I need to <code>delete</code> the <code>obj._id</code> first and then
+            in the <code>update()</code> set <code>upsert</code> value to <b>true</b>.
+            Since if upsert is true and there are documents that match the query criteria, 
+            update() performs an update.
+
+        </p>
+        <code>
+            <pre>
+app.put('/api/mdb/user/:id', function (req, res) {
+    var obj = req.body; // get the edited user 
+    var id = req.params.id;
+
+    <b>delete obj._id;</b>
+
+    UserModel.update({ _id: id }, { $set: obj }, <b>{ upsert: true }</b>, function (err, doc) {
+        UserModel.findById(id, function (err, data) {
+            res.json(data)
+        })
+    })
+})
+
+</pre>
+        </code>
+
+        <hr />
+        <h4><i>References</i></h4>
+        <p>
+            <a href="https://www.youtube.com/watch?v=YH5sFprHgl0">Prof. Jose's YouTube (1/2)</a> <br>
+            <a href="https://www.youtube.com/watch?v=c-etW7AX9cA">Prof. Jose's YouTube (2/2)</a>
+        </p>
+
+        <hr />
+
+        <h4><i>Source Code</i></h4>
+        <p>
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week7/nodejs5610/public/mdb04.html" target="_blank">HTML</a> <br />
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week7/nodejs5610/public/js/mdbClientApp.js" target="_blank">ControllerApp JS</a> <br />
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week7/nodejs5610/server.js" target="_blank">Server JS</a>
+        </p>
+    </div>
+
+</body>
+</html>

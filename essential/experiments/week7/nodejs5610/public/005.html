@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>NodeJS Delete</title>
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/angular-route.js"></script>
+    <script src="js/clientApp.js"></script>
+
+</head>
+<body ng-app="SkillsApp">
+    <div class="container">
+        <h1>NodeJS DELETE</h1>
+        <h4><i>Descriptions:</i></h4>
+        <p>
+            In this experiment, I will implement the DELETE function in nodejs.
+        </p>
+        <h4><i>Instructions:</i></h4>
+        <p>
+            Simply click on the red "cross" button to remove the according user. When the skills
+            area of the user has been shown, after the user been deleted, the skills area 
+            will disappear.
+        </p>
+        <hr />
+        <br />
+    </div>
+
+    <div class="container" ng-controller="SkillsCtrl">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Role
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        <input ng-model="newUser.name" class="form-control" placeholder="name"/>
+                    </th>
+                    <th>
+                        <input ng-model="newUser.role" class="form-control" placeholder="role" />
+                    </th>
+                    <th>
+                        <button ng-click="add(newUser)" class="btn btn-warning pull-right">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in users">
+                    <td ng-show="isEditing[$index]"><input ng-model="user.name" class="form-control" /></td>
+                    <td ng-show="isEditing[$index]"><input ng-model="user.role" class="form-control" /></td>
+                    <td ng-hide="isEditing[$index]">{{user.name}}</td>
+                    <td ng-hide="isEditing[$index]">{{user.role}}</td>
+                    <td>
+                        <!--delete button-->
+                        <button ng-click="remove($index)" class="btn btn-danger pull-right">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                        <!--edit or comfirm button (ng-show/ng-hide)-->
+                        <button ng-click="edit($index)" ng-hide="isEditing[$index]" class="btn btn-primary pull-right">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                        <button ng-click="confirm($index, user)" ng-show="isEditing[$index]" class="btn btn-info pull-right">
+                            <span class="glyphicon glyphicon-ok"></span>
+                        </button>
+                        <!--view button-->
+                        <button ng-click="view($index)" class="btn btn-success pull-right">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div ng-show="users[userIdx].skills.length >= 0 && !isDeleted" >
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>{{users[userIdx].name}}'s skills</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="skill in skills">
+                        <td>{{skill.name}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="container">
+        <p>
+            <br />
+            <br />
+            <br />
+        </p>
+        <hr />
+
+        <h4><i>Implementations</i></h4>
+        <p>
+            First in the html file, add the remove button, and send the <code>remove($index)</code>
+            event to the app, where the <code>$index</code> is the index of the user we want to remove.
+        </p>
+        <code>
+            <pre>
+&lt;button <b>ng-click="remove($index)"</b> class="btn btn-danger pull-right"&gt;
+&lt;span class="glyphicon glyphicon-remove"&gt;&lt;/span&gt;
+&lt;/button&gt;
+</pre>
+        </code>
+
+        <p>
+            Then in the <b>clientApp.js</b>, add the code below. Using <code>$http.delete()</code>
+            request and send the request url to the server along with the <code>index</code> received
+            from html ng-click event. If the server give a sucessful response, this response should
+            be the new users json with the selected user removes. Simply assign the response to the
+            <code>$scope.users</code>.
+
+        </p>
+        <code>
+            <pre>
+$scope.remove = function (index) {
+            <b>$http.delete</b>('/api/user/' + <b>index</b>)
+    .success(function (response) {
+            <b>$scope.users = response;</b>
+    })
+}
+</pre>
+        </code>
+
+        <p>
+            At the server side, add the following code to the <b>server.js</b>.
+            The <code>app.delete()</code> method is used for DELETE, and the
+            <code>:idx</code> was appended to the url for receiving the index
+            from client app.
+            Parse the index by <code>req.params.idx</code> to get the index value,
+            then use <code>splice</code> method to remove the user at the index
+            position in the users array. Finally respond with users json.
+        </p>
+        <code>
+            <pre>
+<b>app.delete</b>('/api/user/<b>:idx</b>', function (req, res) {
+    var idx = <b>req.params.idx</b>;
+    users.<b>splice(idx, 1)</b>;
+    res.json(users);
+})
+</pre>
+        </code>
+
+        <p>
+            Also, to make the "view" function still work properly, we need to 
+            add a new <code>isDeleted</code> flag.
+        </p>
+        <p>
+            In the html, add the <code>isDeleted</code> flag in the skills div.
+        </p>
+        <code>
+            <pre>
+&lt;div ng-show="users[userIdx].skills.length >= 0 && <b>!isDeleted</b>"&gt;
+</pre>
+        </code>
+
+        <p>
+            The <code>$scope.isDeleted</code> should initially be <code>false</code>.
+        </p>
+        <code>
+            <pre>
+$scope.isDeleted = false;
+</pre>
+        </code>
+
+        <p>
+            Add one line in <code>remove()</code> event, <code>$scope.isDeleted = true;</code>,
+            to hide the skills div when its user has been removed.
+        </p>
+        <code>
+            <pre>
+$scope.remove = function (index) {
+    $http.delete('/api/user/' + index)
+    .success(function (response) {
+        $scope.users = response;
+     <b>$scope.isDeleted = true;</b>
+    })
+      
+}
+</pre>
+        </code>
+
+        <p>
+            Then in the contoller, the <code>view()</code> method, every time 
+            it is been called, we set the <code>isDeleted</code> flag to false.
+        </p>
+        <code>
+            <pre>
+$scope.view = function (index) {
+    <b>$scope.isDeleted = false;</b>
+    .
+    .
+    .
+}
+</pre>
+        </code>
+
+
+        <hr />
+        <h4><i>References</i></h4>
+        <p>
+            <a href="https://www.youtube.com/watch?v=WGnQAgk2dz4">Prof. Jose's YouTube</a>
+        </p>
+
+        <hr />
+
+        <h4><i>Source Code</i></h4>
+        <p>
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week6/nodejs5610/public/005.html" target="_blank">HTML</a> <br />
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week6/nodejs5610/public/js/clientApp.js" target="_blank">ControllerApp JS</a> <br />
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week6/nodejs5610/server.js" target="_blank">Server JS</a>
+        </p>
+    </div>
+
+</body>
+</html>
