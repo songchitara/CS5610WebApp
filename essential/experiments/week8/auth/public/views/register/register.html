@@ -1,0 +1,21 @@
+﻿<div class="container">
+
+    <form class="form-register">
+        <h2 class="form-register-heading">Please register</h2>
+        <label for="inputUser" class="sr-only">Username</label>
+        <input ng-model="user.username" id="inputUser" class="form-control" placeholder="Username" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input ng-model="user.password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        
+        <span>
+        <input ng-model="user.password2" type="password" id="inputPassword2" class="form-control" placeholder="Confirm password" required> 
+        <span ng-show='checkPwds()' class='alert alert-danger'>			
+        	{{checkPwds()}}
+        </span>
+        </span>
+        <button ng-click="register(user)" class="btn btn-lg btn-primary btn-block" >Register</button>
+        <br>
+        
+    </form>
+
+</div>
