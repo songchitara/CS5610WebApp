@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Passport - Register(improved)</title>
+    <script src="../bootstrap/js/bootstrap.js"></script>
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="container">
+        <h1>Passport - Register(improved) </h1>
+        <h4><i>Descriptions:</i></h4>
+        <p>
+            In the previous experiment, I implemented the simple registeration page, however, 
+            I didn't handle the case when the user already exists. In this experiment, I will
+            improve the registration page by checking if the user has already registered, 
+            if so, do not register it.
+        </p>
+        <h4><i>Instructions:</i></h4>
+        <p>
+            Click <a href="http://auth-songchi.rhcloud.com/#/register" target="_blank">HERE</a> to the register page, 
+            and try to register the username <b>alice</b>, we will find that after we click the 
+            "Register" button, a alert will pop out and saying the "User already exists!". Then the 
+            registration won't be successful. 
+        </p>
+        <hr />
+        <br />
+
+
+        <!-------------------- Implementations --------------------------->
+        <h4><i>Implementation</i></h4>
+        <p>
+            In the <b>server.js</b> file, add the bold code as below. It first try
+            to find the username in the database by using the Mongoose method
+            <code>findOne()</code>, if the username exists in the database,
+            we send back a <code>false</code> flag to the client to indicate
+            the existance of the user.
+        </p>
+        <code>
+            <pre>
+app.post("/register", function(req, res) {
+<b>UserModel.findOne({username: req.body.username}, 
+		function(err, user){
+			// if user already exists
+			if (user) {
+				console.log('User already exists!');
+				// send back the false flag tell the client user exists
+				res.send(false); </b>
+			} else { // else register the new user
+				var newUser = new UserModel(req.body);
+				newUser.role = ['user'];
+				newUser.save(function(err, user) {
+					req.login(user, function(err) {
+						if (err) {
+							 return next(err)
+						};
+						console.log('User registration succesful.')
+						res.json(user);
+					})
+				});	
+			}
+		})
+	
+})
+</pre>
+        </code>
+
+        <p>
+            Then in the client <b>register.js</b> file, add the bold code below.
+            It checks the if the response is equal to <code>false</code>, which
+            means the user already exists, in which case just emit a user 
+            already exists alert.
+        </p>
+        <code>
+            <pre>
+$scope.register = function (user) {
+    console.log(user);
+    //
+    if(user.password == user.password2) {
+	    $http.post("/register", user)
+	    .success(function (response) {
+	        console.log(response);
+            // response is false when user already exists.
+            <b>if (response==false) {
+                alert('User already exists!');
+            }</b>
+	        $rootScope.currentUser = response;
+	        $location.url("/profile");
+        })	
+    }
+    else{
+        alert('Two passwords not match! Please retry.')
+    }
+}
+</pre>
+        </code>
+
+        <hr />
+        <h4><i>References</i></h4>
+        <p>
+            <a href="https://www.youtube.com/watch?v=dXkqNWLyJ7E">Prof. Jose's YouTube (1/2)</a> <br>
+            <a href="https://www.youtube.com/watch?v=8GL5WpQ0vfo">Prof. Jose's YouTube (2/2)</a> <br />
+            <a href="http://passportjs.org/guide/">Passportjs.org</a>
+        </p>
+        <hr />
+        <h4><i>Source Code</i></h4>
+        <p>
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week8/auth/public/views/register/register.html" target="_blank">register.html</a> <br />
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week8/auth/public/views/register/register.js" target="_blank">register.js</a> <br />
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week8/auth/server.js" target="_blank">server.js</a>
+        </p>
+    </div>
+</body>
+</html>

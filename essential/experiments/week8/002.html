@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Passport - Logout</title>
+    <script src="../bootstrap/js/bootstrap.js"></script>
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="container">
+        <h1>Passport - Logout</h1>
+        <h4><i>Descriptions:</i></h4>
+        <p>
+            In this experiment, I will implement the logout operation using the Passport 
+            <code>authenticate()</code> function and <code>Local</code> strategy.
+        </p>
+        <h4><i>Instructions:</i></h4>
+        <p>
+            Click <a href="http://auth-songchi.rhcloud.com/#/login" target="_blank">HERE</a> to the login page, and 
+            use <b>alice</b> as the username and password to login. After logged in, click on the <b>Logout</b>
+            link to log the current user out.
+        </p>
+        <hr />
+        <br />
+
+
+        <!-------------------- Implementations --------------------------->
+        <h4><i>Implementation</i></h4>
+        <p>
+            In the <b>index.html</b> file, bind the "NavCtrl" to the <code>ng-controller</code> directive,
+            and bind the <code>logout()</code> function to the <code>ng-click</code> directive.
+        </p>
+        <code>
+            <pre>
+&lt;nav <b>ng-controller="NavCtrl"</b>&gt;
+    &lt;a href="#home"&gt;Home&lt;/a&gt; |
+    &lt;a href="#profile"&gt;Profile&lt;/a&gt; |
+    &lt;a href="#register"&gt;Register&lt;/a&gt; |
+    &lt;a href="#login"&gt;Login&lt;/a&gt; |
+    &lt;a href="#logout" <b>ng-click="logout()"</b>&gt;Logout&lt;/a&gt;
+&lt;/nav&gt;
+</pre>
+        </code>
+
+        <p>
+            In the <b>app.js</b> file, edit the "NavCtrl" controller. We specify the <code>logout()</code>
+            function, by posting the '/logout' url, and redirect to '/home' directory if the 
+            server gives a success response.
+        </p>
+        <code>
+            <pre>
+app.controller("NavCtrl", function($scope, $http, $location){
+	$scope.logout = function() {
+		$http.post('/logout')
+		.success(function(response){
+                <b>$location.url('/home');</b> 
+			console.log("logged out! " + response);
+		})
+	}
+});  
+</pre>
+        </code>
+
+        <p>
+            In the <b>server.app</b>, withn the <code>post()</code> method, call <code>req.logout()</code>
+            to logout. And send <b>200</b> to the response.
+        </p>
+        <code>
+            <pre>
+app.post('/logout', function(req, res) {
+	<b>req.logout();</b>
+	res.send(200);
+});
+</pre>
+        </code>
+
+        <hr />
+        <h4><i>References</i></h4>
+        <p>
+            <a href="https://www.youtube.com/watch?v=dXkqNWLyJ7E">Prof. Jose's YouTube (1/2)</a> <br>
+            <a href="https://www.youtube.com/watch?v=8GL5WpQ0vfo">Prof. Jose's YouTube (2/2)</a> <br />
+            <a href="http://passportjs.org/guide/">Passportjs.org</a>
+        </p>
+        <hr />
+        <h4><i>Source Code</i></h4>
+        <p>
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week8/auth/public/index.html" target="_blank">index.html</a> <br />
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week8/auth/public/js/app.js" target="_blank">app.js</a> <br />
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week8/auth/server.js" target="_blank">server.js</a>
+        </p>
+    </div>
+</body>
+</html>

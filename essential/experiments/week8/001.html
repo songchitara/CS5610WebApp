@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Passport - Login</title>
+    <script src="../bootstrap/js/bootstrap.js"></script>
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="container">
+        <h1>Passport - Login</h1>
+        <h4><i>Descriptions:</i></h4>
+        <p>
+            In this experiment, I will implement the login page using the Passport 
+            <code>authenticate()</code> function and <code>Local</code> strategy.
+        </p>
+        <h4><i>Instructions:</i></h4>
+        <p>
+            Click <a href="http://auth-songchi.rhcloud.com/#/login" target="_blank">HERE</a> to the experiment page. <br />
+            Use <b>alice</b> as the username and password to login.
+        </p>
+        <hr />
+        <br />
+
+
+        <!-------------------- Implementations --------------------------->
+        <h4><i>Implementation</i></h4>
+        <p>
+            First create the login HTML page. Binding <code>user.username</code> and 
+            <code>user.password</code> to <code>ng-model</code> directly respectively in username
+            input tag and password input tag. Also binding the <code>login()</code>
+            function to the <code>ng-click</code> directive and pass the <code>user</code>
+            as the parameter.
+        </p>
+        <code>
+            <pre>
+&lt;form class="form-signin"&gt;
+&lt;h2 class="form-signin-heading"&gt;Please sign in&lt;/h2&gt;
+&lt;label for="inputUser" class="sr-only"&gt;Username&lt;/label&gt;
+&lt;input <b>ng-model="user.username"</b> id="inputUser" class="form-control" placeholder="Username" required autofocus&gt;
+&lt;label for="inputPassword" class="sr-only"&gt;Password&lt;/label&gt;
+&lt;input <b>ng-model="user.password"</b> type="password" id="inputPassword" class="form-control" placeholder="Password" required&gt;
+&lt;div class="checkbox"&gt;
+&lt;label&gt;
+&lt;input type="checkbox" value="remember-me"&gt; Remember me
+&lt;/label&gt;
+&lt;/div&gt;
+&lt;button <b>ng-click="login(user)"</b> class="btn btn-lg btn-primary btn-block"&gt;Login&lt;/button&gt;
+&lt;/form&gt;
+</pre>
+        </code>
+
+
+        <p>
+            Then we need to create a "Login" controller to handle the login operation.
+            In the controller, we define the <code>login</code> function. Withn the 
+            function, post a <code>"/login"</code> http request along with the user
+            parameter received from the input field. If the server return a successful
+            response, pass this response to the <code>$rootScope.currentUser</code>. 
+            Then redirect to the <b>Profile</b> page by using <code>$location.url()</code>.
+        </p>
+        <code>
+            <pre>
+app.controller("LoginCtrl", function ($scope, $http, $rootScope, $location) {
+    $scope.login = function (user) {
+        console.log(user);
+        <b>$http.post("/login", user)</b>
+        .success(function (response) {
+            console.log(response);
+            <b>$rootScope.currentUser</b> = response;
+            <b>$location.url("/profile");</b>
+        })
+    }
+})
+</pre>
+        </code>
+
+        <p>
+            At the server side, in the <code>post()</code> method, we embed the <code>passport.authenticate()</code>
+            as the middleware in between and specify parameter <code>'local'</code> as the local strategy.
+        </p>
+        <code>
+            <pre>
+app.post('/login', <b>passport.authenticate('local')</b>, function (req, res) {
+    var user = req.user;
+    console.log(user);
+    res.json(user);
+})
+</pre>
+        </code>
+
+        <p>
+            Then we use passport <code>LocalStrategy()</code> to handle the username and password
+            processing. In the <b>UserModel</b> data model, use <code>findOne()</code> try to find 
+            the record in the database that matches the input username and password. If found, 
+            return the user data in <code>done()</code> method, else return false in <code>done()</code>.
+        </p>
+        <code>
+            <pre>
+passport.use(new <b>LocalStrategy(</b>
+function (username, password, done) {
+    <b>UserModel.findOne</b>({username: username, password: password}, function(err, user){
+	        if(user) {
+		        return done(null, <b>user</b>);
+	        } else {
+	        	return done(null, <b>false</b>, {message: 'Incorrect username or password.'});
+	        }
+	        
+        })
+}));
+</pre>
+        </code>
+
+        <hr />
+        <h4><i>References</i></h4>
+        <p>
+            <a href="https://www.youtube.com/watch?v=dXkqNWLyJ7E">Prof. Jose's YouTube (1/2)</a> <br>
+            <a href="https://www.youtube.com/watch?v=8GL5WpQ0vfo">Prof. Jose's YouTube (2/2)</a> <br />
+            <a href="http://passportjs.org/guide/">Passportjs.org</a>
+        </p>
+        <hr />
+        <h4><i>Source Code</i></h4>
+        <p>
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week8/auth/public/index.html" target="_blank">index.html</a> <br />
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week8/auth/public/views/login/login.html" target="_blank">login.html</a> <br />
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week8/auth/public/views/login/login.js" target="_blank">login.js</a> <br />
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week8/auth/public/js/app.js" target="_blank">app.js</a> <br />
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week8/auth/server.js" target="_blank">server.js</a>
+        </p>
+    </div>
+</body>
+</html>

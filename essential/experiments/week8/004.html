@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Passport - Register</title>
+    <script src="../bootstrap/js/bootstrap.js"></script>
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="container">
+        <h1>Passport - Register</h1>
+        <h4><i>Descriptions:</i></h4>
+        <p>
+            In this experiment, I will implement the user registeration using the Passport 
+            <code>authenticate()</code> function and <code>Local</code> strategy.
+        </p>
+        <h4><i>Instructions:</i></h4>
+        <p>
+            Click <a href="http://auth-songchi.rhcloud.com/#/register" target="_blank">HERE</a> to the register page, 
+            and enter the username and password you want to create a new user. After registered, navigate to 
+            the login page and use the credentials we've just created to login.
+        </p>
+        <hr />
+        <br />
+
+
+        <!-------------------- Implementations --------------------------->
+        <h4><i>Implementation</i></h4>
+        <p>
+            First in the app.js file, config the <code>app.config()</code> method that
+            binding the <code>RegisterCtrl</code> controller to the <b>register.html</b>
+            page view.
+        </p>
+        <code>
+            <pre>
+app.config(['$routeProvider', function ($routeProvider) {
+        $routeProvider
+        .
+        .
+        .
+        .when('/register', {
+            <b>templateUrl: 'views/register/register.html',
+            controller: 'RegisterCtrl'</b>
+        })
+    }]);
+</pre>
+        </code>
+
+        <p>
+            In the register.html HTML file, bind the <code>user</code> to the <code>ng-model</code>
+            in input fields and bind the <code>register()</code> function to the <code>ng-click</code>.
+        </p>
+        <code>
+            <pre>
+&lt;form class="form-register"&gt;
+&lt;h2 class="form-register-heading"&gt;Please register&lt;/h2&gt;
+&lt;label for="inputUser" class="sr-only"&gt;Username&lt;/label&gt;
+&lt;input <b>ng-model="user.username"</b> id="inputUser" class="form-control" placeholder="Username" required autofocus&gt;
+&lt;label for="inputPassword" class="sr-only"&gt;Password&lt;/label&gt;
+&lt;input <b>ng-model="user.password"</b> type="password" id="inputPassword" class="form-control" placeholder="Password" required&gt;
+&lt;input <b>ng-model="user.password2"</b> type="password" id="inputPassword2" class="form-control" placeholder="Confirm password" required&gt;
+&lt;button <b>ng-click="register(user)"</b> class="btn btn-lg btn-primary btn-block"&gt;Register&lt;/button&gt;
+&lt;/form&gt;
+</pre>
+        </code>
+
+        <p>
+            In the register.js JavaScript file, specify the register() function: if the two input 
+            passwords are equal, then post a '/register' HTTP request, and when the server returns 
+            a successful response, assignment the response to the <code>$rootScope.currentUser</code,
+            and redirect the url to the profile view.
+        </p>
+        <code>
+            <pre>
+app.controller("RegisterCtrl", function ($scope, $http, $rootScope, $location) {
+    $scope.register = function (user) {
+        console.log(user);
+        <b>if(user.password == user.password2)</b> {
+	        $http.post("/register", user)
+	        .success(function (response) {
+	            console.log(response);
+	            <b>$rootScope.currentUser = response; </b>
+	            <b>$location.url("/profile"); </b>
+        	})	
+        }
+        else{
+	        alert("The two passwords do not match, please retry.")
+        }
+        
+    }
+})
+</pre>
+        </code>
+
+        <hr />
+        <h4><i>References</i></h4>
+        <p>
+            <a href="https://www.youtube.com/watch?v=dXkqNWLyJ7E">Prof. Jose's YouTube (1/2)</a> <br>
+            <a href="https://www.youtube.com/watch?v=8GL5WpQ0vfo">Prof. Jose's YouTube (2/2)</a> <br />
+            <a href="http://passportjs.org/guide/">Passportjs.org</a>
+        </p>
+        <hr />
+        <h4><i>Source Code</i></h4>
+        <p>
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week8/auth/public/views/register/register.html" target="_blank">register.html</a> <br />
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week8/auth/public/views/register/register.js" target="_blank">register.js</a> <br />
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week8/auth/server.js" target="_blank">server.js</a>
+        </p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Passport - Keep Loggedin</title>
+    <script src="../bootstrap/js/bootstrap.js"></script>
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="container">
+        <h1>Passport - Keep Loggedin</h1>
+        <h4><i>Descriptions:</i></h4>
+        <p>
+            In most websites, when a user has logged in, within a certain amount of time, his/her
+            login status will be stored and doesn't have to re-login when navigated to another
+            page, or refresh the page, or even close the current page and reopen it. In this 
+            experienment, I will implement this function.
+        </p>
+        <h4><i>Instructions:</i></h4>
+        <p>
+            Click <a href="http://auth-songchi.rhcloud.com/#/login" target="_blank">HERE</a> to the login page, and 
+            use <b>alice</b> as the username and password to login. After logged in, refresh the page, we'll see
+            you still logged in. Then try to close the page and open a new page enter the address
+            <b>http://auth-songchi.rhcloud.com/#/profile</b> , we still logged in.
+        </p>
+        <hr />
+        <br />
+
+
+        <!-------------------- Implementations --------------------------->
+        <h4><i>Implementation</i></h4>
+        <p>
+            In the <b>app.js</b> <code>'/profile'</code> route, add <code>resolve</code> key
+            and the value should be another key-value pair with the key as <code>loggedin</code>
+            and the value as <code>checkLoggedin</code> function.
+        </p>
+        <code>
+            <pre>
+app.config(['$routeProvider', function ($routeProvider) {
+        $routeProvider
+        .
+        .
+        .
+        .when(<b>'/profile'</b>, {
+            templateUrl: 'views/profile/profile.html',
+            <b>resolve : {
+	            loggedin: checkLoggedin
+            }</b>
+        })
+        .
+        .
+        .
+    }]);
+    
+</pre>
+        </code>
+
+        <p>
+            The <code>checkedLoggedin</code> function is defined as below. 
+            First initialize <code>deferred</code> varaible as <code>$q.defer</code>.
+            When there is a user logged in, the <code>currentUser</code> then set 
+            to user, and call <code>deferred.resolve()</code> method. If there 
+            is no user, 
+        </p>
+        <code>
+            <pre>
+var checkLoggedin = function($q, $timeout, $http, $location, $rootScope)
+{
+    var deferred = $q.defer();
+    $http.get('/loggedin').success(function(user)
+    {
+        $rootScope.errorMessage = null;
+        // User is Authenticated
+        if (user !== '0')
+        {
+            <b>$rootScope.currentUser = user;
+            deferred.resolve(); </b>
+        }
+        // User is Not Authenticated
+        else
+        {
+            $rootScope.errorMessage = 'You need to log in.';
+            <b>deferred.reject();</b>
+            $location.url('/login');
+        }
+    });
+    
+    return deferred.promise;
+};
+
+</pre>
+        </code>
+
+        <p>
+            At the server.js side, call <code>isAuthenticated()</code> on <code>req</code> to
+            decide whether or not the session is authenticated. If ture, return the user information
+            back, else return <b>0</b>.
+        </p>
+        <code>
+            <pre>
+app.get("/loggedin", function(req, res) {
+	res.send(<b>req.isAuthenticated() ? req.user : '0'</b>);
+})
+</pre>
+        </code>
+
+        <hr />
+        <h4><i>References</i></h4>
+        <p>
+            <a href="https://www.youtube.com/watch?v=dXkqNWLyJ7E">Prof. Jose's YouTube (1/2)</a> <br>
+            <a href="https://www.youtube.com/watch?v=8GL5WpQ0vfo">Prof. Jose's YouTube (2/2)</a> <br />
+            <a href="http://passportjs.org/guide/">Passportjs.org</a>
+        </p>
+        <hr />
+        <h4><i>Source Code</i></h4>
+        <p>
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week8/auth/public/index.html" target="_blank">index.html</a> <br />
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week8/auth/public/js/app.js" target="_blank">app.js</a> <br />
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week8/auth/server.js" target="_blank">server.js</a>
+        </p>
+    </div>
+</body>
+</html>
