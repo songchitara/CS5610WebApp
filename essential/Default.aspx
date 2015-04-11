@@ -10,133 +10,108 @@
 
 <head>
 
-<meta charset='utf-8' />
+    <meta charset='utf-8' />
 
-<title>Demo Home Page</title>
-
-<style type="text/css">
-    ul.master_navigation
-    {
-        font-size: 100%;
-        font-weight: bold;
-        text-align: center;
-        list-style: none;
-        margin: 0.5em 0;
-        padding: 0;
-    }
-
-    ul.master_navigation li
-    {
-        display: inline-block;
-        padding: 0 0.5%;
-    }
-
-    a
-    {
-        color: #08f;
-        font-weight: bold;
-        text-decoration: none;
-    }
-
-    a:visited
-    {
-        color: #88f;
-    }
-
-    a:hover
-    {
-        color: #f00;
-    }
-
-    p
-    {
-        text-align: justify;
-    }
-</style>
-
-<style type="text/css" media="screen">
-    body {
-        width:900px;
-        max-width: 100%;
-        margin: 0;
-        padding: 0;
-    }
-
-    .pad {
-        padding: 10px;
-    }
-</style>
+    <title>Home Page</title>
+    <!-- official libs -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
+    <!-- user libs -->
+    <link rel="stylesheet" href="home_page/home.css" />
+    <link rel="stylesheet" href="home_page/navbar.css" />
+    <link rel="stylesheet" href="home_page/logo.css" />
+      
+  
 
 </head>
 
 <body>
 
-<div class="pad">
+    <div class="pad container">
 
-<form id="form1" runat="server">
+        <form id="form1" runat="server">
 
-<div>
-
-<ul class="master_navigation">
-    <li><a href="sitestatistics/" target="_blank">SiteStatistics</a></li>
-    <li><a href="statistics/" target="_blank">Statistics</a></li>
-    <li><a href="source/" target="_blank">Source</a></li>
-    <li><a href="search/" target="_blank">Search</a></li>
-    <li><a href="searchtree/" target="_blank">SearchTree</a></li>
-    <li><a href="textview/" target="_blank">TextView</a></li>
-    <li><a href="filelist.aspx" target="_blank">FileList</a></li>
-    <li><a href="autofile.aspx" target="_blank">AutoFile</a></li>
-    <li><a href="images/autoimage.aspx" target="_blank">Images</a></li>
-    <li><a href="blog/" target="_blank">Blog</a></li>
-    <li><a href="project/" target="_blank">Project</a></li>
-    <li><a href="story/index.htm?../experiments/story.txt" target="_blank">Experiments</a></li>
-    <li><a href="https://github.com/songchitara/CS5610WebApp" target="_blank">GitHub</a></li>
-
-</ul>
+            <div id="cssmenu">
 
 
+                <ul class="master_navigation nav">
+                    <li><a href="sitestatistics/" target="_blank">SiteStatistics</a></li>
+                    <li><a href="statistics/" target="_blank">Statistics</a></li>
+                    <li><a href="source/" target="_blank">Source</a></li>
+                    <li><a href="search/" target="_blank">Search</a></li>
+                    <li><a href="searchtree/" target="_blank">SearchTree</a></li>
+                    <li><a href="textview/" target="_blank">TextView</a></li>
+                    <li><a href="filelist.aspx" target="_blank">FileList</a></li>
+                    <li><a href="autofile.aspx" target="_blank">AutoFile</a></li>
+                    <li><a href="images/autoimage.aspx" target="_blank">Images</a></li>
+                </ul>
+            </div>
 
-<hr />
+            <hr />
 
-<div>
-    <img src="images/chi.jpg" width="280" height="320"/>
-    <p>Hi, my name is Chi Song. I'm very excited in learning web technologies through CS5610.</p>
-</div>
-    
-<hr />
+            <!-- Big logos -->
+            <div>
+                <ul class="img-list">
+                    <li>
+                        <a href="#">
+                            <img class="logo" src="images/img_home_page/document.png" />
+                            <span class="text-content"><span>Document</span></span>
+                        </a>
+                    </li>  
+                    <li>
+                        <a href="project/" target="_blank">
+                            <img class="logo" src="images/img_home_page/project.png" />
+                            <span class="text-content"><span>Project</span></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="story/index.htm?../experiments/story.txt" target="_blank">
+                            <img class="logo" src="images/img_home_page/experiment.png" />
+                            <span class="text-content"><span>Experiment</span></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/songchitara/CS5610WebApp" target="_blank">
+                            <img class="logo" src="images/img_home_page/github.png" />
+                            <span class="text-content"><span>Github</span></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="blog/" target="_blank">
+                            <img class="logo" src="images/img_home_page/blog_icon.png" />
+                            <span class="text-content"><span>Blog</span></span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
 
-<p>
-Here is a link to the
-<a href="story/index.htm" target="_blank">Story Utility</a>
-on this site so that you may explore this tool.
-</p>
 
-<p>
-Here is a link to the
-<a href="http://www.northeastern.edu/rasala/webstories.htm"
-        target="_blank">Web Development Stories</a>
-so that you may see a good collection of online documentation.
-</p>
 
-<p>
-This provides a model for using stories for documentation and
-for collections of experiments.
-</p>
+                <hr />
 
-<hr />
+              
+                 <div id="description">
+                    <p>
+                        Hi, my name is Chi Song, a graduate student in Computer Science. This is my home 
+                        page of course CS5610 Web Development. Learing web technolgies is a very exciting thing and I'm really enjoying exploring 
+                        the web world! 
+                    </p>
+                </div>   
 
-<p>
-None of the hints given above needs to be on your home page
-downstream but it is convenient to have them here at startup.
-</p>
+                <div class="to_center">
+                        <img id="my_photo" src="images/chi.jpg" />
+                </div>
 
-<hr />
+                <hr />
+            
+            
 
-</div>
+        </form>
 
-</form>
-
-</div>
+    </div>
 
 </body>
 </html>

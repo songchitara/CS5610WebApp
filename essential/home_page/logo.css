@@ -1,0 +1,75 @@
+﻿
+/*Style the Images*/
+ul.img-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+ 
+ul.img-list li {
+  display: inline-block;
+ 
+  margin: 0 1em 1em 0;
+  position: relative;
+  
+}
+
+
+/*Place the text over the images*/
+span.text-content {
+  background: rgba(0,0,0,0.5);
+  color: white;
+  cursor: pointer;
+  display: table;
+  
+  left: 0;
+  position: absolute;
+  top: 0;
+  
+}
+ 
+span.text-content span {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/*Show the text on hover*/
+span.text-content {
+  background: rgba(0,0,0,0.5);
+  color: white;
+  cursor: pointer;
+  display: table;
+ 
+  left: 0;
+  position: absolute;
+  top: 0;
+  
+  opacity: 0;
+}
+ 
+ul.img-list li:hover span.text-content {
+  opacity: 1;
+}
+
+/*Add the animation*/
+span.text-content {
+  background: rgba(0,0,0,0.5);
+  color: white;
+  cursor: pointer;
+  display: table;
+
+  left: 0;
+  position: absolute;
+  top: 0;
+
+  opacity: 0;
+  -webkit-transition: opacity 500ms;
+  -moz-transition: opacity 500ms;
+  -o-transition: opacity 500ms;
+  transition: opacity 500ms;
+}
+
+
+/***************************************/

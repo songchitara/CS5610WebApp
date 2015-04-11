@@ -1,0 +1,109 @@
+﻿body {
+    background-image: url("/home/songchi/images/img_home_page/bg1.jpg");
+}
+
+#my_photo{
+    vertical-align:central;
+    width:320px;
+     height:380px;
+}
+
+.to_center {
+    margin:auto;
+    text-align: center;
+}
+
+/*The self introduction*/
+#description {
+  line-height: 80px;
+  text-align: left;
+  font-family: 'Tangerine', serif;
+  text-shadow: 4px 4px 4px #aaa;
+}
+
+
+
+.text-content {
+    font-family: 'Tangerine', serif;
+    font-size: 36px;
+}
+
+@media screen and (max-width: 650px) {
+    .container {
+        margin: auto;
+        position: relative;
+    }
+    
+    ul.img-list li, span.text-content, .logo {
+    width: 65px;
+    height: 65px;
+}
+
+    #description {
+  font-size: 36px;
+}
+}
+
+@media screen and (min-width: 650px) and (max-width: 800px) {
+    .container {
+        width: 600px;
+        margin: auto;
+    }
+
+    ul.img-list li, span.text-content, .logo {
+    width: 80px;
+    height: 80px;
+}
+
+    #description {
+  font-size: 40px;
+}
+}
+
+@media screen and (min-width: 800px)  and (max-width: 1100px) {
+    .container {
+        width: 800px;
+        margin: auto;
+    }
+
+    ul.img-list li, span.text-content, .logo {
+    width: 100px;
+    height: 100px;
+}
+    #description {
+  font-size: 44px;
+}
+}
+
+@media screen and (min-width: 1100px) and (max-width: 1200px) {
+    .container {
+        width: 1000px;
+        margin: auto;
+    }
+
+   ul.img-list li, span.text-content, .logo {
+    width: 125px;
+    height: 125px;
+}
+
+   #description {
+  font-size: 48px;
+}
+}
+
+@media screen and (min-width: 1200px) {
+    .container {
+        width: 1000px;
+        margin: auto;
+    }
+
+    ul.img-list li, span.text-content, .logo {
+    width: 125px;
+    height: 125px;
+}
+
+    #description {
+  font-size: 54px;
+}
+    
+}
