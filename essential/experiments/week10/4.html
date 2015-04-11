@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Project Related: Google Map API Geolocation</title>
+    <script src="../bootstrap/js/jquery.js"></script>
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDThQNXNA1K4xjoVrdMzUVSv-GCBb8CLRk&sensor=false"></script>
+    <script src="4/code.js"></script>
+    <link href="4/style.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <h1>Project Related: Google Map API Geolocation</h1>
+        <h4><i>Descriptions:</i></h4>
+        <p>
+            When using google map, one of the best features is that the google can locate
+            your current position in the map. In this experiment, we are going to implement
+            this geolocation feature.
+        </p>
+        <h4><i>Instructions:</i></h4>
+        <p>
+            As below you see the google map,  the animating marker is where you currently are,
+            and the text tells you the information.
+        </p>
+
+        <hr />
+
+        <div class="mapWrapper" id="googleMap"></div>
+
+
+        <hr />
+        <br />
+
+
+        <!-------------------- Implementations --------------------------->
+        <h4><i>Implementation</i></h4>
+        <p>
+            First in the HTML header tag, load the google api. Then in the body, create
+            the container for map.
+        </p>
+        <code>
+            <pre>
+&lt;script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDThQNXNA1K4xjoVrdMzUVSv-GCBb8CLRk&sensor=false"&gt;&lt;/script&gt;
+</pre>
+        </code>
+        <code>
+            <pre>
+&lt;div class="container" id="googleMap"&gt;&lt;/div&gt;
+</pre>
+        </code>
+
+       <p>
+           In the Javascript file, within the <code>initialize()</code> function, the <code>navigator.geolocation.getCurrentPosition()</code>
+           is the call to get the current location. We also want to set a success callback function showPosition as the parameter.
+       </p>
+        <code>
+            <pre>
+function initialize() {
+    .
+    .
+ <b>navigator.geolocation.getCurrentPosition(showPosition);</b>
+    
+}
+</pre>
+        </code>
+
+        <p>
+            The callback function <code>showPosition()</code> has the parameter <code>position</code>, which stores
+            the current position information. We extract all the location data and then call <code>showMap()</code>.
+        </p>
+        <code>
+            <pre>
+function showPosition(position) {
+    var coords = position.coords;
+    lat = coords.latitude;
+    lng = coords.longitude;
+    acc = coords.accuracy;
+    showMap();
+}
+</pre>
+        </code>
+
+        <p>
+            In the <code>showMap()</code> function, we create a new map, set the center as the current geolocation,
+           also use a <b>while-loop</b> to zoom the map into proper view. Then set a animated mark based on the 
+            location data, and finally create a info window.
+        </p>
+        <code>
+            <pre>
+function showMap() {
+    var $mapWrapper = $(".mapWrapper");
+    $mapWrapper.show();
+    var mapWrapper = $mapWrapper[0];
+    var newmap = new google.maps.Map(mapWrapper);
+    newmap.setTilt(0);
+    newmap.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+    var latlng = new google.maps.LatLng(lat, lng);
+    newmap.setCenter(latlng);
+   <b> while ((acc > 1000) && (zoom > 0)) {
+        acc = acc / 2;
+        zoom--;
+    }</b>
+    newmap.setZoom(zoom);
+    // set marker and info window
+    var marker = new google.maps.Marker({
+        position: latlng,
+        animation: google.maps.Animation.BOUNCE
+    });
+    marker.setMap(newmap);
+    var infowindow = new google.maps.InfoWindow({
+        content: "You are here!"
+    });
+    infowindow.open(newmap, marker);
+}
+</pre>
+        </code>
+
+        <hr />
+        <h4><i>References</i></h4>
+        <p>
+            <a href="http://net4.ccs.neu.edu/home/rasala/experiments/geolocation/test02.htm" target="_blank">Prof. Rasala's Geolocation</a>
+        </p>
+        <hr />
+        <h4><i>Source Code</i></h4>
+        <p>
+            <a href="../../fileview/Default.aspx?~/experiments/week10/4.html" target="_blank">HTML </a> <br />
+            <a href="../../fileview/Default.aspx?~/experiments/week10/4/style.css" target="_blank">CSS </a> <br />
+            <a href="../../fileview/Default.aspx?~/experiments/week10/4/code.js" target="_blank">JavaScript </a>
+        </p>
+    </div>
+</body>
+</html>

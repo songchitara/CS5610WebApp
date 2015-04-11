@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Project Related: Relationship Visualization</title>
+    <script src="../bootstrap/js/jquery.js"></script>
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="container">
+        <h1>Project Related: Relationship Visualization</h1>
+        <h4><i>Descriptions:</i></h4>
+        <p>
+            It is always a good idea to visualize things. In this experiment, I will 
+            use the CytoscapeJS to create a nice visualized JSON relationships. Later
+            I will use this in my project to visualize the relations and connections 
+            among users.
+        </p>
+        <h4><i>Instructions:</i></h4>
+        <p>
+            Click <a href="./1/exp1.html" target="_blank">HERE</a> to the experiment 
+            page. You'll see the visualized graph created from JSON data.
+            Scroll mouse wheel to zoom in/out the graph. Also, each node in the 
+            graph is draggable.
+
+        </p>
+        <hr />
+        <br />
+
+
+        <!-------------------- Implementations --------------------------->
+        <h4><i>Implementation</i></h4>
+        <p>
+            First in the HTML page, include the CytoscapeJS library.
+        </p>
+        <code>
+            <pre>
+&lt;script src="http://cytoscape.github.io/cytoscape.js/api/cytoscape.js-latest/cytoscape.min.js"&gt;&lt;/script&gt;
+</pre>
+        </code>
+
+        <p>
+            Then in the Javascript file, put the JSON configurations. The <code>nodes</code> is a array of 
+            nodes in the graph, and <code>edges</code> represent the edges of the graph.The <code>source</code>
+            and <code>target</code> in the edges together can represent the direction of the edges, while 
+            <code>strength</code> specify the percentage of color strength.
+        </p>
+        <code>
+            <pre>
+        elements: {
+            nodes: [
+              { data: { id: 'j', name: 'Alice', weight: 65, faveColor: '#6FB1FC', faveShape: 'triangle' } },
+              { data: { id: 'e', name: 'Bob', weight: 45, faveColor: '#EDA1ED', faveShape: 'ellipse' } },
+              { data: { id: 'k', name: 'Chris', weight: 75, faveColor: '#86B342', faveShape: 'octagon' } },
+              { data: { id: 'g', name: 'Dan', weight: 70, faveColor: '#F5A45D', faveShape: 'rectangle' } }
+            ],
+            edges: [
+              { data: { source: 'j', target: 'e', faveColor: '#6FB1FC', strength: 90 } },
+              { data: { source: 'j', target: 'k', faveColor: '#6FB1FC', strength: 70 } },
+              { data: { source: 'j', target: 'g', faveColor: '#6FB1FC', strength: 80 } },
+              { data: { source: 'e', target: 'j', faveColor: '#EDA1ED', strength: 95 } },
+              { data: { source: 'e', target: 'k', faveColor: '#EDA1ED', strength: 60 }, classes: 'questionable' },
+              { data: { source: 'k', target: 'j', faveColor: '#86B342', strength: 100 } },
+              { data: { source: 'k', target: 'e', faveColor: '#86B342', strength: 100 } },
+              { data: { source: 'k', target: 'g', faveColor: '#86B342', strength: 100 } },
+              { data: { source: 'g', target: 'j', faveColor: '#F5A45D', strength: 90 } }
+            ]
+        }
+</pre>
+        </code>
+
+        <hr />
+        <h4><i>References</i></h4>
+        <p>
+            <a href="http://js.cytoscape.org/#core/initialisation" target="_blank">CytoscapeJS</a>
+        </p>
+        <hr />
+        <h4><i>Source Code</i></h4>
+        <p>
+            <a href="../../fileview/Default.aspx?~/experiments/week10/1/exp1.html" target="_blank">HTML </a> <br />
+            <a href="../../fileview/Default.aspx?~/experiments/week10/1/style.css" target="_blank">CSS </a> <br />
+            <a href="../../fileview/Default.aspx?~/experiments/week10/1/code.js" target="_blank">JavaScript </a>
+        </p>
+    </div>
+</body>
+</html>

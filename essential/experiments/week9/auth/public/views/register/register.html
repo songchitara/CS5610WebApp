@@ -1,0 +1,32 @@
+﻿<div class="container">
+
+    <form name="userForm" class="form-register">
+        <h2 class="form-register-heading">Please register</h2>
+        <div class="form-group" ng-class="{ 'has-error' : userForm.username.$invalid && !userForm.username.$pristine }">
+            <label for="inputUser">Username</label>
+            <input name="username" ng-model="user.username" ng-minlength="3" ng-maxlength="8" id="inputUser" class="form-control" placeholder="Username" required autofocus>
+            <p ng-show="userForm.username.$error.minlength" class="help-block">Username is too short.</p>
+            <p ng-show="userForm.username.$error.maxlength" class="help-block">Username is too long.</p>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword">Password</label>
+            <input ng-model="user.password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        </div>
+        
+        <div class="form-group">
+            <span>
+        <label for="inputPassword2">Confirm password</label>
+        <input ng-model="user.password2" type="password" id="inputPassword2" class="form-control" placeholder="Confirm password" required> 
+        <span ng-show='checkPwds()' class='alert alert-danger'>         
+            {{checkPwds()}}
+        </span>
+        </span>
+        </div>
+        
+        <button ng-click="register(user)" class="btn btn-lg btn-primary btn-block" >Register</button>
+        <br>
+        
+    </form>
+
+
+</div>

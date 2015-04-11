@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>More on Passport - Hide Unnecessary Links</title>
+    <script src="../bootstrap/js/bootstrap.js"></script>
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="container">
+        <h1>More on Passport - Hide Unnecessary Links</h1>
+        <h4><i>Descriptions:</i></h4>
+        <p>
+            It will be very odd is someone has logged in but there are still links like "Login"
+            and "Registeration". The even worse part is when click on these links after being
+            logged in, the behavior of the app will be very weird. So in this experiment,
+            I will hide the "Login" and "Registeration" links when user has logged in. After
+            the user logout, the two links will resume.
+        </p>
+        <h4><i>Instructions:</i></h4>
+        <p>
+            Click <a href="http://auth-songchi.rhcloud.com/#/login" target="_blank">HERE</a> 
+            to the login page. Use <b>alice</b> as the username and password to login, we'll
+            see that after logged in, the <b>Login</b> and <b>Register</b> links at the top
+            disappears. Then try click on <b>Logout</b> link, we'll see that those two 
+            hided link appears.
+        </p>
+        <p>
+            Here is the screenshot that before I did this experiment, note that when the alice
+            user has logged in, the <b>Login</b> and <b>Register</b> links are still there.
+            <img src="img/before-ng-hide.png" />
+        </p>
+        <hr />
+        <br />
+
+
+        <!-------------------- Implementations --------------------------->
+        <h4><i>Implementation</i></h4>
+        <p>
+            In the HTML file, find the <code>&lt;a&gt;</code> tags for Login and Register, 
+            add <code>ng-hide</code> to these tags and bind <code>isLoggedin</code> variable
+            to them.
+        </p>
+        <code>
+            <pre>
+&lt;a href="#register" <b>ng-hide='isLoggedin'</b>&gt;Register&lt;/a&gt; &lt;span ng-hide='isLoggedin'&gt;|&lt;/span&gt;
+&lt;a href="#login" <b>ng-hide='isLoggedin'</b>&gt;Login&lt;/a&gt; &lt;span ng-hide='isLoggedin'&gt;|&lt;/span&gt;
+</pre>
+        </code>
+
+        <p>
+            Then in the <b>app.js</b> Javascript file, withn the <code>checkLoggedin</code> function, 
+            set <code>$rootScope.isLoggedin</code> to <b>true</b> when there is a user logged in,
+            otherwise set it to false. This will hide the Login and Register links when a user logged in.
+        </p>
+        <code>
+            <pre>
+var checkLoggedin = function($q, $timeout, $http, $location, $rootScope)
+{
+    
+    var deferred = $q.defer();
+    $http.get('/loggedin').success(function(user)
+    {
+        $rootScope.errorMessage = null;
+        // User is Authenticated
+        if (user !== '0')
+        {
+            $rootScope.currentUser = user;
+            deferred.resolve();
+            // flag for ng-hide on "Login" and "Register" link
+            <b>$rootScope.isLoggedin = true; </b>
+        }
+        // User is Not Authenticated
+        else
+        {
+            $rootScope.errorMessage = 'You need to log in.';
+            deferred.reject();
+            $location.url('/login');
+            // flag for ng-hide on "Login" and "Register" link
+            <b>$rootScope.isLoggedin = false; </b>
+            
+        }
+    });
+</pre>
+        </code>
+
+        <p>
+            Now in the <code>logout()</code> function, add <code>$rootScope.isLoggedin = false;</code> 
+            at the end, this will bring back the two links when the user log out.
+        </p>
+        <code>
+            <pre>
+app.controller("NavCtrl", function($rootScope, $scope, $http, $location){
+	$scope.logout = function() {
+		$http.post('/logout')
+		.success(function(response){
+			$location.url('/home');
+			console.log("logged out! " + response);
+            // flag for ng-hide on "Login" and "Register" link
+            <b>$rootScope.isLoggedin = false; </b>
+		})
+	}
+});  
+</pre>
+        </code>
+
+        <hr />
+        <h4><i>References</i></h4>
+        <p>
+            <a href="https://www.youtube.com/watch?v=dXkqNWLyJ7E">Prof. Jose's YouTube (1/2)</a> <br>
+            <a href="https://www.youtube.com/watch?v=8GL5WpQ0vfo">Prof. Jose's YouTube (2/2)</a> <br />
+            <a href="http://passportjs.org/guide/">Passportjs.org</a>
+        </p>
+        <hr />
+        <h4><i>Source Code</i></h4>
+        <p>
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week9/auth/public/views/register/register.html" target="_blank">register.html</a> <br />
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week9/auth/public/views/register/register.js" target="_blank">register.js</a> <br />
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week9/auth/server.js" target="_blank">server.js</a>
+        </p>
+    </div>
+</body>
+</html>

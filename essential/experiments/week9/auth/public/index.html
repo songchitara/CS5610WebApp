@@ -1,0 +1,28 @@
+<link href="css/bootstrap.css" rel="stylesheet" />
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/angular.js"></script>
+<script src="js/angular-route.js"></script>
+<!-- link the app js file-->
+<script src="js/app.js"></script>
+<!-- link the controller files-->
+<script src="views/login/login.js"></script>
+<link href="views/login/login.css" rel="stylesheet" />
+<script src="views/register/register.js"></script>
+<link href="views/register/register.css" rel="stylesheet" />
+
+
+<body ng-app="PassportApp">
+    <div class="container">
+        <nav ng-controller="NavCtrl">
+            <a href="#home">Home</a> |
+            <a href="#profile">Profile</a> I
+            <a href="#register" ng-hide='isLoggedin'>Register</a> <span ng-hide='isLoggedin'>|</span>
+            <a href="#login" ng-hide='isLoggedin'>Login</a> <span ng-hide='isLoggedin'>|</span>
+            <a href="#logout" ng-click="logout()">Logout</a>
+        </nav>
+
+    </div>
+    <div ng-view>
+    </div>
+</body>

@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Passport and Angular - Redirect</title>
+    <script src="../bootstrap/js/bootstrap.js"></script>
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="container">
+        <h1>Passport and Angular - Redirect</h1>
+        <h4><i>Descriptions:</i></h4>
+        <p>
+            Before handling the authentication, we need to first implement the rediret
+            feature so that makes sure our application always gets the right page
+            to render. In particular, the "Profile" page is private, and is only accessable 
+            to the user who has logged in. So when a guest hits the "Profile" page,
+            he/she should be redirected to the "Home" page. On the other hand, when a 
+            logged-in user click "Logout", the current page should redirect to the "Home"
+            page. 
+        </p>
+        <h4><i>Instructions:</i></h4>
+        <p>
+            Click <a href="http://auth-songchi.rhcloud.com/#/login" target="_blank">HERE</a> to 
+            the experiment page. Click the <b>Profile</b>, we'll be redirected to the sign-in page.
+            Click on the <b>Logout</b>, we'll be redirected to the home page.
+            
+        </p>
+        <hr />
+        <br />
+
+
+        <!-------------------- Implementations --------------------------->
+        <h4><i>Implementation</i></h4>
+        <p>
+            The key to implement redirect is use the Angular build-in <code>$location</code> variable.
+            To redirect the page from "Profile" to "Login", the <code>$location.url('/login')</code>
+            is used when deal with the "Profile" function. 
+        </p>
+        <code>
+            <pre>
+var checkLoggedin = function(... <b>$location </b> ...)
+{
+        .
+        .
+        else
+        {
+            $rootScope.errorMessage = 'You need to log in.';
+            deferred.reject();
+            <b>$location.url('/login'); </b>
+        }
+};
+
+</pre>
+        </code>
+
+        <p>
+            To redirect the page to "Home" when click on "Logout", <code>$location.url('/home');</code>
+            should be used in the logout function.
+        </p>
+        <code>
+            <pre>
+app.controller("NavCtrl", function($scope, $http, <b>$location</b>){
+	$scope.logout = function() {
+		$http.post('/logout')
+		.success(function(response){
+			<b>$location.url('/home'); </b>
+		})
+	}
+});  
+</pre>
+        </code>
+
+        <hr />
+        <h4><i>References</i></h4>
+        <p>
+            <a href="https://www.youtube.com/watch?v=dXkqNWLyJ7E">Prof. Jose's YouTube (1/2)</a> <br>
+            <a href="https://www.youtube.com/watch?v=8GL5WpQ0vfo">Prof. Jose's YouTube (2/2)</a> <br />
+            <a href="http://passportjs.org/guide/">Passportjs.org</a>
+        </p>
+        <hr />
+        <h4><i>Source Code</i></h4>
+        <p>
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week8/auth/public/index.html" target="_blank">index.html</a> <br />
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week8/auth/public/js/app.js" target="_blank">app.js</a> <br />
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week8/auth/server.js" target="_blank">server.js</a>
+        </p>
+    </div>
+</body>
+</html>

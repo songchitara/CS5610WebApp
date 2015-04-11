@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>More on Passport - Dynamic Password Validation</title>
+    <script src="../bootstrap/js/bootstrap.js"></script>
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="container">
+        <h1>More on Passport - Dynamic Password Validation</h1>
+        <h4><i>Descriptions:</i></h4>
+        <p>
+            When a user want to sign up for a new account, in the web page it
+            usually requires to type the password twice to make sure the 
+            user do not have the typos in their password. It is always a 
+            good idea that the web page dynamically shows if the second
+            time the user is typing the password the same as the first 
+            time. So in this experiment, I will implement the dynamic
+            password validation.
+        </p>
+        <h4><i>Instructions:</i></h4>
+        <p>
+            Click <a href="http://auth-songchi.rhcloud.com/#/register" target="_blank">HERE</a> 
+            to the register page. Type any username you want, then in the "Password" input
+            field type your password for the first time, then in the "Confirm password"
+            input field type your password again. When you are type the confirming password,
+            the input field will prompt a red background alert that tells you the passwords
+            do not match. Once you finish typing the confirming password and it is the 
+            exactly same as the first one you entered, the alert will disapear.
+             
+        </p>
+        <hr />
+        <br />
+
+
+        <!-------------------- Implementations --------------------------->
+        <h4><i>Implementation</i></h4>
+        <p>
+            In the <b>register.html</b> HTML file, add a placeholder that can display the 
+            alert message when the confirming password is not the same as the 
+            first password. In order to implement it, first bind the 
+            <code>checkPwds()</code> function to <code>ng-show</code> directive,
+            the function will return a error message if two passwords are not 
+            the same. 
+        </p>
+        <code ng-non-bindable>
+            <pre>
+&lt;span <b>ng-show='checkPwds()'</b> class='alert alert-danger'&gt;			
+    <b>{{checkPwds()}}</b>
+&lt;/span&gt;
+</pre>
+        </code>
+
+        <p>
+            In the <b>register.js</b> Javascript file, add the code below. The 
+            first <code>if</code> condition makes sure input field is being editing. The
+            second <code>if</code> condition makes sure the two password field are both
+            being editing. The third <code>if</code> condition check if the two passwords
+            are the same, if not, emit a passwords not matching message.
+        </p>
+        <code>
+            <pre>
+$scope.checkPwds = function () {
+<b> if ($scope.user) {
+        if ($scope.user.password && $scope.user.password2) {
+            if ($scope.user.password != $scope.user.password2) {</b>
+                return 'Passwords do not match!';
+            } 
+        }
+    }          
+}
+</pre>
+        </code>
+
+        <hr />
+        <h4><i>References</i></h4>
+        <p>
+            <a href="https://www.youtube.com/watch?v=dXkqNWLyJ7E">Prof. Jose's YouTube (1/2)</a> <br>
+            <a href="https://www.youtube.com/watch?v=8GL5WpQ0vfo">Prof. Jose's YouTube (2/2)</a> <br />
+            <a href="http://passportjs.org/guide/">Passportjs.org</a>
+        </p>
+        <hr />
+        <h4><i>Source Code</i></h4>
+        <p>
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week9/auth/public/views/register/register.html" target="_blank">register.html</a> <br />
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week9/auth/public/views/register/register.js" target="_blank">register.js</a> <br />
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week9/auth/server.js" target="_blank">server.js</a>
+        </p>
+    </div>
+</body>
+</html>

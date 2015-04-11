@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>More on Passport - Admin User</title>
+    <script src="../bootstrap/js/bootstrap.js"></script>
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="container">
+        <h1>More on Passport - Admin User</h1>
+        <h4><i>Descriptions:</i></h4>
+        <p>
+            The admin user will always have the highest permission, and we can
+            use the admin user to view all other users as well as their
+            informations. This will be very handy for us to debug or 
+            view our data. 
+        </p>
+        <h4><i>Instructions:</i></h4>
+        <p>
+            Click <a href="http://auth-songchi.rhcloud.com/#/login" target="_blank">HERE</a> 
+            to jump to the login page. Use the <b>admin</b> as both the username and 
+            password to log in as an administrator. We'll be directly navigated to the profile
+            page, and all the users' id, username and password are well shown in a table.
+             
+        </p>
+        <hr />
+        <br />
+
+
+        <!-------------------- Implementations --------------------------->
+        <h4><i>Implementation</i></h4>
+        <p>
+            In the <b>profile.html</b> HTML file, add a placeholder <code>div</code> for displaying
+            the users information. The <code>div</code> should have a <code>ng-show</code>
+            directive and bind to <code>currentUser.length</code>, meaning if the <b>currentUser</b>
+            has a length, which is to say the <b>currentUser</b> is a array (a list of users), then
+            show the placeholder table. And we are pretty familiar with the table implementation 
+            as we have done many times in the previous weeks.
+        </p>
+        <code>
+            <pre>
+&lt;div <b>ng-show='currentUser.length'</b>&gt;
+Current User: &lt;b&gt;Administrator(admin)&lt;/b&gt;
+                &lt;div class='container'&gt;
+                &lt;table class='table table-striped'&gt;
+                &lt;thead&gt;
+                &lt;tr&gt;
+                &lt;th&gt;ID&lt;/th&gt;
+                &lt;th&gt;Username&lt;/th&gt;
+                &lt;th&gt;Password&lt;/th&gt;
+			&lt;/tr&gt;
+		&lt;/thead&gt;
+                &lt;tbody&gt;
+                &lt;tr ng-repeat='user in currentUser'&gt;
+                &lt;td&gt;{{user._id}}&lt;/td&gt;
+                &lt;td&gt;{{user.username}}&lt;/td&gt;
+                &lt;td&gt;{{user.password}}&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+        </code>
+
+        <p>
+            Then in the <b>server.js</b> file, add a few lines of code, which 
+            first check if the username and password are equal to 'admin'. If
+            so, use <code>find()</code> mongoose function to retrieve all
+            the users data and return to the client.
+        </p>
+        <code>
+            <pre>
+.
+.
+.
+<b>if (username=='admin' && password=='admin') {
+	UserModel.find({}</b>, function(err, users) {
+		return done(null, users);
+	})
+}
+.
+.
+.
+</pre>
+        </code>
+
+        <hr />
+        <h4><i>References</i></h4>
+        <p>
+            <a href="https://www.youtube.com/watch?v=dXkqNWLyJ7E">Prof. Jose's YouTube (1/2)</a> <br>
+            <a href="https://www.youtube.com/watch?v=8GL5WpQ0vfo">Prof. Jose's YouTube (2/2)</a> <br />
+            <a href="http://passportjs.org/guide/">Passportjs.org</a>
+        </p>
+        <hr />
+        <h4><i>Source Code</i></h4>
+        <p>
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week9/auth/public/views/profile/profile.html" target="_blank">profile.html</a> <br />
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week9/auth/server.js" target="_blank">server.js</a>
+        </p>
+    </div>
+</body>
+</html>

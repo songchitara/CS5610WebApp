@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>More on Passport - Form Validation</title>
+    <script src="../bootstrap/js/bootstrap.js"></script>
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="container">
+        <h1>More on Passport - Form Validation</h1>
+        <h4><i>Descriptions:</i></h4>
+        <p>
+            When register a new user, there are rules to follow such as the username should 
+            neither be too short nor too long. In this experiment, I will dynamically validate
+            the username field in the register form, when the length of username does not meet
+            our standard, a message field will appear to let the user know.
+        </p>
+        <h4><i>Instructions:</i></h4>
+        <p>
+            Click <a href="http://auth-songchi.rhcloud.com/#/register" target="_blank">HERE</a> 
+            to go to the registeration page. Enter your desired username, if the length is 
+            shorter than our minimum length, a "Username is too short" message will appear. If the 
+            length is longer than our maximum length, a Username is too long" message will appear.
+             
+        </p>
+        <hr />
+        <br />
+
+
+        <!-------------------- Implementations --------------------------->
+        <h4><i>Implementation</i></h4>
+        <p>
+            In the <b>register.html</b> HTML file, first give the form a name "userForm".
+            Then wrap the username input and the placeholder message areas into a <code>div</code> 
+            tag, where a <code>ng-class</code> directive is set to the tag binding with
+            <code>{ 'has-error' : userForm.username.$invalid && !userForm.username.$pristine }</code>.
+            The <code>$invalid</code> return <code>true</code> if the username does NOT meet 
+            our standard. The <code>$pristine</code> tells us whether the user has modified the 
+            form, if so, return <code>true</code>.
+            The <code>ng-minlength="3"</code> set the minimum length to 3 and <code>ng-maxlength="8"</code>
+            set the maximum length to 8.
+            Two placeholder message <code>p</code> tags are set with <code>ng-show</code> directive
+            with <code>$error</code> variable, which contains all of the validations on a particular
+            form and if they are valid or invalid.
+        </p>
+        <code>
+            <pre>
+&lt;form name="userForm" class="form-register"&gt;
+.
+.
+.
+&lt;div class="form-group" ng-class="{ 'has-error' :<b> userForm.username.$invalid && !userForm.username.$pristine </b>}"&gt;
+&lt;label for="inputUser"&gt;Username&lt;/label&gt;
+&lt;input name="username" ng-model="user.username" ng-minlength="3" ng-maxlength="8" id="inputUser" class="form-control" placeholder="Username" required autofocus&gt;
+&lt;p <b>ng-show="userForm.username.$error.minlength"</b> class="help-block"&gt;Username is too short.&lt;/p&gt;
+&lt;p <b>ng-show="userForm.username.$error.maxlength"</b> class="help-block"&gt;Username is too long.&lt;/p&gt;
+&lt;/div&gt;
+.
+.
+.       
+&lt;/form&gt;
+</pre>
+        </code>
+
+
+
+
+        <hr />
+        <h4><i>References</i></h4>
+        <p>
+            <a href="http://www.ng-newsletter.com/posts/validations.html">http://www.ng-newsletter.com/posts/validations.html</a> <br>
+            <a href="http://codepen.io/sevilayha/pen/xFcdI?editors=101">http://codepen.io/sevilayha/pen/xFcdI?editors=101</a> 
+        </p>
+        <hr />
+        <h4><i>Source Code</i></h4>
+        <p>
+            <a href="https://github.com/songchitara/CS5610WebApp/blob/master/essential/experiments/week9/auth/public/views/register/register.html" target="_blank">register.html</a> 
+        </p>
+    </div>
+</body>
+</html>

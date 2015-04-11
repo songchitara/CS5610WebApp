@@ -1,0 +1,28 @@
+﻿<h1>Profile</h1>
+<div ng-hide='currentUser.length'>
+	Current User: 
+	<b>{{currentUser.username}}</b>
+</div>
+
+
+<div ng-show='currentUser.length'>
+Current User: <b>Administrator(admin)</b>
+	<div class='container'>
+	<table class='table table-striped'>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Username</th>
+				<th>Password</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat='user in currentUser'>
+				<td>{{user._id}}</td>
+				<td>{{user.username}}</td>
+				<td>{{user.password}}</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+</div>

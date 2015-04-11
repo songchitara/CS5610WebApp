@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Project Related: Google Map API</title>
+    <script src="../bootstrap/js/jquery.js"></script>
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDThQNXNA1K4xjoVrdMzUVSv-GCBb8CLRk&sensor=false"></script>
+    <script src="3/code.js"></script>
+    <link href="3/style.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <h1>Project Related: Google Map API</h1>
+        <h4><i>Descriptions:</i></h4>
+        <p>
+            In this experiement, I will use the google map api to mark favorite place. Later in 
+            the project, a favorite theater could be shared in through map among users.
+        </p>
+        <h4><i>Instructions:</i></h4>
+        <p>
+            As below you see the google map with a marker, also an infoWindow
+            that gives the title of the favorite place.
+
+        </p>
+
+        <hr />
+
+        <div class="container" id="googleMap"></div>
+
+
+        <hr />
+        <br />
+
+
+        <!-------------------- Implementations --------------------------->
+        <h4><i>Implementation</i></h4>
+        <p>
+            First in the HTML header tag, load the google api. Then in the body, create
+            the container for map.
+        </p>
+        <code>
+            <pre>
+&lt;script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDThQNXNA1K4xjoVrdMzUVSv-GCBb8CLRk&sensor=false"&gt;&lt;/script&gt;
+</pre>
+        </code>
+        <code>
+            <pre>
+&lt;div class="container" id="googleMap"&gt;&lt;/div&gt;
+</pre>
+        </code>
+
+        <p>
+            In the JavaScript file, use <code>google.maps.LatLng()</code> to create the center of our
+            location.
+        </p>
+        <code>
+            <pre>
+var myCenter = new google.maps.LatLng(42.360379, -71.064756);
+</pre>
+        </code>
+
+        <p>
+            In the <code>initialize()</code> function, first specify the properties of the map.
+        </p>
+        <code>
+            <pre>
+function initialize() {
+    var mapProp = {
+        center: myCenter,
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+</pre>
+        </code>
+
+        <p>
+            Then use <code>google.maps.Map()</code> to create a map instance.
+        </p>
+        <code>
+            <pre>
+                var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+</pre>
+        </code>
+
+        <p>
+            User <code>google.maps.Marker()</code> to create marker on the map and user
+            <code>setMap()</code> to save the marker on the map.
+        </p>
+        <code>
+            <pre>
+var marker = new google.maps.Marker({
+        position: myCenter,
+        animation: google.maps.Animation.BOUNCE
+    });
+
+ marker.setMap(map);
+</pre>
+        </code>
+
+        <p>
+            Finally use <code>google.maps.InfoWindow</code> to create info window. The
+            <code>content</code> field is the message of the infowindow.
+        </p>
+        <code>
+            <pre>
+    var infowindow = new google.maps.InfoWindow({
+        content: "Favorite Place 1"
+    });
+
+    infowindow.open(map, marker);
+</pre>
+        </code>
+
+        <p>
+            Finally call the <code>initialize()</code> function.
+        </p>
+        <code>
+            <pre>
+google.maps.event.addDomListener(window, 'load', initialize);
+</pre>
+        </code>
+
+
+        <hr />
+        <h4><i>References</i></h4>
+        <p>
+            <a href="http://www.w3schools.com/googleapi/google_maps_overlays.asp" target="_blank">W3Schools</a>
+        </p>
+        <hr />
+        <h4><i>Source Code</i></h4>
+        <p>
+            <a href="../../fileview/Default.aspx?~/experiments/week10/3.html" target="_blank">HTML </a> <br />
+            <a href="../../fileview/Default.aspx?~/experiments/week10/3/style.css" target="_blank">CSS </a> <br />
+            <a href="../../fileview/Default.aspx?~/experiments/week10/3/code.js" target="_blank">JavaScript </a>
+        </p>
+    </div>
+</body>
+</html>

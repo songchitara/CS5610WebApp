@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Project Related: Calendar and Events</title>
+    <script src="../bootstrap/js/jquery.js"></script>
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="container">
+        <h1>Project Related: Calendar and Events</h1>
+        <h4><i>Descriptions:</i></h4>
+        <p>
+            Calendar is quite useful for displaying events. In this experiment,
+            I will use the <b>FullCalendar</b> to create a calendar and customize
+            the events. Later in my project, I could add the event/movie show
+            into the Calendar and displaying in the home page.
+        </p>
+        <h4><i>Instructions:</i></h4>
+        <p>
+            Click <a href="./5/exp5.html" target="_blank">HERE</a> to the experiment 
+            page. You'll see a calendar with events on it.
+
+        </p>
+        <hr />
+        <br />
+
+
+        <!-------------------- Implementations --------------------------->
+        <h4><i>Implementation</i></h4>
+       <p>
+           In the HTML, first of all, we need to include four libraries. Note that the jQuery 
+           and Moment must be loaded before FullCalendar's JavaScript.
+       </p>
+        <code>
+            <pre>
+&lt;link rel='stylesheet' href='fullcalendar/fullcalendar.css' /&gt;
+&lt;script src='lib/jquery.min.js'&gt;&lt;/script&gt;
+&lt;script src='lib/moment.min.js'&gt;&lt;/script&gt;
+&lt;script src='fullcalendar/fullcalendar.js'&gt;&lt;/script&gt;
+</pre>
+        </code>
+
+        <p>
+            Then in the body, place the calendar placeholder.
+        </p>
+        <code>
+            <pre>
+    &lt;div id='calendar'&gt;&lt;/div&gt;
+</pre>
+        </code>
+
+        <p>
+            Then in the JavaScript file, call <code> $('#calendar').fullCalendar()</code> function after
+            the page has initialized.
+        </p>
+        <code>
+            <pre>
+$(document).ready(function() {
+    $('#calendar').fullCalendar({
+        ...
+    })
+});
+</pre>
+        </code>
+
+        <p>
+            Withn the <code>fullCalendar()</code> function, add the JSON
+            format event to display the events on the calendar.
+        </p>
+        <code>
+            <pre>
+    $('#calendar').fullCalendar({
+        events: [
+        {
+            title: 'event1',
+            start: '2015-04-07'
+        },
+        {
+            title: 'event2',
+            start: '2015-04-15',
+        },
+        {
+            title: 'event3',
+            start: '2015-04-19T12:30:00',
+            allDay: false // will make the time show
+        }
+        ]
+    })
+</pre>
+        </code>
+
+        <hr />
+        <h4><i>References</i></h4>
+        <p>
+            <a href="http://fullcalendar.io/docs/usage/" target="_blank">FullCalendar</a> <br />
+            <a href="http://momentjs.com/" target="_blank">MomentJS</a>
+        </p>
+        <hr />
+        <h4><i>Source Code</i></h4>
+        <p>
+            <a href="../../fileview/Default.aspx?~/experiments/week10/5/exp5.html" target="_blank">HTML </a> <br />
+            <a href="../../fileview/Default.aspx?~/experiments/week10/5/myCalendar.js" target="_blank">JavaScript </a> 
+        </p>
+    </div>
+</body>
+</html>

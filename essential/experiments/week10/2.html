@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Project Related: Relationship Visualization with Images</title>
+    <script src="../bootstrap/js/jquery.js"></script>
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="container">
+        <h1>Project Related: Relationship Visualization with Images</h1>
+        <h4><i>Descriptions:</i></h4>
+        <p>
+            In this experiement, I will use another type of graph in CytoscapeJS which
+            can specify our own image as the graph nodes. This is very helpful to my
+            project that render the movies and user relationships with the movie posters
+            as the graph node.
+        </p>
+        <h4><i>Instructions:</i></h4>
+        <p>
+            Click <a href="./2/exp2.html" target="_blank">HERE</a> to the experiment 
+            page. You'll see the visualized graph with our own images be the nodes.
+            Again, use mouse wheel to zoom in/out the graph and each node can be 
+            dragged.
+
+        </p>
+        <hr />
+        <br />
+
+
+        <!-------------------- Implementations --------------------------->
+        <h4><i>Implementation</i></h4>
+        <p>
+            The images we want to put as nodes can be specified with the <code>cytoscape()</code>
+            method. With the method, use the CSS style to specify the <code>background-image</code>
+            link.
+        </p>
+        <code>
+            <pre>
+var cy = <b>cytoscape</b>({
+        container: document.getElementById('cy'),
+        style: cytoscape.stylesheet()
+            .
+            .
+            .
+          .selector('#bird')
+            .css({
+                'background-image': 'https://farm8.staticflickr.com/7272/7633179468_3e19e45a0c_b.jpg'
+            })
+          .selector('#cat')
+            .css({
+                'background-image': 'https://farm2.staticflickr.com/1261/1413379559_412a540d29_b.jpg'
+            })
+            .
+            .
+</pre>
+        </code>
+
+        <p>
+            The nodes and edges specifications are the same as in previous experiment.
+        </p>
+        <code>
+            <pre>
+elements: {
+    nodes: [
+        { data: { id: 'cat' } },
+        { data: { id: 'bird' } },
+        .
+        .
+        .
+    ],
+    edges: [
+        { data: { source: 'cat', target: 'bird' } },
+        { data: { source: 'bird', target: 'ladybug' } },
+        .
+        .
+    ]
+}
+</pre>
+        </code>
+
+
+        <hr />
+        <h4><i>References</i></h4>
+        <p>
+            <a href="http://js.cytoscape.org/#core/initialisation" target="_blank">CytoscapeJS</a>
+        </p>
+        <hr />
+        <h4><i>Source Code</i></h4>
+        <p>
+            <a href="../../fileview/Default.aspx?~/experiments/week10/2/exp2.html" target="_blank">HTML </a> <br />
+            <a href="../../fileview/Default.aspx?~/experiments/week10/2/style.css" target="_blank">CSS </a> <br />
+            <a href="../../fileview/Default.aspx?~/experiments/week10/2/code.js" target="_blank">JavaScript </a>
+        </p>
+    </div>
+</body>
+</html>
