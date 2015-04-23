@@ -1,0 +1,48 @@
+<div class="container">
+	<h1>Search</h1>
+
+	<!-- Search bar and filter  -->
+	<div class="row">
+
+	    <div class="col-sm-8">
+	        <div class="input-group">
+	            <input ng-model="searchByTitle" type="text" class="form-control" placeholder="star wars">
+	            <span class="input-group-btn">
+	                <button class="btn btn-success" ng-click="searchMovies()">Search</button>
+	            </span>
+	        </div><!-- /input-group -->
+	    </div>
+	    <!-- filter -->
+	    <div class="col-sm-4">
+	        <input ng-model="filterText" type="text" class="form-control" placeholder="Filter: enter keywords here">
+	    </div>
+	</div>
+
+	<!-- Results Table -->
+	<table class=" table table-striped table-hover">
+	    <thead>
+	        <tr>
+	            <th>Poster</th>
+	            <th>Title</th>
+	            <th><span draggable="true" ng-click="reverse=!reverse; sortCol('rating', reverse)">Rating</span></th>
+	            <th><span draggable="true" ng-click="reverse=!reverse; sortCol('year', reverse)">Year</span></th>
+	            <th>&nbsp;</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        <tr ng-repeat="m in movies.results | filter:filterText" draggable="true" ng-dblclick="addToFavorites(m)">
+	            <td><img ng-src="https://image.tmdb.org/t/p/w75{{m.poster_path}}"></td>
+	            <td>{{m.title}}</td>
+	            <td>{{m.vote_average}}</td>
+	            <td>{{m.release_date.substring(0,4)}}</td>
+	            <td>
+	            	<button ng-click="addToFavorites(m)" class="btn btn-info">
+	            		<span class="glyphicon glyphicon-star-empty"></span>
+	            	</button>
+	            </td>
+	        </tr>
+	    </tbody>
+	</table>
+	
+
+</div>

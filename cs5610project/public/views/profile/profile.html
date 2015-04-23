@@ -1,0 +1,194 @@
+﻿<!-- currentUser.length: {{currentUser.length}} <br> -->
+<!-- currentUser: {{currentUser}} -->
+<!-- currUserFriends: {{currUserFriends}} <br>
+currentUser.friendList: {{currentUser.friendList}}
+ -->
+
+<div class="container">
+
+	<div ng-hide='currentUser.length'>
+
+		<h2>User Profile</h2>
+
+		Current User: <b>{{currentUser.username}}</b>
+
+		<!-- updatedCurrentUser.favoriteMovies = {{updatedCurrentUser}} <br>
+		currentUser.favoriteMovies = {{currentUser}}  -->
+
+		<hr />
+
+
+	
+		<div class="col-md-8 col-lg-8">
+			<!-- button: toggle favorite movies -->
+			<button class="btn btn-info" 
+				type="button" 
+				data-toggle="collapse" 
+				data-target="#collapseFav" 
+				aria-expanded="false">
+				Toggle Favorite Movies ({{currUserMovies.length}})
+			</button>
+
+			<div class="collapse in" id="collapseFav">
+				<div class="well">  <!-- Start toggle -->
+				    <table class='table table-hover'>
+						<thead>
+							<th>
+								Name
+							</th>
+							<th>
+								Year
+							</th>
+							<th>
+								Poster
+							</th>
+						</thead>
+						
+
+						
+
+						
+						<!-- Tricky: first iterate over the favorite movie ids, then call getMovie() on
+							these ids one by one, keep pushing the getted movie to a myMovies array, 
+							finally iterate over that myMovies array. -->
+							<tbody>
+							<tr ng-repeat='m in currUserMovies' draggable="true">
+								<td >
+									{{m.title}}
+								</td>
+								<td>
+									{{m.year}}
+								</td>
+								<td>
+									<a href="#/details">
+										<img ng-src="https://image.tmdb.org/t/p/w75{{m.posterURL}}">
+									</a>
+									
+								</td>
+								<td>
+			                        <button ng-click="deleteMovieFromUserFavs(m.id)" class="btn btn-danger pull-right">
+			                            <!-- <span class="glyphicon glyphicon-eye-open"></span> -->
+			                            Delete
+			                        </button>
+			                        <button ng-click="goDetails(m.id)" class="btn btn-success pull-right">
+			                            <!-- <span class="glyphicon glyphicon-eye-open"></span> -->
+			                            Movie Details
+			                        </button>
+								</td> 
+							</tr>
+							</tbody>
+
+					</table>	
+				</div>
+			</div>
+		</div>
+
+
+		<div class="col-md-4 col-lg-4">
+			<!-- button: toggle friends list -->
+			<button class="btn btn-info" 
+				type="button" 
+				data-toggle="collapse" 
+				data-target="#collapseFriends" 
+				aria-expanded="false">
+				Toggle People I Liked ({{currUserFriends.length}})
+			</button>
+
+			<div class="collapse in" id="collapseFriends">
+				<div class="well">  <!-- Start toggle -->
+				    <table class='table table-hover'>
+						<thead>
+							<th>
+								Username
+							</th>
+						</thead>
+						<tbody>
+							<tr ng-repeat="uid in currUserFriends">
+								<td>{{uid}}</td>
+								<td>
+									<!-- delete/unlike user -->
+									<button ng-click="unlikeUser(uid)" class="btn btn-danger pull-right">
+			                            <span class="glyphicon glyphicon-remove"></span>
+			                        </button>
+									<!-- get favorite movie button -->
+			                        <button ng-click="getFavoritesFromProfile(uid)" class="btn btn-success pull-right">
+			                            <span class="glyphicon glyphicon-eye-open"></span>
+			                        </button>
+		                        </td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- ///////////////// new section for selected user's favs /////////////////// -->
+		<div class="row">
+
+            <div class="col-lg-12 col-md-12">
+                <h4 class="page-header">
+                Other User's Movies ({{selectedUserFavoriteMoviesFromProfile.length}}) - {{selectedUserFromProfile.username}}
+                </h4>
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+        <div ng-repeat="m in selectedUserFavoriteMoviesFromProfile">
+
+        <div class="col-sm-2 col-lg-2 col-md-2">
+            <div class="thumbnail">
+                <img class="img-responsive"
+                     ng-src="https://image.tmdb.org/t/p/w150{{m.posterURL}}" 
+                     alt=""
+                     id="prof_friend_favs"
+                     ng-click="goDetails(m.id)">
+                <h4>
+                    <a href="" ng-click="goDetails(m.id)">{{m.title}}</a>
+                </h4>
+            </div>
+        </div>
+
+        </div>
+
+
+		<!-- //////////////// end //////////////////// -->
+
+	</div>
+
+
+
+
+
+	<div ng-show='currentUser.length'>
+	Current User: <b>admin(Administrator)</b>
+		<div class='container'>
+		<table class='table table-striped'>
+			<thead>
+				<tr>
+					<th>Username</th>
+					<th>Password</th>
+					<th>Favorite Movie IDs</th>
+					<th>Movies Count</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat='user in currentUser'>
+					<td>{{user.username}}</td>
+					<td>{{user.password}}</td>
+					<td>
+						<ul ng-repeat="mid in user.favoriteMovieList">
+							<li>{{mid}}</li>
+						</ul>
+					</td>
+					<td>{{user.favoriteMovieList.length}}</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+	</div>
+
+	<!-- updatedCurrentUser.favoriteMovieList: {{updatedCurrentUser.favoriteMovieList}} -->
+
+</div>	

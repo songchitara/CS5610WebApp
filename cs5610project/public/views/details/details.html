@@ -1,0 +1,110 @@
+<div class="container">
+	
+	<h1>Movie Details</h1>
+
+	<!-- {{currentMovieID}} <br> -->
+	<!-- {{currentMovie}} -->
+
+
+
+        <!-- Portfolio Item Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">{{currentMoive.name}}
+                    <small>{{currentMoive.name}}</small>
+                </h1>
+            </div>
+        </div>
+        <!-- /.row -->
+	
+        {{currentMoive.vote_average}}
+
+        <!-- Portfolio Item Row -->
+        <div class="row">
+
+            <div class="col-md-4">
+                <!-- <img class="img-responsive" src="http://placehold.it/320x480" alt=""> -->
+                <img class="img-responsive"
+                	 ng-src="https://image.tmdb.org/t/p/w300{{currentMovieFromWeb.poster_path}}">
+            </div>
+
+            <div class="col-md-8">
+            	<h2>{{currentMovieFromWeb.title}}</h2>
+                <p>
+					
+                </p>
+                <h3>Overview</h3>
+                <p>
+					{{currentMovieFromWeb.overview}}
+                </p>
+                <h2>People Who Also Liked This Movie</h2>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                Username
+                            </th>
+                        </tr>
+                    </thead>
+	                <tbody>
+		                <tr ng-repeat="uid in currentMovieFromDB.userList | filter: '!' + currentUser.username">
+		                    <td>
+		                    	{{uid}}
+		                    </td>
+	                    	<td>
+                                <!-- get favorite movie button -->
+		                        <button ng-click="getFavorites(uid)" class="btn btn-warning pull-right">
+		                            Favorite Movies
+		                        </button>
+                                <!-- add to friend button -->
+                                <button ng-click="addToFriends(uid)" class="btn btn-info pull-right">
+                                    Add to Friends
+                                </button>
+                            </td>
+		                </tr>
+	                </tbody>
+                </table>
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+        <!-- Related Projects Row -->
+        <div class="row">
+
+            <div class="col-lg-12">
+                <h3 class="page-header">
+                Favorite Movies ({{selectedUserFavoriteMovies.length}}) - {{selectedUser.username}}
+                </h3>
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+        <div ng-repeat="m in selectedUserFavoriteMovies">
+
+        <div class="col-sm-3 col-lg-3 col-md-3">
+            <div class="thumbnail">
+                <img class="img-responsive"
+                     ng-src="https://image.tmdb.org/t/p/w300{{m.posterURL}}" alt="">
+                <h4>
+                    <a href="">{{m.title}}</a>
+                </h4>
+                <div class="ratings">
+                    <p class="pull-right">reviews</p>
+                    <p>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+
+</div>
+    <!-- /.container -->

@@ -1,0 +1,83 @@
+﻿<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        <div role="tabpanel">
+            <div class="col-sm-9 col-lg-9 col-md-9 ">
+                <!-- Tab panes -->
+                <div class="tab-content">
+
+                    <!-- top rating movies -->
+                    <div role="tabpanel" class="tab-pane active" id="top_rated">
+                        <div ng-repeat="m in topMovies">
+                            <div class="col-sm-3 col-lg-3 col-md-3">
+                                <div class="thumbnail">
+                                    <img class="img-responsive"
+                                         ng-src="https://image.tmdb.org/t/p/w150{{m.poster_path}}" 
+                                         alt="">
+                                        <h4>
+                                            <a href="">{{m.title}}</a>
+                                        </h4>
+                                        <div class="">
+                                            <p>Score: <b>{{m.vote_average}}</b>
+                                            <button ng-click="addToFavorites(m)" class="btn btn-success pull-right">
+                                                Add
+                                            </button>
+                                            </p>
+                                        </div>
+                                        <!-- <div class="ratings">
+                                        <p class="pull-right">6 reviews</p>
+                                        <p><span class="glyphicon glyphicon-star"></span>
+                                        <span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span></p></div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- now playing movies -->
+                    <div role="tabpanel" class="tab-pane" id="now_playing">
+            
+                        <div ng-repeat="m in nowPlayingMovies">
+                            <!-- The grid view -->
+                            <div class="col-sm-3 col-lg-3 col-md-3">
+                                <div class="thumbnail">
+                                    <img class="img-responsive"
+                                         ng-src="https://image.tmdb.org/t/p/w150{{m.poster_path}}" 
+                                         alt="">
+                                        <h4>
+                                            <a href="">{{m.title}}</a>
+                                        </h4>
+                                        <div class="">
+                                            <p>Score: <b>{{m.vote_average}}</b>
+                                            <button ng-click="addToFavorites(m)" class="btn btn-success pull-right">
+                                                Add
+                                            </button>
+                                            </p>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-sm-3 col-lg-3 col-md-3 ">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist" id="myTab">
+                    <li role="presentation">
+                        <a href="#top_rated" aria-controls="top_rated" role="tab" data-toggle="tab">
+                            <button class="btn btn-info">Top Rated &nbsp&nbsp</button>
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#now_playing" aria-controls="now_playing" role="tab" data-toggle="tab">
+                            <button class="btn btn-warning">Now Playing</button>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+   
+

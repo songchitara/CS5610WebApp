@@ -1,0 +1,85 @@
+<!-- official lib -->
+<link href="css/bootstrap.css" rel="stylesheet" />
+<link href="css/bootstrap-theme.css" rel="stylesheet" />
+<script src="js/lib/jquery.js"></script>
+<script src="js/lib/jquery-ui.js"></script>
+<script src="js/lib/bootstrap.js"></script>
+<script src="js/lib/angular.js"></script>
+<script src="js/lib/angular-route.js"></script>
+<!-- user defined js -->
+    <!-- user defined js: app js-->
+<script src="js/user_defined/app/myApp.js"></script>
+    <!-- user defined js: controller js-->
+<script src="js/user_defined/controller/login-ctrl.js"></script>
+<script src="js/user_defined/controller/register-ctrl.js"></script>
+<script src="js/user_defined/controller/nav-ctrl.js"></script>
+<script src="js/user_defined/controller/search-ctrl.js"></script>
+<script src="js/user_defined/controller/home-ctrl.js"></script>
+<script src="js/user_defined/controller/profile-ctrl.js"></script>
+<script src="js/user_defined/controller/details-ctrl.js"></script>
+    <!-- user defined js: service js -->
+<script src="js/user_defined/service/user-service.js"></script>
+<script src="js/user_defined/service/movie-service.js"></script>
+<!-- user defined css -->
+<link href="views/login/login.css" rel="stylesheet" />
+<link href="views/register/register.css" rel="stylesheet" />
+<link href="views/home/shop-homepage.css" rel="stylesheet" />
+<link href="views/profile/profile.css" rel="stylesheet" />
+
+
+
+<body ng-app="ProjectApp">
+    <div class="container">
+    
+    <!-- Navigation -->
+    <nav    class="navbar navbar-inverse navbar-fixed-top" 
+            role="navigation"
+            ng-controller="NavCtrl">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#home">Final Web Project</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#home">Home</a>
+                    </li>
+                    <li>
+                        <a href="#search">Search</a>
+                    </li>
+                    <li>
+                        <a href="#profile">Profile</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                  <li ng-hide='isLoggedin'><a href="#login">Login</a></li>
+                  <li ng-hide='isLoggedin'><a href="#register">Register</a></li>               
+                  <li ng-show='isLoggedin'>
+                    <a href="">
+                        <span ng-hide="currentUser.length">hi,</span> <b>{{currentUser.username}}</b>
+                        <span ng-show="currentUser.length">hi, admin(Administrator)</span>
+                    </a>
+                  </li>
+                  <li ng-show='isLoggedin'><a href="#logout" ng-click="logout()">Logout</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- ngView placeholder -->
+    <div ng-view>
+    </div>
+
+    </div>
+     
+</body>

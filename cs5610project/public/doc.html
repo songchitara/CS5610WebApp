@@ -1,0 +1,435 @@
+<link href="css/bootstrap.css" rel="stylesheet" />
+<link href="css/bootstrap-theme.css" rel="stylesheet" />
+<link href="css/doc.css" rel="stylesheet" />
+
+<div class="container">
+	<!-- Header -->
+	<div class="col-lg-12 col-md-12">
+		<h1>Project Documentation</h1>
+		<hr />
+	</div>
+
+
+
+	<!-- sidebar -->
+    <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+      <div data-spy="affix" data-offset-top="45" data-offset-bottom="90">
+        <ul class="nav lv1" id="sidebar-nav">
+          <li><a href="#">Home</a></li>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#get_started">Get Started</a></li>
+          <li><a href="#how_to_use">How to Use</a></li>
+          	<ul class="lv2">
+          		<li><a href="#home">Home</a></li>
+          		<li><a href="#search">Search</a></li>
+          		<li><a href="#login">Login</a></li>
+          		<li><a href="#register">Register</a></li>
+          		<li><a href="#user">Profile</a></li>
+          		<li><a href="#details">Details</a></li>
+          	</ul>
+          <li><a href="#database">Database</a></li>     
+          <li><a href="#future_work">Future Works</a></li>    
+          <li><a href="#references">References</a></li>    
+        </ul>
+       </div>
+    </div>
+
+    <!-- main area -->
+    <div class="col-xs-12 col-sm-9" data-spy="scroll" data-target="#sidebar-nav">
+
+		<h2 id="overview">
+			Overview 
+			<a href="#" class="goTop pull-right">Top</a>
+		</h2>
+		
+		<p>
+			In this project, I developed a web application which can help users to
+			search for movies, look up top rated movies, movies now playing, and 
+			help user to remember those movies he/she likes. Also, user can like 
+			other users and view their favorite movies. 
+		</p>
+		<p>
+			The technology I used is MEAN stack, hosted on the OpenShift cloud, 
+			and the movie data fetched through the 
+			<a href="https://www.themoviedb.org/documentation/api" target="_blank">TMDb API</a>.
+		</p>
+
+		<hr>
+
+		<h2 id="get_started">
+			Get Started 
+			<a href="#" class="goTop pull-right">Top</a>
+		</h2>
+		
+		<p>
+			To quick start using this app, use <b>Home</b> and <b>Search</b> freely without login.
+			Use predefined credentials like the table below to test the full funtion of the app.
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Username</th>
+						<th>Password</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>alice</td>
+						<td>alice</td>
+					</tr>
+					<tr>
+						<td>bob</td>
+						<td>bob</td>
+					</tr>
+					<tr>
+						<td>chris</td>
+						<td>chris</td>
+					</tr>
+					<tr>
+						<td>dan</td>
+						<td>dan</td>
+					</tr>
+					<tr>
+						<td>...</td>
+						<td>...</td>
+					</tr>
+				</tbody>
+			</table>
+		</p>
+		<p>
+			There is another special admin user, use the <code>admin</code> as the <b>username </b>
+		 	and <b>password</b>
+			to log in as and administrator and then you can see all the users and their information.
+		</p>
+
+		<hr>
+
+		<h2 id="how_to_use">How to Use</h2>
+			<div>
+				<div>
+					<h3 id="home">
+						Home
+						<a href="#" class="goTop pull-right">Top</a>
+					</h3>
+					<p>
+						Anyone can use the <b>Home</b> page without login. Users can see movies organised
+						in <b>Top Rated</b> or <b>Now Playing</b> groups. The <b>Top Rated</b> movies are
+						movies top rated calculated by the 
+						<a href="https://www.themoviedb.org/" target="_blank">TMDb</a> website. The 
+						<b>Now Playing</b> movies are movies now playing in the cinema. 				
+					</p>
+					<p>
+						Click on the <b>Top Rated</b> or <b>Now Playing</b> button to see these two 
+						different groups of movies. The movies are displayed in grids view with their
+						thumbnail posters and scores. The <b>Add</b> button is for adding the movie
+						to user's favorite, as you will imagine, only loggedin user can use this
+						function.
+					</p>
+				</div>
+				
+				<hr>
+
+				<div>
+					<h3 id="search">
+						Search
+						<a href="#" class="goTop pull-right">Top</a>
+					</h3>
+					<p>
+						Similar to home page, users don't have to log in to user the search funciton. 
+						To search for a particular movie, type full or partial movie name in the 
+						search bar, click <b>Search</b> button, then all the related results will display
+						below. The results are shown will thumbnail posters, movie titles, ratings and 
+						year of release. There is a <b>Filter</b> input area next to the search bar, 
+						use this to filter the results by keywords. 
+					</p>
+					<p>
+						In each result row, at the rightmost there is a <b>blue star</b> button, a logged in
+						user can use this button to add the movie to their favorite movies. However, guests 
+						can not use this function.
+					</p>
+				</div>
+
+
+				<hr>
+
+
+				<div>
+					<h3 id="login">
+						Login
+						<a href="#" class="goTop pull-right">Top</a>
+					</h3>
+					<p>
+						There are two kind of users, <b>Normal</b> user and <b>Admin</b> user. A <b>Normal</b> user
+						is expected to use by normal users who want to use the app, while a admin <b>Admin</b> is 
+						for administrative/debugging use by the author or Prof/TAs, where we view all users along 
+						with their information.
+					</p>
+					<p>
+						Below is a table for some of the predefined <b>Normal</b> user credentials for using.
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Username</th>
+									<th>Password</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>alice</td>
+									<td>alice</td>
+								</tr>
+								<tr>
+									<td>bob</td>
+									<td>bob</td>
+								</tr>
+								<tr>
+									<td>chris</td>
+									<td>chris</td>
+								</tr>
+								<tr>
+									<td>dan</td>
+									<td>dan</td>
+								</tr>
+								<tr>
+									<td>...</td>
+									<td>...</td>
+								</tr>
+							</tbody>
+						</table>
+					</p>
+					<p>
+						If you want to use the <b>Admin</b> user, then use the <b>admin</b> as the username and 
+						password to login.
+					</p>
+
+				</div>
+
+
+				<hr>
+
+				
+				<div>
+					<h3 id="register">
+						Register
+						<a href="#" class="goTop pull-right">Top</a>
+					</h3>
+					<p>
+						Register a user is easy. Click the <b>register</b> link on the top right of navigation bar,
+						enter the username and passwords(twice) to register a new user. The page will notify you
+						if your username is too short or too long, or your two passwords don't match. If you register
+						for a username which has already existed, you will not be able to successfully register.
+					</p>
+				</div>
+
+
+				<hr>
+				
+				<div>
+					<h3 id="profile">
+						Profile
+						<a href="#" class="goTop pull-right">Top</a>
+					</h3>
+					<p>
+						The Profile Page can only be used by user who has logged in. In the page, there are mainly
+						<b>three</b> sections. <br>
+						<b>1)</b> Section for displaying the user's favorite movies. <br>
+						<b>2)</b> Section for displaying the user's liked users. <br>
+						<b>3)</b> Section for displaying the other user's liked movies. <br>
+					</p>
+					<p>
+						The two <b>blue</b> toggle button at the top of the first two sections are to toggle the 
+						displays. And the number in paranthesis shows the count of favorite movies/users.
+					</p>
+					<p>
+						Below the <b>Toggle Favorite Movies</b> button is the first section, which shows the 
+						current logged in user's favorite movies. In the displaying table, you will see the 
+						name, year, thumbnail of the movies, and when you click the <b>Movie Details</b> button
+						you will be navigated to the Movie Details page where you can see more details of the 
+						movie. The red <b>Delete</b> will remove the particular movie from the favorite movie list.
+					</p>
+					<p>
+						Below the <b>Toggle People I Liked</b> button, an area will be displaying
+						all the users the current logged in user has liked. The current user can
+						use the "red delete" buttons to remove any users from his/her liked list.
+						You'll also see a "green eye" button in each row of user, when click on it, you will see an area down below with title <b>"Other User's Movies"</b> which displays the selected user's favorite movies.
+					</p>
+					<p>
+						In the <b>"Other User's Movies"</b> section, you'll see a grid view of 
+						movies with thumbnails and title, user can click on any of the thumbnails
+						or titles to jump to the Details Page to see the details of that particular movie. 
+					</p>
+
+				</div>
+
+				<hr>
+				
+
+				<div>
+					<h3 id="details">
+						Details
+						<a href="#" class="goTop pull-right">Top</a>
+					</h3>
+					<p>
+						In the Details page, the user can view the details of the selected 
+						movie. 	The page will display the movie's poster at the top-left 
+						of the page, and the movie details information like the pilot 
+						and those people who also liked this movie. 
+					</p>
+					<p>
+						Some of the information like the title of the movie and the users
+						who also liked the movie will be directly fetched from the database.
+						And the information like poster, the pilots will be fetched from the 
+						web through the
+						<a href="https://www.themoviedb.org/documentation/api" target="_blank">TMDb API</a>. 
+					</p>
+					<p>
+						Down below the <b>"People Who Also Liked This Movie"</b> title, 
+						you will see a table that shows the all other users who have 
+						also like this movie. At each row, there are two buttons to the 
+						right. The blue <b>Add to Friends</b> button can let you to add
+						the particular user into your friend list. The yellow
+						<b>Favorite Movies</b>, when you click on it, the section below
+						named <b>Favorite Movies</b> will display all the favorite movies
+						of the particular user.
+					</p>
+				</div>
+				
+			</div>
+
+
+		<hr>
+		
+		<div>
+			<h2>
+				Database
+				<a href="#" class="goTop pull-right">Top</a>
+			</h2>
+			<p>
+				The MongoDB database is used for this project. Mainly I created two 
+				collections/tables to store the data, one is the <b>UserModel</b>
+				and the other is <b>MovieModel</b>. Let first see the 
+			</p>
+			<p>
+				The <b>User</b> table is defined like below:
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Field name</th>
+							<th>Type</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>username</td>
+							<td>String</td>
+							<td>The username of a user</td>	
+						</tr>
+						<tr>
+							<td>password</td>
+							<td>String</td>
+							<td>The password of the user</td>
+						</tr>
+						<tr>
+							<td>friendList</td>
+							<td>[String]</td>
+							<td>A list of users that the current logged in user has liked.</td>
+						</tr>
+						<tr>
+							<td>favoriteMovieList</td>
+							<td>[Number]</td>
+							<td>A list of movie ids that the current logged in user has liked.</td>
+						</tr>
+					</tbody>
+				</table>
+			</p>
+			<p>
+				The <b>Movie</b> table is defined as below:
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Field Name</th>
+							<th>Type</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>id</td>
+							<td>Number</td>
+							<td>The id of movie</td>
+						</tr>
+						<tr>
+							<td>title</td>
+							<td>String</td>
+							<td>The title/name of movie</td>
+						</tr>
+						<tr>
+							<td>year</td>
+							<td>String</td>
+							<td>The release year of movie</td>
+						</tr>
+						<tr>
+							<td>rating</td>
+							<td>Number</td>
+							<td>The rating of movie</td>
+						</tr>
+						<tr>
+							<td>posterURL</td>
+							<td>String</td>
+							<td>The url where to get the poster of movie</td>
+						</tr>
+						<tr>
+							<td>userList</td>
+							<td>[String]</td>
+							<td>A list of users who have liked the movie</td>
+						</tr>
+					</tbody>
+				</table>
+			</p>
+		</div>
+
+		<div>
+			<h2>
+				Bugs
+				<a href="#" class="goTop pull-right">Top</a>
+			</h2>
+			<p>
+				<ul>
+					<li class="lv3">
+						When a logged in user refresh the page, the retrieved 
+						data on the page get lost. The problem may between the authentication
+						and ng-route, need fix later.
+					</li>
+				</ul>
+			</p>
+		</div>
+
+		<div>
+			<h2 id="future_work">
+				Future Work
+				<a href="#" class="goTop pull-right">Top</a>
+			</h2>
+			<p>
+				<ul>
+					<li class="lv3">Add feature that user can comment on each movie</li>
+					<li class="lv3">Fix the bugs</li>
+				</ul>
+			</p>
+		</div>
+
+		<div>
+			<h2 id="references">
+				References
+				<a href="#" class="goTop pull-right">Top</a>
+			</h2>
+			<p>
+				<a href="http://net4.ccs.neu.edu/home/songchi/story/index.htm?../experiments/story.txt">Course Experiments</a> <br>
+				<a href="https://www.themoviedb.org/documentation/api" target="_blank">TMDb API</a> <br>
+			</p>
+		</div>
+
+    </div>
+	
+
+</div>
+

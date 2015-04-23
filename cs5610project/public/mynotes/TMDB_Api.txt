@@ -1,0 +1,37 @@
+[working example of TMDB]
+http://api.themoviedb.org/3/genre/movie/list?api_key=e3ee7ba36dbb8eb956f132a51cdc6f19
+
+[format]
+http://api.themoviedb.org/3/search/movie?api_key=e3ee7ba36dbb8eb956f132a51cdc6f19&query=MOVIENAME
+
+
+[TOP RATED]
+http://api.themoviedb.org/3/movie/top_rated?api_key=e3ee7ba36dbb8eb956f132a51cdc6f19
+
+[View Image]
+https://image.tmdb.org/t/p/w92/iqvYezRoEY5k8wnlfHriHQfl5dX.jpg
+https://image.tmdb.org/t/p/w500/lIv1QinFqz4dlp5U4lQ6HaiskOZ.jpg
+	*Note the "w###" is for define the width of the poster
+	- w75
+	- w150
+	- w300
+	- w500
+	- w600
+
+
+[Now Playing]
+http://api.themoviedb.org/3/movie/now_playing?api_key=e3ee7ba36dbb8eb956f132a51cdc6f19
+
+
+[Search by IMDB]
+http://api.themoviedb.org/3/movie/tt0111161?api_key=e3ee7ba36dbb8eb956f132a51cdc6f19
+
+[Search by id]
+http://api.themoviedb.org/3/movie/168259?api_key=e3ee7ba36dbb8eb956f132a51cdc6f19
+
+[Search by name]
+https://api.themoviedb.org/3/search/movie?api_key=e3ee7ba36dbb8eb956f132a51cdc6f19&query=star%20wars
+
+[Discover Example]
+- Sort by popularity
+http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=e3ee7ba36dbb8eb956f132a51cdc6f19

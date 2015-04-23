@@ -1,0 +1,28 @@
+p {
+	font-size: 18px;
+}
+
+.lv1 {
+	font-size: 20px;
+	list-style-type: none;  
+}
+
+.lv2 {
+	font-size: 18px;
+	list-style-type: none;  
+}
+
+.lv3 {
+	font-size: 18px;
+}
+
+.goTop {
+	font-size: 16px;
+}
+
+
+/* No bullet on list*/
+ul
+{
+    /*list-style-type: none;  */
+}
